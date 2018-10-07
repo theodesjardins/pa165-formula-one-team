@@ -19,3 +19,11 @@ Each driver has a name, surname, nationality, and set of characteristics (e.g. d
 ### Car
 
 The car is composed of several components (engine, suspensions), that the different departments of the team (e.g. engine, aerodynamics) evolve during time. The manager can pick from a list of components and assemble the cars that will participate to the next race. Engineers from other departments can login to the system and put newer components available. The manager is notified that those components are available and that they can be used to improve the car.
+
+## Team members
+
+- [Arcadii Rubailo](https://github.com/elderanakain)
+- Dendis, Ivan
+- Desjardins, Theo
+- Chakouri, Adel
+- Mrnuštík, Michal
