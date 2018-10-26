@@ -4,7 +4,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import java.util.Objects;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author mrnda (Michal Mrnuštík)
@@ -13,35 +13,27 @@ import java.util.Objects;
 @MappedSuperclass
 public abstract class BaseEntity {
 
+    public static long NO_ID = -1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Long getId() {
-        return id;
+    @NotNull
+    public long getId() {
+        return id == null ? NO_ID : id ;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof BaseEntity)) return false;
-        BaseEntity that = (BaseEntity) o;
-        return Objects.equals(getId(), that.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId());
+    public boolean hasId() {
+        return getId() != NO_ID;
     }
 
     @Override
     public String toString() {
-        return "BaseEntity{" +
-                "id=" + id +
-                '}';
+        return "BaseEntity{id=" + getId() + '}';
     }
 }

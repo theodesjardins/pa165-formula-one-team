@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.dao;
+package cz.muni.fi.pa165.dao.manager;
 
 import cz.muni.fi.pa165.AppContextConfig;
 import cz.muni.fi.pa165.entity.Manager;
@@ -21,11 +21,11 @@ import static org.mockito.Mockito.when;
 /**
  * @author elderanakain (Arcadii Rubailo)
  */
-@ContextConfiguration(classes=AppContextConfig.class)
+@ContextConfiguration(classes= AppContextConfig.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
 @RunWith(MockitoJUnitRunner.class)
-public class ManagerDaoTest extends AbstractTestNGSpringContextTests {
+public class ManagerDaoImplTest extends AbstractTestNGSpringContextTests {
 
     @Mock
     private EntityManager entityManager = mock(EntityManager.class);
@@ -37,7 +37,7 @@ public class ManagerDaoTest extends AbstractTestNGSpringContextTests {
     public void onNewManagerAdded_persisIt() {
         //given
         Manager manager = mock(Manager.class);
-        when(manager.getName()).thenReturn("testName");
+        when(manager.isConfigured()).thenReturn(true);
 
         //when
         managerDao.add(manager);

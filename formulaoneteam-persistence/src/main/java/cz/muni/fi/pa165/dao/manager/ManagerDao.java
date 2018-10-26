@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.dao;
+package cz.muni.fi.pa165.dao.manager;
 
 import cz.muni.fi.pa165.dao.base.Dao;
 import cz.muni.fi.pa165.entity.Manager;
@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ManagerDao extends Dao<Manager> {
-    Manager findByName(String name);
+    Manager findByEmail(String email);
 }

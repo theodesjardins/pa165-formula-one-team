@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.dao;
+package cz.muni.fi.pa165.dao.manager;
 
 import cz.muni.fi.pa165.entity.Manager;
 import org.springframework.lang.Nullable;
@@ -9,7 +9,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-import static cz.muni.fi.pa165.entity.base.User.NAME_FIELD;
+import static cz.muni.fi.pa165.entity.base.User.EMAIL_FIELD;
 
 /**
  * @author elderanakain (Arcadii Rubailo)
@@ -27,33 +27,21 @@ public class ManagerDaoImpl implements ManagerDao {
 
     @Override
     public void add(@Nullable Manager manager) {
-        if (manager == null) {
-            throw new IllegalArgumentException("Manager is null.");
-        }
-        if (manager.getName() == null || manager.getName().isEmpty()) {
-            throw new IllegalArgumentException("Manager has no name assigned.");
-        }
+        checkManager(manager);
 
         entityManager.persist(manager);
     }
 
     @Override
     public void delete(@Nullable Manager manager) {
-        if (manager == null) {
-            throw new IllegalArgumentException("Manager is null");
-        }
+        checkManager(manager);
 
         entityManager.remove(manager);
     }
 
     @Override
     public void update(@Nullable Manager manager) {
-        if (manager == null) {
-            throw new IllegalArgumentException("Manager is null.");
-        }
-        if (manager.getName() == null || manager.getName().isEmpty()) {
-            throw new IllegalArgumentException("Manager has no name assigned.");
-        }
+        checkManager(manager);
 
         entityManager.merge(manager);
     }
@@ -61,20 +49,26 @@ public class ManagerDaoImpl implements ManagerDao {
     @Override
     public List<Manager> findAll() {
         return entityManager
-                .createQuery("select m from TestManager m", Manager.class)
+                .createQuery("select manager from Manager manager", Manager.class)
                 .getResultList();
     }
 
     @Nullable
     @Override
-    public Manager findByName(String name) {
+    public Manager findByEmail(String email) {
         try {
             return entityManager
-                    .createQuery("select m from TestManager m where name = :name", Manager.class)
-                    .setParameter(NAME_FIELD, name)
+                    .createQuery("select manager from Manager manager where email = :email", Manager.class)
+                    .setParameter(EMAIL_FIELD, email)
                     .getSingleResult();
         } catch (NoResultException nrf) {
             return null;
+        }
+    }
+
+    private void checkManager(Manager manager) {
+        if (manager == null || !manager.isConfigured()) {
+            throw new IllegalArgumentException("Manager is null or not configured");
         }
     }
 }
