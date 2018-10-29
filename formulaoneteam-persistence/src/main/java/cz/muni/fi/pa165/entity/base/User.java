@@ -87,8 +87,7 @@ public abstract class User extends BaseEntity {
     public boolean isConfigured() {
         return hasFullName()
                 && hasEmail()
-                && hasPassword()
-                && hasId();
+                && hasPassword();
     }
 
     @Override
