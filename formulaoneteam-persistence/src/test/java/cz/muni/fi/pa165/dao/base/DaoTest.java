@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.dao.base;
 
+import cz.muni.fi.pa165.entity.base.BaseEntity;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -73,5 +74,32 @@ public class DaoTest {
         dao.findById(1L);
 
         verify(em).find(TestEntity.class, 1L);
+    }
+
+    private class TestEntity extends BaseEntity {
+
+    }
+
+    private class TestEntityDaoImpl extends DaoImpl<TestEntity> {
+
+        private Boolean validateCalled;
+
+        public TestEntityDaoImpl(EntityManager entityManager) {
+            this.entityManager = entityManager;
+        }
+
+        public Boolean getValidateCalled() {
+            return validateCalled;
+        }
+
+        @Override
+        protected void validateEntity(TestEntity entity) {
+            validateCalled = true;
+        }
+
+        @Override
+        protected Class<TestEntity> getClassType() {
+            return TestEntity.class;
+        }
     }
 }

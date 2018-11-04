@@ -16,12 +16,14 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
+import static org.testng.Assert.assertThrows;
 import static org.testng.AssertJUnit.assertNotNull;
 
 /**
  * @author elderanakain (Arcadii Rubailo)
  */
-@ContextConfiguration(classes= AppContextConfig.class)
+@ContextConfiguration(classes = AppContextConfig.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -88,6 +90,26 @@ public class ManagerDaoTest extends AbstractTestNGSpringContextTests {
 
         List<Manager> result = managerDao.findAll();
         assertEquals(result.size(), 2);
+    }
+
+    @Test
+    public void addNullManager_illegalArgumentExceptionThrown() {
+        assertThrows(InvalidDataAccessApiUsageException.class, () -> {
+            managerDao.add(null);
+        });
+    }
+    
+    @Test
+    public void addNonConfiguredManager_exceptionThrownAndManagerNotAdded() {
+        String mail = "test@mail.com";
+        Manager m = createManager(mail);
+        
+        m.setPassword("");
+        
+        assertThrows(InvalidDataAccessApiUsageException.class, () -> {
+            managerDao.add(m);
+        });        
+        assertNull(managerDao.findByEmail(mail));
     }
 
     private Manager createManager(String email) {
