@@ -18,7 +18,6 @@ public class UserTest {
         user = new User() {};
     }
 
-
     @Test
     public void whenNameAndSurnameAreNotSet_returnHasFullNameFalseAndNotConfigured() {
         assertFalse(user.hasFullName());

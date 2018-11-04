@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165;
 
+import cz.muni.fi.pa165.dao.base.Dao;
 import cz.muni.fi.pa165.dao.manager.ManagerDao;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
@@ -24,7 +25,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories
-@ComponentScan(basePackageClasses = {ManagerDao.class}, basePackages = "cz.muni.fi.pa165")
+@ComponentScan(basePackages = "cz.muni.fi.pa165")
 public class AppContextConfig {
 
     /**

@@ -1,12 +1,12 @@
 package cz.muni.fi.pa165.dao.manager;
 
-import cz.muni.fi.pa165.dao.base.Dao;
 import cz.muni.fi.pa165.entity.Manager;
+import cz.muni.fi.pa165.dao.base.UserDao;
 
 /**
- * @author elderanakain (Arcadii Rubailo)
  * Data Access Object interface for Manager entity with basic CRUD operations.
+ *
+ * @author elderanakain (Arcadii Rubailo)
  */
-public interface ManagerDao extends Dao<Manager> {
-    Manager findByEmail(String email);
+public interface ManagerDao extends UserDao<Manager> {
 }

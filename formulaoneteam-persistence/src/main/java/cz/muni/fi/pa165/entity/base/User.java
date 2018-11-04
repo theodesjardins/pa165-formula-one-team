@@ -107,11 +107,11 @@ public abstract class User extends BaseEntity {
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + getName() + '\'' +
-                ", surname='" + getSurname() + '\'' +
-                ", email='" + getEmail() + '\'' +
-                ", password='" + getPassword() + '\'' +
-                "} " + super.toString();
+        return "User{"
+                + "name='" + getName() + '\''
+                + ", surname='" + getSurname() + '\''
+                + ", email='" + getEmail() + '\''
+                + ", password='" + getPassword() + '\''
+                + "} " + super.toString();
     }
 }

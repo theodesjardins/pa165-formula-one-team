@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 /**
  * @author mrnda (Michal Mrnuštík)
  */
-
 @MappedSuperclass
 public abstract class BaseEntity {
 
@@ -21,7 +20,7 @@ public abstract class BaseEntity {
 
     @NotNull
     public long getId() {
-        return id == null ? NO_ID : id ;
+        return id == null ? NO_ID : id;
     }
 
     public void setId(long id) {

@@ -8,4 +8,5 @@ import javax.persistence.Entity;
  * @author elderanakain (Arcadii Rubailo)
  */
 @Entity
-public class Manager extends User {}
+public class Manager extends User {
+}
