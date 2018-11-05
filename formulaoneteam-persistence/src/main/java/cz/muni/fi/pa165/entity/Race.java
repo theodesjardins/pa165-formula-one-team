@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author Adel Chakouri
@@ -65,19 +66,14 @@ public class Race extends BaseEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-
         if (!(o instanceof Race)) return false;
         Race race = (Race) o;
-
-        if (date != null ? !date.equals(race.date) : race.date != null) return false;
-        return title != null ? title.equals(race.title) : race.title == null;
+        return Objects.equals(getTitle(), race.getTitle());
     }
 
     @Override
     public int hashCode() {
-        int result = getDate() != null ? getDate().hashCode() : 0;
-        result = 31 * result + (getTitle() != null ? getTitle().hashCode() : 0);
-        return result;
+        return Objects.hash(getTitle());
     }
 
     @Override

@@ -62,7 +62,7 @@ public class TestDriveDaoTest extends BaseTest {
     @Test
     public void findAllRace() {
         //given
-        TestDrive otherTestDrive = new TestDrive(createCarSetup(), createDriver("otherEmail@email.com"), "someNotes");
+        TestDrive otherTestDrive = new TestDrive(createCarSetup(), createDriver("otherEmail@email.com"), "someNotes",  createDate(20,12,2018));
 
         //when
         testDriveDao.add(testDrive);
@@ -78,7 +78,7 @@ public class TestDriveDaoTest extends BaseTest {
     @Test(expected = InvalidDataAccessApiUsageException.class)
     public void validateEntity_exceptionIsThrown() {
         //given
-        testDrive = new TestDrive(createCarSetup(), createDriver("testDrive@email.com"), "");
+        testDrive = new TestDrive(createCarSetup(), createDriver("testDrive@email.com"), "", null);
 
         //when
         testDriveDao.add(testDrive);

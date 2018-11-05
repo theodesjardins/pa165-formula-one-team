@@ -1,7 +1,5 @@
-package cz.muni.fi.pa165.entity.component;
+package cz.muni.fi.pa165.entity;
 
-import cz.muni.fi.pa165.entity.ComponentParameter;
-import cz.muni.fi.pa165.entity.ComponentType;
 import cz.muni.fi.pa165.entity.base.BaseEntity;
 
 import javax.persistence.Column;
@@ -10,6 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -62,15 +61,14 @@ public class Component extends BaseEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Component)) return false;
-
         Component component = (Component) o;
-
-        return getId() == component.getId();
+        return getType() == component.getType() &&
+                Objects.equals(getName(), component.getName());
     }
 
     @Override
     public int hashCode() {
-        return Long.hashCode(getId());
+        return Objects.hash(getType(), getName());
     }
 
     public String toString() {

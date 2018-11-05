@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.entity.base.BaseEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 /**
  * Class representing a component parameter entity.
@@ -53,15 +54,14 @@ public class ComponentParameter extends BaseEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ComponentParameter)) return false;
-
-        ComponentParameter comp = (ComponentParameter) o;
-
-        return getName().equals(comp.getName());
+        ComponentParameter that = (ComponentParameter) o;
+        return Double.compare(that.getValue(), getValue()) == 0 &&
+                Objects.equals(getName(), that.getName());
     }
 
     @Override
     public int hashCode() {
-        return getName().hashCode();
+        return Objects.hash(getName(), getValue());
     }
 
     @Override

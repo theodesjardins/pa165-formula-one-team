@@ -6,7 +6,7 @@ import cz.muni.fi.pa165.dao.carsetup.CarSetupDao;
 import cz.muni.fi.pa165.dao.component.ComponentDao;
 import cz.muni.fi.pa165.dao.driver.DriverDao;
 import cz.muni.fi.pa165.entity.*;
-import cz.muni.fi.pa165.entity.component.Component;
+import cz.muni.fi.pa165.entity.Component;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -85,7 +85,7 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
     }
 
     protected TestDrive createTestDrive() {
-        return new TestDrive(createCarSetup(), createDriver(getDefaultDriverEmail()), "notes");
+        return new TestDrive(createCarSetup(), createDriver(getDefaultDriverEmail()), "notes", createDate(20,12,2018));
     }
 
     protected RaceParticipation createRaceParticipation(String driverEmail, String raceTitle) {

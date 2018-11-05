@@ -2,16 +2,22 @@ package cz.muni.fi.pa165.entity;
 
 import cz.muni.fi.pa165.entity.base.BaseEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author Adel Chakouri
  */
 @Entity
 public class TestDrive extends BaseEntity {
+
+    @Column(nullable = false)
+    @Basic
+    @Temporal(TemporalType.TIME)
+    @NotNull
+    private Date date;
 
     @ManyToOne
     private CarSetup car;
@@ -23,7 +29,8 @@ public class TestDrive extends BaseEntity {
     @Column(nullable = false)
     private String notes;
 
-    public TestDrive(CarSetup car, Driver driver, @NotNull String notes) {
+    public TestDrive(CarSetup car, Driver driver, @NotNull String notes, @NotNull Date date) {
+        this.date = date;
         this.car = car;
         this.driver = driver;
         this.notes = notes;
@@ -48,6 +55,14 @@ public class TestDrive extends BaseEntity {
         this.car = car;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public String getNotes() {
         return notes;
     }
@@ -63,23 +78,17 @@ public class TestDrive extends BaseEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-
         if (!(o instanceof TestDrive)) return false;
-
         TestDrive testDrive = (TestDrive) o;
-
-        if (getCarSetup() != null ? !getCarSetup().equals(testDrive.getCarSetup()) : testDrive.getCarSetup() != null) return false;
-        if (getDriver() != null ? !getDriver().equals(testDrive.getDriver()) : testDrive.getDriver() != null)
-            return false;
-        return getNotes() != null ? getNotes().equals(testDrive.getNotes()) : testDrive.getNotes() == null;
+        return Objects.equals(getDate(), testDrive.getDate()) &&
+                Objects.equals(car, testDrive.car) &&
+                Objects.equals(getDriver(), testDrive.getDriver()) &&
+                Objects.equals(getNotes(), testDrive.getNotes());
     }
 
     @Override
     public int hashCode() {
-        int result = getCarSetup() != null ? getCarSetup().hashCode() : 0;
-        result = 31 * result + (getDriver() != null ? getDriver().hashCode() : 0);
-        result = 31 * result + (getNotes() != null ? getNotes().hashCode() : 0);
-        return result;
+        return Objects.hash(getDate(), car, getDriver(), getNotes());
     }
 
     @Override

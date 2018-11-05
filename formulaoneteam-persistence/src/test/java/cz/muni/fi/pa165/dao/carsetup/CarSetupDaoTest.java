@@ -4,7 +4,7 @@ import cz.muni.fi.pa165.AppContextConfig;
 import cz.muni.fi.pa165.dao.component.ComponentDao;
 import cz.muni.fi.pa165.entity.CarSetup;
 import cz.muni.fi.pa165.entity.ComponentType;
-import cz.muni.fi.pa165.entity.component.Component;
+import cz.muni.fi.pa165.entity.Component;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

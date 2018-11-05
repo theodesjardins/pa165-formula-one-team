@@ -1,10 +1,10 @@
 package cz.muni.fi.pa165.entity;
 
 import cz.muni.fi.pa165.entity.base.BaseEntity;
-import cz.muni.fi.pa165.entity.component.Component;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import java.util.Objects;
 
 /**
  * @author Théo Desjardins
@@ -110,15 +110,18 @@ public class CarSetup extends BaseEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof CarSetup)) return false;
-
-        CarSetup carsetup = (CarSetup) o;
-
-        return getId() == carsetup.getId();
+        CarSetup carSetup = (CarSetup) o;
+        return Objects.equals(getEngine(), carSetup.getEngine()) &&
+                Objects.equals(getSuspension(), carSetup.getSuspension()) &&
+                Objects.equals(getBrakes(), carSetup.getBrakes()) &&
+                Objects.equals(getTransmission(), carSetup.getTransmission()) &&
+                Objects.equals(getTires(), carSetup.getTires()) &&
+                Objects.equals(getCover(), carSetup.getCover());
     }
 
     @Override
     public int hashCode() {
-        return Long.hashCode(getId());
+        return Objects.hash(getEngine(), getSuspension(), getBrakes(), getTransmission(), getTires(), getCover());
     }
 
     public String toString() {
