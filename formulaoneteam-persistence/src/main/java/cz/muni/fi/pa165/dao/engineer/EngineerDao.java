@@ -4,7 +4,8 @@ import cz.muni.fi.pa165.entity.Engineer;
 import cz.muni.fi.pa165.dao.base.UserDao;
 
 /**
- * Engineer's Dao interface.
+ * Data Access Object interface for Engineer entity.
+ *
  * @author Ivan Dendis
  */
 public interface EngineerDao extends UserDao<Engineer> {    

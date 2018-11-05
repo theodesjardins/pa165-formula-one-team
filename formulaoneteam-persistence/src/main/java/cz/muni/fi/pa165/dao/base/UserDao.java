@@ -10,5 +10,10 @@ import cz.muni.fi.pa165.entity.base.User;
  */
 public interface UserDao<T extends User> extends Dao<T> {
 
+    /**
+     * Finds an entity extending {@code User} by its email.
+     * @param email address to find.
+     * @return found entity object or null if email was not found.
+     */
     T findByEmail(String email);
 }

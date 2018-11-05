@@ -4,6 +4,8 @@ import cz.muni.fi.pa165.dao.base.Dao;
 import cz.muni.fi.pa165.entity.component.Component;
 
 /**
+ * Data Access Object interface for Component entity.
+ *
  * @author Théo Desjardins
  */
 

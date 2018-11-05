@@ -4,7 +4,7 @@ import cz.muni.fi.pa165.entity.Manager;
 import cz.muni.fi.pa165.dao.base.UserDao;
 
 /**
- * Data Access Object interface for Manager entity with basic CRUD operations.
+ * Data Access Object interface for Manager entity.
  *
  * @author elderanakain (Arcadii Rubailo)
  */

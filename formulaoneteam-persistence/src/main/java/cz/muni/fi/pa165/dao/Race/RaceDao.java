@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * Data Access Object interface for Race entity.
+ *
  * @author Adel Chakouri
  */
 public interface RaceDao extends Dao<Race> {
