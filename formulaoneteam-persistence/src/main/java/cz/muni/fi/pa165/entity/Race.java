@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.entity;
 
 import cz.muni.fi.pa165.entity.base.BaseEntity;
-import org.apache.derby.vti.Restriction;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,12 +18,12 @@ public class Race extends BaseEntity {
     private Date date;
 
     @NotNull
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String title;
 
     @NotNull
     @Column(nullable = false)
-    private String Location;
+    private String location;
 
     public Date getDate() {
         return date;
@@ -43,11 +42,24 @@ public class Race extends BaseEntity {
     }
 
     public String getLocation() {
-        return Location;
+        return location;
     }
 
     public void setLocation(String location) {
-        this.Location = Location;
+        this.location = location;
+    }
+
+    public boolean isConfigured() {
+        return !getTitle().isEmpty() && !getLocation().isEmpty();
+    }
+
+    public Race(@NotNull Date date, @NotNull String title, @NotNull String location) {
+        this.date = date;
+        this.title = title;
+        this.location = location;
+    }
+
+    protected Race() {
     }
 
     @Override
@@ -73,7 +85,7 @@ public class Race extends BaseEntity {
         return "Race{" +
                 "date='" + getDate() + '\'' +
                 ", title='" + getTitle() + '\'' +
-                ", Location='" + getLocation() + '\'' +
+                ", location='" + getLocation() + '\'' +
                 "} " + super.toString();
     }
 }

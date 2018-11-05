@@ -54,6 +54,10 @@ public class Component extends BaseEntity {
 
     public void setName(String name) { this.name = name;}
 
+    public boolean isConfigured() {
+        return !getName().isEmpty();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

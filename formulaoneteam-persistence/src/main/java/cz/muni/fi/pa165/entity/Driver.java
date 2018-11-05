@@ -4,10 +4,7 @@ import cz.muni.fi.pa165.entity.base.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author mrnda (Michal Mrnuštík)
@@ -23,14 +20,34 @@ public class Driver extends User {
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     @NotNull
-    private Date birthdate;
+    private Date birthday;
 
     @Column
     @Enumerated
     private DriverStatus driverStatus;
 
     @OneToMany(mappedBy = "driver")
-    private Set<CharacteristicsValue> characteristics = new HashSet<>();
+    private List<CharacteristicsValue> characteristics = new ArrayList<>();
+
+    public Driver(
+            String name,
+            String surname,
+            String email,
+            String password,
+            @NotNull String nationality,
+            @NotNull Date birthday,
+            DriverStatus driverStatus,
+            List<CharacteristicsValue> characteristics
+    ) {
+        super(name, surname, email, password);
+        this.nationality = nationality;
+        this.birthday = birthday;
+        this.driverStatus = driverStatus;
+        this.characteristics = characteristics;
+    }
+
+    protected Driver() {
+    }
 
     public String getNationality() {
         return nationality;
@@ -40,12 +57,12 @@ public class Driver extends User {
         this.nationality = nationality;
     }
 
-    public Date getBirthdate() {
-        return birthdate;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setBirthdate(Date birthdate) {
-        this.birthdate = birthdate;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     public DriverStatus getDriverStatus() {
@@ -56,8 +73,8 @@ public class Driver extends User {
         this.driverStatus = driverStatus;
     }
 
-    public Set<CharacteristicsValue> getCharacteristics() {
-        return Collections.unmodifiableSet(characteristics);
+    public List<CharacteristicsValue> getCharacteristics() {
+        return Collections.unmodifiableList(characteristics);
     }
 
     public void addCharacteristic(CharacteristicsValue characteristicsValue) {
@@ -82,7 +99,7 @@ public class Driver extends User {
     public String toString() {
         return "Driver{" +
                 "nationality='" + getNationality() + '\'' +
-                ", birthdate=" + getBirthdate() +
+                ", birthdate=" + getBirthday() +
                 ", driverStatus=" + getDriverStatus() +
                 ", characteristics=" + getCharacteristics() +
                 "} " + super.toString();

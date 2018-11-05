@@ -29,14 +29,14 @@ public abstract class User extends BaseEntity {
     @Column(nullable = false)
     private String password = "";
 
-    protected User() {
-    }
-
     public User(String name, String surname, String email, String password) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
+    }
+
+    protected User() {
     }
 
     public String getName() {

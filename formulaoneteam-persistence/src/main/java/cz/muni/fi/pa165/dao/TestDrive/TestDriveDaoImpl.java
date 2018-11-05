@@ -1,47 +1,24 @@
 package cz.muni.fi.pa165.dao.TestDrive;
 
-import org.springframework.stereotype.Repository;
-
+import cz.muni.fi.pa165.dao.base.DaoImpl;
 import cz.muni.fi.pa165.entity.TestDrive;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author Adel Chakouri
  */
 @Repository
-public class TestDriveDaoImpl implements TestDriveDao {
-
-    @PersistenceContext
-    private EntityManager entityManager;
+public class TestDriveDaoImpl extends DaoImpl<TestDrive> implements TestDriveDao {
 
     @Override
-    public TestDrive findById(Long id) {
-        return entityManager.find(TestDrive.class, id);
+    protected Class<TestDrive> getClassType() {
+        return TestDrive.class;
     }
 
     @Override
-    public void add(TestDrive p) {
-        entityManager.persist(p);
-    }
-
-    @Override
-    public void update(TestDrive p) {
-        entityManager.merge(p);
-    }
-
-    @Override
-    public void delete(TestDrive p) {
-        entityManager.remove(p);
-    }
-
-    @Override
-    public List<TestDrive> findAll() {
-        return entityManager
-                .createQuery("select r from TestDrive r ", TestDrive.class)
-                .getResultList();
-
+    protected void validateEntity(TestDrive entity) {
+        if (entity == null || !entity.isConfigured()) {
+            throw new IllegalArgumentException("TestDrive is null or not configured");
+        }
     }
 }

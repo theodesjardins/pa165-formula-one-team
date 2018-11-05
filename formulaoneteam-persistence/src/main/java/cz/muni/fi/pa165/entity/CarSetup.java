@@ -30,16 +30,23 @@ public class CarSetup extends BaseEntity {
     @OneToOne
     private Component cover;
 
-    public CarSetup() {
-    }
-
-    public CarSetup(Component engine, Component suspension, Component brakes, Component transmission, Component tires, Component cover) {
+    public CarSetup(
+            Component engine,
+            Component suspension,
+            Component brakes,
+            Component transmission,
+            Component tires,
+            Component cover
+    ) {
         this.engine = engine;
         this.suspension = suspension;
         this.brakes = brakes;
         this.transmission = transmission;
         this.tires = tires;
         this.cover = cover;
+    }
+
+    protected CarSetup() {
     }
 
     public Component getEngine() {
@@ -88,6 +95,15 @@ public class CarSetup extends BaseEntity {
 
     public void setCover(Component cover) {
         this.cover = cover;
+    }
+
+    public boolean isConfigured() {
+        return getEngine().isConfigured()
+                && getSuspension().isConfigured()
+                && getBrakes().isConfigured()
+                && getTransmission().isConfigured()
+                && getTires().isConfigured()
+                && getCover().isConfigured();
     }
 
     @Override

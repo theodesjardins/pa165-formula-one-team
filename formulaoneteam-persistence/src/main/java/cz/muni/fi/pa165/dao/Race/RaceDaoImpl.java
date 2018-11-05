@@ -1,11 +1,6 @@
 package cz.muni.fi.pa165.dao.Race;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
-import java.util.Date;
-import java.util.List;
-
+import cz.muni.fi.pa165.dao.base.DaoImpl;
 import cz.muni.fi.pa165.entity.Race;
 import org.springframework.stereotype.Repository;
 
@@ -13,35 +8,17 @@ import org.springframework.stereotype.Repository;
  * @author Adel Chakouri
  */
 @Repository
-public class RaceDaoImpl implements RaceDao {
-
-    @PersistenceContext
-    private EntityManager entityManager;
+public class RaceDaoImpl extends DaoImpl<Race> implements RaceDao {
 
     @Override
-    public Race findById(Long id) {
-        return entityManager.find(Race.class, id);
+    protected Class<Race> getClassType() {
+        return Race.class;
     }
 
     @Override
-    public void add(Race race) {
-        entityManager.persist(race);
-    }
-
-    @Override
-    public void update(Race race) {
-        entityManager.merge(race);
-    }
-
-    @Override
-    public void delete(Race race) {
-        entityManager.remove(race);
-    }
-
-    @Override
-    public List<Race> findAll() {
-        return entityManager
-                .createQuery("select r from Race r", Race.class)
-                .getResultList();
+    protected void validateEntity(Race entity) {
+        if (entity == null || !entity.isConfigured()) {
+            throw new IllegalArgumentException("Race is null or not configured");
+        }
     }
 }
