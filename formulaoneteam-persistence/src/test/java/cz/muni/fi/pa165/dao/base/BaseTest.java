@@ -107,4 +107,13 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
     protected String getDefaultRaceTitle() {
         return "raceTitle";
     }
+
+    protected CharacteristicsValue createCharacteristics(CharacteristicsType type){
+        CharacteristicsValue characteristicsValue = new CharacteristicsValue();
+
+        characteristicsValue.setValue(100.0);
+        characteristicsValue.setType(type);
+
+        return characteristicsValue;
+    }
 }

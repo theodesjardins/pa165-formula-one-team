@@ -61,7 +61,7 @@ public class DriverDaoImpl implements DriverDao {
     }
 
     private void checkValidity(Driver entity) {
-        if(entity == null || !entity.isConfigured()) {
+        if (entity == null || !entity.isConfigured()) {
             throw new IllegalArgumentException("Driver is null or not configured");
         }
     }
