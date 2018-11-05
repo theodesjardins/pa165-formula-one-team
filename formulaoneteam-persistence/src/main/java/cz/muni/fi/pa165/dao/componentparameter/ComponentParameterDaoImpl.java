@@ -1,59 +1,24 @@
 package cz.muni.fi.pa165.dao.componentparameter;
 
-import cz.muni.fi.pa165.dao.base.Dao;
+import cz.muni.fi.pa165.dao.base.DaoImpl;
 import cz.muni.fi.pa165.entity.ComponentParameter;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.util.List;
 
 /**
  * @author Ivan Dendis
  */
 @Repository
-public class ComponentParameterDaoImpl implements ComponentParameterDao {
-    
-    @PersistenceContext
-    private EntityManager entityManager;
+public class ComponentParameterDaoImpl extends DaoImpl<ComponentParameter> implements ComponentParameterDao {
 
     @Override
-    public ComponentParameter findById(Long id) {
-        return entityManager.find(ComponentParameter.class, id);
+    protected Class<ComponentParameter> getClassType() {
+        return ComponentParameter.class;
     }
 
     @Override
-    public void add(@Nullable ComponentParameter component) {
-        validateComponent(component);
-
-        entityManager.persist(component);
-    }
-
-    @Override
-    public void delete(@Nullable ComponentParameter component) {
-        validateComponent(component);
-
-        entityManager.remove(component);
-    }
-
-    @Override
-    public void update(@Nullable ComponentParameter component) {
-        validateComponent(component);
-
-        entityManager.merge(component);
-    }
-
-    @Override
-    public List<ComponentParameter> findAll() {
-        return entityManager
-                .createQuery("select component from ComponentParameter component", ComponentParameter.class)
-                .getResultList();
-    }
-
-    private void validateComponent(ComponentParameter component) {
-        if (component == null || !component.isConfigured()) {
-            throw new IllegalArgumentException("Engineer is null or not configured");
+    protected void validateEntity(ComponentParameter entity) {
+        if (entity == null || !entity.isConfigured()) {
+            throw new IllegalArgumentException("ComponentParameter is null or not configured");
         }
     }
 }

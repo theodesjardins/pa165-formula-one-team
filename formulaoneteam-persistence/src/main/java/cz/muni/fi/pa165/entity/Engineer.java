@@ -20,6 +20,14 @@ public class Engineer extends User {
     @Enumerated
     private EngineerSpecialization specialization;
 
+    protected Engineer() {
+    }
+
+    public Engineer(String name, String surname, String email, String password, EngineerSpecialization specialization) {
+        super(name, surname, email, password);
+        this.specialization = specialization;
+    }
+
     @NotNull
     public EngineerSpecialization getSpecialization() {
         return specialization;
