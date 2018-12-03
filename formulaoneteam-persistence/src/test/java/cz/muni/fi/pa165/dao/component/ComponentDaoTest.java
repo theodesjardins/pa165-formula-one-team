@@ -1,19 +1,11 @@
 package cz.muni.fi.pa165.dao.component;
 
-import cz.muni.fi.pa165.AppContextConfig;
+import cz.muni.fi.pa165.dao.base.BaseTest;
 import cz.muni.fi.pa165.dao.base.Dao;
-import cz.muni.fi.pa165.entity.ComponentParameter;
-import cz.muni.fi.pa165.entity.ComponentType;
 import cz.muni.fi.pa165.entity.Component;
-
+import cz.muni.fi.pa165.entity.ComponentParameter;
+import cz.muni.fi.pa165.enums.ComponentType;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -23,11 +15,7 @@ import static org.testng.AssertJUnit.*;
 /**
  * @author mrnda (Michal Mrnuštík)
  */
-@ContextConfiguration(classes = AppContextConfig.class)
-@TestExecutionListeners(TransactionalTestExecutionListener.class)
-@Transactional
-@RunWith(SpringJUnit4ClassRunner.class)
-public class ComponentDaoTest extends AbstractTestNGSpringContextTests {
+public class ComponentDaoTest extends BaseTest {
 
     @Inject
     private ComponentDao componentDao;
@@ -128,7 +116,7 @@ public class ComponentDaoTest extends AbstractTestNGSpringContextTests {
         //given
         Component component = createDefaultComponent();
         componentDao.add(component);
-        ComponentParameter componentParameter = createComponentParameter("Test", 10.0);
+        ComponentParameter componentParameter = createComponentParameter("Test", "TestV");
 
         //when
         component.addParameter(componentParameter);
@@ -145,7 +133,7 @@ public class ComponentDaoTest extends AbstractTestNGSpringContextTests {
     public void removeComponentParameter_parameterRemoved() {
         //given
         Component component = createDefaultComponent();
-        ComponentParameter componentParameter = createComponentParameter("Test", 10.0);
+        ComponentParameter componentParameter = createComponentParameter("Test", "TestV");
         component.addParameter(componentParameter);
         componentDao.add(component);
 
@@ -159,7 +147,7 @@ public class ComponentDaoTest extends AbstractTestNGSpringContextTests {
         assertEquals(0, foundComponent.getParameters().size());
     }
 
-    private ComponentParameter createComponentParameter(String name, double value) {
+    private ComponentParameter createComponentParameter(String name, String value) {
         ComponentParameter componentParameter = new ComponentParameter(name, value);
         componentParameterDao.add(componentParameter);
         return componentParameter;

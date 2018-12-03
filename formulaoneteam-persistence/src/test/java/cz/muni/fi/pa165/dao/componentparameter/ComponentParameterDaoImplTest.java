@@ -1,17 +1,9 @@
 package cz.muni.fi.pa165.dao.componentparameter;
 
-import cz.muni.fi.pa165.AppContextConfig;
+import cz.muni.fi.pa165.dao.base.BaseTest;
 import cz.muni.fi.pa165.entity.ComponentParameter;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -23,11 +15,7 @@ import static org.testng.AssertJUnit.assertTrue;
 /**
  * @author elderanakain (Arcadii Rubailo)
  */
-@ContextConfiguration(classes = AppContextConfig.class)
-@TestExecutionListeners(TransactionalTestExecutionListener.class)
-@Transactional
-@RunWith(SpringJUnit4ClassRunner.class)
-public class ComponentParameterDaoImplTest extends AbstractJUnit4SpringContextTests {
+public class ComponentParameterDaoImplTest extends BaseTest {
 
     private static String TEST_NAME = "testName";
 
@@ -64,7 +52,7 @@ public class ComponentParameterDaoImplTest extends AbstractJUnit4SpringContextTe
     @Test
     public void createMultipleNewComponentParameters_foundAll() {
         //given
-        ComponentParameter otherComponentParameter = new ComponentParameter("otherName", 50.0);
+        ComponentParameter otherComponentParameter = new ComponentParameter("otherName", "50.0");
 
         //when
         componentParameterDao.add(testComponentParameter);
@@ -115,16 +103,7 @@ public class ComponentParameterDaoImplTest extends AbstractJUnit4SpringContextTe
         assertEquals(0, componentParameterDao.findAll().size());
     }
 
-    @Test(expected = InvalidDataAccessApiUsageException.class)
-    public void validateEntity_exceptionIsThrown() {
-        //given
-        ComponentParameter notComponentParameter = new ComponentParameter();
-
-        //when
-        componentParameterDao.add(notComponentParameter);
-    }
-
     private ComponentParameter createTestComponentParameter() {
-        return new ComponentParameter(TEST_NAME, 100.0);
+        return new ComponentParameter(TEST_NAME, "100.0");
     }
 }

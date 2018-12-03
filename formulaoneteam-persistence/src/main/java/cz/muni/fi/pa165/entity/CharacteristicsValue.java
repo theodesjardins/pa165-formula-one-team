@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.entity;
 
 import cz.muni.fi.pa165.entity.base.BaseEntity;
+import cz.muni.fi.pa165.enums.CharacteristicsType;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -22,6 +23,15 @@ public class CharacteristicsValue extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Driver driver;
+
+    public CharacteristicsValue() {
+    }
+
+    public CharacteristicsValue(CharacteristicsType type, double value, Driver driver) {
+        this.value = value;
+        this.type = type;
+        this.driver = driver;
+    }
 
     public double getValue() {
         return value;

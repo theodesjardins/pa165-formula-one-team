@@ -14,11 +14,4 @@ public class RaceParticipationDaoImpl extends DaoImpl<RaceParticipation> impleme
     protected Class<RaceParticipation> getClassType() {
         return RaceParticipation.class;
     }
-
-    @Override
-    protected void validateEntity(RaceParticipation participation) {
-        if (participation == null || !participation.isConfigured()) {
-            throw new IllegalArgumentException("RaceParticipation is null or not configured.");
-        }
-    }
 }

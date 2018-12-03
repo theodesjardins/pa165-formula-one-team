@@ -5,7 +5,6 @@ import cz.muni.fi.pa165.dao.base.BaseTest;
 import cz.muni.fi.pa165.entity.TestDrive;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -73,14 +72,5 @@ public class TestDriveDaoTest extends BaseTest {
         assertTrue(testDrives.contains(testDrive));
         assertTrue(testDrives.contains(otherTestDrive));
         assertEquals(2, testDrives.size());
-    }
-
-    @Test(expected = InvalidDataAccessApiUsageException.class)
-    public void validateEntity_exceptionIsThrown() {
-        //given
-        testDrive = new TestDrive(createCarSetup(), createDriver("testDrive@email.com"), "", null);
-
-        //when
-        testDriveDao.add(testDrive);
     }
 }
