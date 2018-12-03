@@ -168,16 +168,7 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDetailDT
 
     @Override
     protected DriverDetailDTO createTestDTO() {
-        DriverDetailDTO driverDetailDTO = new DriverDetailDTO();
-        driverDetailDTO.setName("name");
-        driverDetailDTO.setSurname("surname");
-        driverDetailDTO.setEmail("123@muni.cz");
-        driverDetailDTO.setPassword("password");
-        driverDetailDTO.setNationality("driverNationality");
-        driverDetailDTO.setBirthday(new Date());
-        driverDetailDTO.setCharacteristics(new ArrayList<>());
-        driverDetailDTO.setDriverStatus(DriverStatus.MAIN);
-        return driverDetailDTO;
+        return createDriverDetailDTO();
     }
 
     private CharacteristicsValue createCharacteristicsValue(Driver driverEntity) {
