@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author elderanakain (Arcadii Rubailo)
@@ -28,6 +30,16 @@ public class BeanMappingServiceImpl implements BeanMappingService {
 
     public <T> T mapTo(Object object, Class<T> mapToClass) {
         return dozer.map(object, mapToClass);
+    }
+    
+    public <T> Map<T, List<String>> mapTo(Map<?, List<String>> map, Class<T> mapToClass) {
+        Map<T, List<String>> result = new HashMap<>();
+
+        for (Object key : map.keySet()) {
+            result.put(mapTo(key, mapToClass), map.get(key));
+        }
+
+        return result;
     }
 
     public Mapper getMapper() {

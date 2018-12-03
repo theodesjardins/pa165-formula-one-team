@@ -1,6 +1,8 @@
 package cz.muni.fi.pa165.service.service;
 
+import cz.muni.fi.pa165.dto.CarSetupDTO;
 import cz.muni.fi.pa165.dto.ManagerDTO;
+import cz.muni.fi.pa165.entity.CarSetup;
 import cz.muni.fi.pa165.entity.Manager;
 import cz.muni.fi.pa165.service.BeanMappingServiceImpl;
 import cz.muni.fi.pa165.service.base.BaseServiceTest;
@@ -10,7 +12,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
@@ -67,6 +71,39 @@ public class BeanMappingServiceTest extends BaseServiceTest<Manager> {
 
         //then
         assertEquals(managerDTOS, beanMappingService.mapTo(managers, ManagerDTO.class));
+    }
+
+    @Test
+    public void mapFromMapDTO_toCollectionEntity() {
+        //given
+        List<String> firstNotes = new ArrayList<>();
+        firstNotes.add("first");
+        firstNotes.add("second");
+
+        List<String> secondNotes = new ArrayList<>();
+        secondNotes.add("third");
+        secondNotes.add("fourth");
+
+        CarSetupDTO firstCarSetupDTO = createCarSetupDTO();
+        CarSetupDTO secondCarSetupDTO = createCarSetupDTO();
+
+        CarSetup firstCarSetup = createCarSetup();
+        CarSetup secondCarSetup = createCarSetup();
+
+        Map<CarSetupDTO, List<String>> listOfDTO = new HashMap<>();
+        listOfDTO.put(firstCarSetupDTO, firstNotes);
+        listOfDTO.put(secondCarSetupDTO, secondNotes);
+
+        Map<CarSetup, List<String>> listOfEntity = new HashMap<>();
+        listOfEntity.put(firstCarSetup, firstNotes);
+        listOfEntity.put(secondCarSetup, secondNotes);
+
+        //when
+        when(dozer.map(firstCarSetup, CarSetupDTO.class)).thenReturn(firstCarSetupDTO);
+        when(dozer.map(secondCarSetup, CarSetupDTO.class)).thenReturn(secondCarSetupDTO);
+
+        //then
+        assertEquals(listOfDTO, beanMappingService.mapTo(listOfEntity, CarSetupDTO.class));
     }
 
     @Override

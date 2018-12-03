@@ -1,7 +1,13 @@
 package cz.muni.fi.pa165.service.facade;
 
+import cz.muni.fi.pa165.dto.CarSetupDTO;
+import cz.muni.fi.pa165.dto.DriverDetailDTO;
 import cz.muni.fi.pa165.dto.TestDriveDTO;
+import cz.muni.fi.pa165.entity.CarSetup;
+import cz.muni.fi.pa165.entity.Driver;
 import cz.muni.fi.pa165.entity.TestDrive;
+import cz.muni.fi.pa165.service.CarSetupService;
+import cz.muni.fi.pa165.service.DriverService;
 import cz.muni.fi.pa165.service.TestDriveService;
 import cz.muni.fi.pa165.service.base.BaseFacadeTest;
 import org.junit.Assert;
@@ -10,8 +16,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.mockito.Mockito.*;
 import static org.testng.AssertJUnit.assertEquals;
@@ -22,7 +29,13 @@ import static org.testng.AssertJUnit.assertEquals;
 public class TestDriveFacadeImplTest extends BaseFacadeTest<TestDrive, TestDriveDTO> {
 
     @Mock
-    private TestDriveService testDriveService;
+    private DriverService driverService;
+
+    @Mock
+    private CarSetupService carSetupService;
+
+    @Mock
+    private TestDriveService service;
 
     @InjectMocks
     private TestDriveFacadeImpl testDriveFacade;
@@ -39,7 +52,7 @@ public class TestDriveFacadeImplTest extends BaseFacadeTest<TestDrive, TestDrive
         //Given
         List<TestDrive> listTestDrive = new ArrayList<>();
         listTestDrive.add(entity);
-        when(testDriveService.getAll()).thenReturn(listTestDrive);
+        when(service.getAll()).thenReturn(listTestDrive);
         List<TestDriveDTO> listDTOTestDrive = new ArrayList<>();
         listDTOTestDrive.add(dto);
         when(beanMappingServiceMock.mapTo(listTestDrive, TestDriveDTO.class)).thenReturn(listDTOTestDrive);
@@ -48,7 +61,7 @@ public class TestDriveFacadeImplTest extends BaseFacadeTest<TestDrive, TestDrive
         List<TestDriveDTO> resListTestDriveDTO = new ArrayList<>(testDriveFacade.getAll());
 
         //Then
-        verify(testDriveService).getAll();
+        verify(service).getAll();
         assertEquals(resListTestDriveDTO.size(), 1);
         Assert.assertTrue(resListTestDriveDTO.contains(dto));
     }
@@ -57,7 +70,7 @@ public class TestDriveFacadeImplTest extends BaseFacadeTest<TestDrive, TestDrive
     public void findTestDriveByIdTest() {
         //Given
         when(beanMappingServiceMock.mapTo(entity, TestDriveDTO.class)).thenReturn(dto);
-        when(testDriveService.findById(22)).thenReturn(entity);
+        when(service.findById(22)).thenReturn(entity);
 
         //When
         TestDriveDTO resTestDriveDTO = testDriveFacade.findById(entity.getId());
@@ -72,7 +85,7 @@ public class TestDriveFacadeImplTest extends BaseFacadeTest<TestDrive, TestDrive
         testDriveFacade.remove(dto);
 
         //Then
-        verify(testDriveService, times(1)).remove(entity);
+        verify(service, times(1)).remove(entity);
     }
 
     @Test
@@ -81,7 +94,7 @@ public class TestDriveFacadeImplTest extends BaseFacadeTest<TestDrive, TestDrive
         testDriveFacade.update(dto);
 
         //Then
-        verify(testDriveService, times(1)).update(entity);
+        verify(service, times(1)).update(entity);
     }
 
     @Test
@@ -90,7 +103,42 @@ public class TestDriveFacadeImplTest extends BaseFacadeTest<TestDrive, TestDrive
         testDriveFacade.add(dto);
 
         //Then
-        verify(testDriveService, times(1)).add(entity);
+        verify(service, times(1)).add(entity);
+    }
+
+    @Test
+    public void whenGetNotesForDriver_beanMappingIsCalled() {
+        //given
+        Driver driver = createDriver();
+        DriverDetailDTO driverDetailDTO = createDriverDetailDTO();
+
+        Map<CarSetup, List<String>> notes = new HashMap<>();
+
+        //when
+        when(driverService.findById(driverDetailDTO.getId())).thenReturn(driver);
+        when(service.getNotesForDriver(driver)).thenReturn(notes);
+
+        testDriveFacade.getNotesForDriver(driverDetailDTO);
+
+        //then
+        verify(beanMappingServiceMock).mapTo(notes, CarSetupDTO.class);
+    }
+
+    @Test
+    public void whenGetNotesForCarSetup_beanMappingIsCalled() {
+        //given
+        CarSetup carSetup = createCarSetup();
+        CarSetupDTO carSetupDTO = createCarSetupDTO();
+        Map<Driver, List<String>> notes = new HashMap<>();
+
+        //when
+        when(carSetupService.findById(carSetupDTO.getId())).thenReturn(carSetup);
+        when(service.getNotesForCar(carSetup)).thenReturn(notes);
+
+        testDriveFacade.getNotesForCar(carSetupDTO);
+
+        //then
+        verify(beanMappingServiceMock).mapTo(notes, DriverDetailDTO.class);
     }
 
     @Override
