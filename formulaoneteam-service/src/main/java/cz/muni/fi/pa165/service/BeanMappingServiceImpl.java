@@ -14,7 +14,7 @@ import java.util.*;
 public class BeanMappingServiceImpl implements BeanMappingService {
 
     @Inject
-    private DozerBeanMapper dozer;
+    private Mapper dozer;
 
     public <T> List<T> mapTo(Collection<?> objects, Class<T> mapToClass) {
         List<T> mappedCollection = new ArrayList<>();
