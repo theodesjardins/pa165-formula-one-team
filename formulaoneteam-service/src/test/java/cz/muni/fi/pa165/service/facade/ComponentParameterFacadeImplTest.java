@@ -38,37 +38,48 @@ public class ComponentParameterFacadeImplTest extends BaseFacadeTest<ComponentPa
 
     @Test
     public void findComponentById() {
+        //when
         when(service.findById(entity.getId())).thenReturn(entity);
         when(beanMappingServiceMock.mapTo(entity, ComponentParameterDTO.class)).thenReturn(dto);
 
         ComponentParameterDTO componentParameterdto = facade.findById(entity.getId());
 
+        //then
         assertEquals(componentParameterdto, dto);
     }
 
     @Test
     public void deleteComponentTest() {
+        //when
         facade.remove(dto);
 
+        //then
         verify(service, times(1)).remove(entity);
     }
 
     @Test
     public void updateComponentTest() {
+        //when
         facade.update(dto);
 
+        //then
         verify(service, times(1)).update(entity);
     }
 
     @Test
     public void addComponentTest() {
+        //when
+        when(service.add(entity)).thenReturn(entity);
+
         facade.add(dto);
 
+        //then
         verify(service, times(1)).add(entity);
     }
 
     @Test
     public void getAllComponentTest() {
+        //when
         List<ComponentParameter> list = new ArrayList<>();
         list.add(entity);
         when(service.getAll()).thenReturn(list);
@@ -78,6 +89,7 @@ public class ComponentParameterFacadeImplTest extends BaseFacadeTest<ComponentPa
 
         List<ComponentParameterDTO> resultDtoList = new ArrayList<>(facade.getAll());
 
+        //then
         verify(service).getAll();
         assertEquals(resultDtoList.size(), dtoList.size());
         Assert.assertTrue(resultDtoList.contains(dto));

@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.service.facade;
 
 import cz.muni.fi.pa165.dto.ComponentDTO;
 import cz.muni.fi.pa165.entity.Component;
-import cz.muni.fi.pa165.enums.ComponentType;
 import cz.muni.fi.pa165.service.ComponentService;
 import cz.muni.fi.pa165.service.base.BaseFacadeTest;
 import org.junit.Assert;
@@ -72,8 +71,9 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
 
     @Test
     public void addComponentTest() {
-
         //when
+        when(componentService.add(entity)).thenReturn(entity);
+
         componentFacade.add(dto);
 
         //then

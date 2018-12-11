@@ -100,6 +100,8 @@ public class TestDriveFacadeImplTest extends BaseFacadeTest<TestDrive, TestDrive
     @Test
     public void addTestDriveTest() {
         //When
+        when(service.add(entity)).thenReturn(entity);
+
         testDriveFacade.add(dto);
 
         //Then
