@@ -10,7 +10,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -87,6 +86,8 @@ public class RaceFacadeImplTest extends BaseFacadeTest<Race, RaceDTO> {
     @Test
     public void addRaceTest() {
         //When
+        when(raceService.add(entity)).thenReturn(entity);
+
         raceFacade.add(dto);
 
         //Then

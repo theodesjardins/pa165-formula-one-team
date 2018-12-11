@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.service.facade;
 
 import cz.muni.fi.pa165.dto.CarSetupDTO;
-import cz.muni.fi.pa165.dto.ComponentDTO;
 import cz.muni.fi.pa165.entity.CarSetup;
 import cz.muni.fi.pa165.service.CarSetupService;
 import cz.muni.fi.pa165.service.base.BaseFacadeTest;
@@ -48,7 +47,6 @@ public class CarSetupFacadeImplTest extends BaseFacadeTest<CarSetup, CarSetupDTO
 
     @Test
     public void deleteCarSetupTest() {
-
         //when
         carSetupFacade.remove(dto);
 
@@ -58,7 +56,6 @@ public class CarSetupFacadeImplTest extends BaseFacadeTest<CarSetup, CarSetupDTO
 
     @Test
     public void updateCarSetupTest() {
-
         //when
         carSetupFacade.update(dto);
 
@@ -68,8 +65,9 @@ public class CarSetupFacadeImplTest extends BaseFacadeTest<CarSetup, CarSetupDTO
 
     @Test
     public void addCarSetupTest() {
-
         //when
+        when(carSetupService.add(entity)).thenReturn(entity);
+
         carSetupFacade.add(dto);
 
         //then

@@ -1,9 +1,10 @@
 package cz.muni.fi.pa165.service.facade;
 
 import cz.muni.fi.pa165.dto.RaceParticipationDTO;
-import cz.muni.fi.pa165.entity.RaceParticipation;
 import cz.muni.fi.pa165.dto.WorldChampionshipSetupDTO;
-import cz.muni.fi.pa165.entity.*;
+import cz.muni.fi.pa165.entity.CarSetup;
+import cz.muni.fi.pa165.entity.Driver;
+import cz.muni.fi.pa165.entity.RaceParticipation;
 import cz.muni.fi.pa165.service.RaceParticipationService;
 import cz.muni.fi.pa165.service.base.BaseFacadeTest;
 import org.junit.Assert;
@@ -11,7 +12,6 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.data.util.Pair;
-import org.testng.annotations.BeforeMethod;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -91,6 +91,8 @@ public class RaceParticipationFacadeImplTest extends BaseFacadeTest<RaceParticip
     @Test
     public void addRaceParticipationTest() {
         //When
+        when(raceParticipationService.add(entity)).thenReturn(entity);
+
         raceParticipationFacade.add(dto);
 
         //Then
