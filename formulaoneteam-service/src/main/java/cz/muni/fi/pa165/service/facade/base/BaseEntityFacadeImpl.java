@@ -12,9 +12,10 @@ public abstract class BaseEntityFacadeImpl<DTO extends BaseDTO, E extends BaseEn
         implements BaseEntityFacade<DTO, E> {
 
     @Override
-    public void add(DTO dto) {
+    public long add(DTO dto) {
         if (dto == null) throw new IllegalArgumentException("null DTO, cannot add");
-        service.add(beanMappingService.mapTo(dto, getEntityClass()));
+        E entity = service.add(beanMappingService.mapTo(dto, getEntityClass()));
+        return entity.getId();
     }
 
     @Override
