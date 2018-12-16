@@ -64,7 +64,7 @@ public class BaseCrudControllerTests extends BaseControllerTests<TestController>
     @Test
     public void getWithId_withNonExistingItem_statusIsNotFound() throws Exception {
         //Given
-        when(testFacade.findById(-1)).thenThrow(EntityNotFoundException.class);
+        when(testFacade.findById(-1)).thenThrow(new EntityNotFoundException(-1, TestEntity.class.getName()));
 
         //When
 
