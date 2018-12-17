@@ -21,6 +21,15 @@ public class ComponentFacadeImpl
         implements ComponentFacade {
 
     @Override
+    public void remove(long id) {
+        final Component component = service.findById(id);
+        if (carSetupService.getAll().stream().anyMatch(carSetup -> carSetup.getComponents().contains(component))) {
+            throw new FormulaOneTeamException("Component can't be deleted when is part of existing car setup.");
+        }
+        super.remove(id);
+    }
+
+    @Override
     protected Class<ComponentDTO> getDtoClass() {
         return ComponentDTO.class;
     }
