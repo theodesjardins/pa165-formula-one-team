@@ -3,6 +3,8 @@ package cz.muni.fi.pa165.entity;
 import cz.muni.fi.pa165.entity.base.User;
 import cz.muni.fi.pa165.enums.CharacteristicsType;
 import cz.muni.fi.pa165.enums.DriverStatus;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -31,8 +33,13 @@ public class Driver extends User {
     @OneToMany(fetch = FetchType.EAGER)
     private Set<CharacteristicsValue> characteristics = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "driver")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "driver", fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     private Collection<RaceParticipation> raceParticipations;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "driver", fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
+    private Collection<TestDrive> testDrives;
 
     public Driver(
             String name,
@@ -117,6 +124,14 @@ public class Driver extends User {
 
     public void removeCharacteristics(CharacteristicsValue characteristicsValue) {
         characteristics.remove(characteristicsValue);
+    }
+
+    public Collection<TestDrive> getTestDrives() {
+        return testDrives;
+    }
+
+    public void setTestDrives(Collection<TestDrive> testDrives) {
+        this.testDrives = testDrives;
     }
 
     @Override
