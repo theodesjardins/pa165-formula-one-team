@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.service.facade;
 
+import cz.muni.fi.pa165.dto.AuthenticateDTO;
 import cz.muni.fi.pa165.dto.EngineerDTO;
 import cz.muni.fi.pa165.entity.Engineer;
 import cz.muni.fi.pa165.service.EngineerService;
@@ -44,9 +45,16 @@ public class EngineerFacadeImplTest extends BaseFacadeTest<Engineer, EngineerDTO
 
     @Test
     public void authenticate_returnsTrue() {
+        //given
+        AuthenticateDTO authenticateDTO = new AuthenticateDTO();
+        authenticateDTO.setEmail(dto.getEmail());
+        authenticateDTO.setPassword(TEST_ENGINEER_PASSWORD);
+
+        //when
         when(service.authenticate(dto.getEmail(), TEST_ENGINEER_PASSWORD)).thenReturn(true);
 
-        assertTrue(facade.authenticate(dto.getEmail(), TEST_ENGINEER_PASSWORD));
+        //then
+        assertTrue(facade.authenticate(authenticateDTO));
     }
 
     @Test

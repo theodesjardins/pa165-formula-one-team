@@ -7,6 +7,10 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <html lang="${pageContext.request.locale}">
 <head>
     <meta charset="utf-8">
@@ -43,21 +47,21 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><my:a href="/">Home</my:a></li>
-                <li><my:a href="/drivers/list">Drivers</my:a></li>
-                <li><my:a href="/world-championship/list">World Championships</my:a></li>
-                <li><my:a href="/cars/list">Cars</my:a></li>
-                <li><my:a href="/components/list">Components</my:a></li>
+                <li><my:a href="/"><f:message key="feature.home"/></my:a></li>
+                <li><my:a href="/drivers/list"><f:message key="feature.drivers"/></my:a></li>
+                <li><my:a href="/world-championship/list"><f:message key="feature.world_championship"/></my:a></li>
+                <li><my:a href="/cars/list"><f:message key="feature.cars"/></my:a></li>
+                <li><my:a href="/components/list"><f:message key="feature.components"/></my:a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <c:choose>
-                    <c:when test="${empty pageContext.request.authType}">
-                        <li><my:a href="#">Sign in</my:a></li>
-                    </c:when>
-                    <c:otherwise>
-                        <li><my:a href="#">Sing out</my:a></li>
-                    </c:otherwise>
-                </c:choose>
+                <sec:authorize access="!isAuthenticated()">
+                    <li><my:a href="/login"><f:message key="feature.auth.sign_in"/></my:a></li>
+                </sec:authorize>
+
+                <sec:authorize access="isAuthenticated()">
+                    <li><a><sec:authentication property="principal"/></a></li>
+                    <li><my:a href="/logout"><f:message key="feature.auth.sing_out"/></my:a></li>
+                </sec:authorize>
             </ul>
         </div>
     </div>
@@ -77,7 +81,7 @@
 
     <!-- footer -->
     <footer class="footer">
-        <p>&copy;&nbsp;<%=java.time.Year.now().toString()%>&nbsp;Masaryk University</p>
+        <p>&copy;&nbsp;<%=java.time.Year.now().toString()%><f:message key="page.footer"/></p>
     </footer>
 </div>
 

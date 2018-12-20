@@ -13,7 +13,7 @@ public class WorldChampionshipControllerTests extends BaseControllerTest<WorldCh
     @Test
     public void list_statusIsOk() throws Exception {
         //Then
-        mockMvc.perform(get("/world-championship/list"))
+        mockMvc.perform(get("/world-championship/list").sessionAttr("isAuthenticated", false))
                 .andExpect(status().isOk());
     }
 

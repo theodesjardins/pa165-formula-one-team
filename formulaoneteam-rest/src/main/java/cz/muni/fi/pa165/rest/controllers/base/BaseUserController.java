@@ -27,7 +27,7 @@ public abstract class BaseUserController<
 
     @RequestMapping(value = "/auth", method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity authenticate(@RequestBody AuthenticateDTO authenticateDTO) {
-        if (facade.authenticate(authenticateDTO.getEmail(), authenticateDTO.getPassword())) {
+        if (facade.authenticate(authenticateDTO)) {
             return ok();
         }
         return ResponseEntity.badRequest().build();

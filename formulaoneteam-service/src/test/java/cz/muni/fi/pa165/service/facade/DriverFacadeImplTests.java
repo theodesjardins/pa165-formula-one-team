@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.service.facade;
 
+import cz.muni.fi.pa165.dto.AuthenticateDTO;
 import cz.muni.fi.pa165.dto.CharacteristicsValueDTO;
 import cz.muni.fi.pa165.dto.driver.DriverDTO;
 import cz.muni.fi.pa165.entity.CharacteristicsValue;
@@ -75,8 +76,12 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDTO> {
         when(beanMappingServiceMock.mapTo(dto, Driver.class)).thenReturn(entity);
         when(driverServiceMock.authenticate(dto.getEmail(), password)).thenReturn(true);
 
+        AuthenticateDTO authenticateDTO = new AuthenticateDTO();
+        authenticateDTO.setEmail(dto.getEmail());
+        authenticateDTO.setPassword(password);
+
         //When
-        boolean result = driverFacade.authenticate(dto.getEmail(), password);
+        boolean result = driverFacade.authenticate(authenticateDTO);
 
         //Then
         assertTrue(result);

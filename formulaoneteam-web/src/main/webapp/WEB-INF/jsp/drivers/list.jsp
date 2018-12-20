@@ -4,8 +4,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<my:pagetemplate title="Drivers">
+<f:message var="title" key="feature.drivers"/>
+
+<my:pagetemplate title="${title}">
 <jsp:attribute name="head">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css"/>
 </jsp:attribute>
@@ -20,9 +23,9 @@
         <table class="table" id="drivers-table">
             <thead>
             <tr>
-                <th>name</th>
-                <th>email</th>
-                <th>status</th>
+                <th><f:message key="feature.drivers.name"/></th>
+                <th><f:message key="feature.drivers.email"/></th>
+                <th><f:message key="feature.drivers.status"/></th>
                 <th>current races</th>
             </tr>
             </thead>

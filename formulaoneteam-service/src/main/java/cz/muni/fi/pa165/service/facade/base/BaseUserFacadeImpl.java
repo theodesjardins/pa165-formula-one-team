@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.service.facade.base;
 
+import cz.muni.fi.pa165.dto.AuthenticateDTO;
 import cz.muni.fi.pa165.dto.base.BaseDTO;
 import cz.muni.fi.pa165.entity.base.User;
 import cz.muni.fi.pa165.facade.base.BaseUserFacade;
@@ -17,8 +18,12 @@ public abstract class BaseUserFacadeImpl<DTO extends BaseDTO, E extends User, S 
     }
 
     @Override
-    public boolean authenticate(String email, String password) {
-        return service.authenticate(email, password);
+    public boolean authenticate(AuthenticateDTO authenticateDTO) {
+        try {
+            return service.authenticate(authenticateDTO.getEmail(), authenticateDTO.getPassword());
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override

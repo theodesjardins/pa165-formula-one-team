@@ -23,7 +23,7 @@ import javax.validation.Validator;
 @EnableWebMvc
 @Configuration
 @Import({FormulaOneTeamWithSampleDataConfiguration.class})
-@ComponentScan(basePackages = "cz.muni.fi.pa165.mvc")
+@ComponentScan(basePackages = "cz.muni.fi.pa165.mvc.config")
 public class MySpringMvcConfig implements WebMvcConfigurer {
 
     private final static String TEXTS = "Texts";
@@ -31,6 +31,7 @@ public class MySpringMvcConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("home");
+        registry.addViewController("/login").setViewName("login");
     }
 
     @Override

@@ -12,6 +12,6 @@ public class WorldChampionshipController {
 
     @RequestMapping("/list")
     public String list() {
-        return "world-championships/list";
+        return "world-championship/list";
     }
 }

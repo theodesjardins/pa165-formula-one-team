@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.service.facade;
 
+import cz.muni.fi.pa165.dto.AuthenticateDTO;
 import cz.muni.fi.pa165.dto.ManagerDTO;
 import cz.muni.fi.pa165.entity.Manager;
 import cz.muni.fi.pa165.service.ManagerService;
@@ -48,11 +49,16 @@ public class ManagerFacadeImplTest extends BaseFacadeTest<Manager, ManagerDTO> {
 
     @Test
     public void authenticate_returnsTrue() {
+        //given
+        AuthenticateDTO authenticateDTO = new AuthenticateDTO();
+        authenticateDTO.setEmail(dto.getEmail());
+        authenticateDTO.setPassword(TEST_MANAGER_PASSWORD);
+
         //when
         when(service.authenticate(dto.getEmail(), TEST_MANAGER_PASSWORD)).thenReturn(true);
 
         //then
-        assertTrue(managerFacade.authenticate(dto.getEmail(), TEST_MANAGER_PASSWORD));
+        assertTrue(managerFacade.authenticate(authenticateDTO));
     }
 
     @Test

@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.facade.base;
 
+import cz.muni.fi.pa165.dto.AuthenticateDTO;
 import cz.muni.fi.pa165.dto.base.BaseDTO;
 import cz.muni.fi.pa165.entity.base.User;
 
@@ -10,7 +11,7 @@ public interface BaseUserFacade<DTO extends BaseDTO, E extends User> extends Bas
 
     void register(DTO dto, String password);
 
-    boolean authenticate(String email, String password);
+    boolean authenticate(AuthenticateDTO authenticateDTO);
 
     DTO findByEmail(String email);
 
