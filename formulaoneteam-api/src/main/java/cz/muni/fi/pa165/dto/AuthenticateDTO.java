@@ -29,8 +29,8 @@ public class AuthenticateDTO {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof UserDTO)) return false;
-        UserDTO userDTO = (UserDTO) o;
+        if (!(o instanceof AuthenticateDTO)) return false;
+        AuthenticateDTO userDTO = (AuthenticateDTO) o;
         return Objects.equals(getEmail(), userDTO.getEmail());
     }
 
