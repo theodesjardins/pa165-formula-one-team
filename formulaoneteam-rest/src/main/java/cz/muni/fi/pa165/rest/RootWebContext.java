@@ -9,12 +9,18 @@ import cz.muni.fi.pa165.service.config.ServiceConfiguration;
 import org.springframework.context.annotation.*;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger.web.SwaggerResource;
+import springfox.documentation.swagger.web.SwaggerResourcesProvider;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import javax.servlet.ServletContext;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -23,9 +29,31 @@ import java.util.Locale;
  */
 @EnableWebMvc
 @Configuration
+@EnableSwagger2
 @Import({ServiceConfiguration.class, FormulaOneTeamWithSampleDataConfiguration.class})
 @ComponentScan(basePackages = {"cz.muni.fi.pa165.rest"})
 public class RootWebContext implements WebMvcConfigurer {
+
+    @Bean
+    public Docket api(ServletContext context) {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select()
+                .apis(RequestHandlerSelectors.any())
+                .paths(PathSelectors.any())
+                .build();
+    }
+
+    @Primary
+    @Bean
+    public SwaggerResourcesProvider swaggerResourcesProvider() {
+        return () -> {
+            SwaggerResource wsResource = new SwaggerResource();
+            wsResource.setName("Default endpoints");
+            wsResource.setSwaggerVersion("2.0");
+            wsResource.setLocation("/rest/v2/api-docs");
+            return Collections.singletonList(wsResource);
+        };
+    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -50,6 +78,15 @@ public class RootWebContext implements WebMvcConfigurer {
 
         jsonConverter.setObjectMapper(objectMapper);
         return jsonConverter;
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
     @Override
