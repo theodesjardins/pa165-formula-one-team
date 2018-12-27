@@ -13,12 +13,14 @@
     </jsp:attribute>
     <jsp:attribute name="body">
         <div class="container">
-            <div class="row">
-                <my:a href="/drivers/edit/${driver.id}" class="btn btn-primary pull-right">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                    Update
-                </my:a>
-            </div>
+            <c:if test="${editingEnabled}">
+                <div class="row">
+                    <my:a href="/drivers/edit/${driver.id}" class="btn btn-primary pull-right">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        Update
+                    </my:a>
+                </div>
+            </c:if>
             <div class="row">
                 <div class="col-md-6 col-xs-12">
                     <h4>Driver information</h4>

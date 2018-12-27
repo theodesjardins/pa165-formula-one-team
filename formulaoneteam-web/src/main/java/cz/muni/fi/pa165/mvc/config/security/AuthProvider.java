@@ -14,8 +14,7 @@ import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 
-import static cz.muni.fi.pa165.mvc.config.security.SecurityRole.MANAGER;
-import static cz.muni.fi.pa165.mvc.config.security.SecurityRole.USER;
+import static cz.muni.fi.pa165.mvc.config.security.SecurityRole.*;
 import static java.util.Collections.singletonList;
 
 /**
@@ -45,7 +44,9 @@ public class AuthProvider implements AuthenticationProvider {
 
         if (managerFacade.authenticate(authenticateDTO)) {
             role = MANAGER;
-        } else if (driverFacade.authenticate(authenticateDTO) || engineerFacade.authenticate(authenticateDTO)) {
+        } else if (engineerFacade.authenticate(authenticateDTO)) {
+            role = ENGINEER;
+        } else if (driverFacade.authenticate(authenticateDTO)) {
             role = USER;
         } else {
             throw new BadCredentialsException("Invalid credentials");

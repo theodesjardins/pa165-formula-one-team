@@ -3,6 +3,9 @@ package cz.muni.fi.pa165.mvc.controllers;
 import cz.muni.fi.pa165.dto.driver.DriverDTO;
 import cz.muni.fi.pa165.enums.DriverStatus;
 import cz.muni.fi.pa165.facade.DriverFacade;
+import cz.muni.fi.pa165.mvc.config.security.AuthenticationFacade;
+import cz.muni.fi.pa165.mvc.config.security.SecurityRole;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,8 +30,10 @@ public class DriversController {
     @Inject
     private DriverFacade driverFacade;
 
+    @Inject
+    private AuthenticationFacade authenticationFacade;
+
     private static final SimpleDateFormat birthdayDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    ;
 
     @RequestMapping("/list")
     public String list(Model model) {
@@ -38,22 +43,31 @@ public class DriversController {
 
     @RequestMapping("/detail/{id}")
     public String detail(Model model, @PathVariable long id) {
-        model.addAttribute("driver", driverFacade.findById(id));
+        final DriverDTO driver = driverFacade.findById(id);
+        model.addAttribute("driver", driver);
+        model.addAttribute("editingEnabled", userCanEditDriver(driver));
         return "drivers/detail";
     }
 
     @RequestMapping("/create")
     public String create(Model model) {
-        model.addAttribute("driver", driverFacade.createDefaultDriver());
-        return "drivers/edit";
+        if (authenticationFacade.hasRole(SecurityRole.MANAGER)) {
+            model.addAttribute("driver", driverFacade.createDefaultDriver());
+            return "drivers/edit";
+        } else {
+            throw new AccessDeniedException("Only manager can create new users.");
+        }
     }
 
     @RequestMapping("/edit/{id}")
     public String edit(Model model, @PathVariable long id) {
         DriverDTO driver = driverFacade.findById(id);
-        driver.setBirthdayString(birthdayDateFormat.format(driver.getBirthday()));
-        model.addAttribute("driver", driver);
-        return "drivers/edit";
+        if (userCanEditDriver(driver)) {
+            model.addAttribute("driver", driver);
+            return "drivers/edit";
+        } else {
+            throw new AccessDeniedException("You can't edit this user!");
+        }
     }
 
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
@@ -90,5 +104,12 @@ public class DriversController {
     public DriverStatus[] getDriverStatusValues() {
         return DriverStatus.values();
     }
+
+    private boolean userCanEditDriver(DriverDTO driver) {
+        return authenticationFacade.isAuthenticated()
+                && (authenticationFacade.hasRole(SecurityRole.MANAGER)
+                || authenticationFacade.getCurrentUserEmail().equals(driver.getEmail()));
+    }
+
 
 }

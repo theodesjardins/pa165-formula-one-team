@@ -5,7 +5,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <f:message var="title" key="feature.drivers"/>
 
 <my:pagetemplate title="${title}">
@@ -14,12 +14,14 @@
 </jsp:attribute>
 <jsp:attribute name="body">
     <div class="container">
-        <div class="row">
-            <my:a href="/drivers/create" class="btn btn-primary pull-right">
-                <span class="glyphicon glyphicon-plus"></span>
-                Add driver
-            </my:a>
-        </div>
+        <sec:authorize access="hasAuthority('ADMIN')">
+            <div class="row">
+                    <my:a href="/drivers/create" class="btn btn-primary pull-right">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        Add driver
+                    </my:a>
+            </div>
+        </sec:authorize>
         <table class="table" id="drivers-table">
             <thead>
             <tr>

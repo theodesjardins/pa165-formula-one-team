@@ -4,7 +4,7 @@ package cz.muni.fi.pa165.mvc.config.security;
  * @author elderanakain (Arcadii Rubailo)
  */
 public enum SecurityRole {
-    USER("USER"), MANAGER("ADMIN");
+    USER("USER"), ENGINEER("ENGINEER"), MANAGER("ADMIN");
 
     private String role;
 

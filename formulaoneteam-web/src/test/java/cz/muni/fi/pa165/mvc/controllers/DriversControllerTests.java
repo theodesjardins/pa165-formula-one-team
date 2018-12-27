@@ -3,15 +3,19 @@ package cz.muni.fi.pa165.mvc.controllers;
 import cz.muni.fi.pa165.dto.driver.DriverDTO;
 import cz.muni.fi.pa165.enums.DriverStatus;
 import cz.muni.fi.pa165.facade.DriverFacade;
+import cz.muni.fi.pa165.mvc.config.security.AuthenticationFacade;
+import cz.muni.fi.pa165.mvc.config.security.SecurityRole;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.security.access.AccessDeniedException;
 
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -20,6 +24,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class DriversControllerTests extends BaseControllerTest<DriversController> {
+
+    @Mock
+    private AuthenticationFacade authenticationFacade;
 
     @Mock
     private DriverFacade driverFacadeMock;
@@ -69,16 +76,28 @@ public class DriversControllerTests extends BaseControllerTest<DriversController
     }
 
     @Test
-    public void create_statusIsOk() throws Exception {
+    public void create_withoutManagerLoggedIn_throwsAccessDenied() {
+        when(authenticationFacade.hasRole(SecurityRole.MANAGER)).thenReturn(false);
+
+        //Then
+        assertThatThrownBy(() -> mockMvc.perform(get("/drivers/create")))
+                .hasCauseInstanceOf(AccessDeniedException.class);
+    }
+
+    @Test
+    public void create_withManagerLoggedIn_statusIsOk() throws Exception {
+        when(authenticationFacade.hasRole(SecurityRole.MANAGER)).thenReturn(true);
+
         //Then
         mockMvc.perform(get("/drivers/create"))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void create_addsDefaultDriverToTheModel() throws Exception {
+    public void create_withManagerLoggedIn_createsDefaultDriver() throws Exception {
         //When
         final DriverDTO driverDTO = createDriverDTO();
+        when(authenticationFacade.hasRole(SecurityRole.MANAGER)).thenReturn(true);
         when(driverFacadeMock.createDefaultDriver()).thenReturn(driverDTO);
 
         //Then
@@ -88,10 +107,37 @@ public class DriversControllerTests extends BaseControllerTest<DriversController
     }
 
     @Test
-    public void edit_withExistingDriver_addsDriverAttribute() throws Exception {
+    public void edit_withExistingDriverAndWithoutLogin_throwsAccessDenied() {
         //When
         final DriverDTO driverDTO = createDriverDTO();
         when(driverFacadeMock.findById(1)).thenReturn(driverDTO);
+        when(authenticationFacade.isAuthenticated()).thenReturn(false);
+
+        //Then
+        assertThatThrownBy(() -> mockMvc.perform(get("/drivers/edit/1")))
+                .hasCauseInstanceOf(AccessDeniedException.class);
+    }
+
+    @Test
+    public void edit_withExistingDriverAndLoggedInManager_statusIsOk() throws Exception {
+        //When
+        final DriverDTO driverDTO = createDriverDTO();
+        when(driverFacadeMock.findById(1)).thenReturn(driverDTO);
+        when(authenticationFacade.isAuthenticated()).thenReturn(true);
+        when(authenticationFacade.hasRole(SecurityRole.MANAGER)).thenReturn(true);
+
+        //Then
+        mockMvc.perform(get("/drivers/edit/1"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void edit_withExistingAndLoggedInDriver_addsDriverAttribute() throws Exception {
+        //When
+        final DriverDTO driverDTO = createDriverDTO();
+        when(driverFacadeMock.findById(1)).thenReturn(driverDTO);
+        when(authenticationFacade.isAuthenticated()).thenReturn(true);
+        when(authenticationFacade.getCurrentUserEmail()).thenReturn(driverDTO.getEmail());
 
         //Then
         mockMvc.perform(get("/drivers/edit/1"))
@@ -100,9 +146,12 @@ public class DriversControllerTests extends BaseControllerTest<DriversController
     }
 
     @Test
-    public void edit_withExistingDriver_statusIsOk() throws Exception {
+    public void edit_withExistingDriverAndLoggedInDriver_statusIsOk() throws Exception {
         //When
-        when(driverFacadeMock.findById(1)).thenReturn(createDriverDTO());
+        final DriverDTO driverDTO = createDriverDTO();
+        when(driverFacadeMock.findById(1)).thenReturn(driverDTO);
+        when(authenticationFacade.isAuthenticated()).thenReturn(true);
+        when(authenticationFacade.getCurrentUserEmail()).thenReturn(driverDTO.getEmail());
 
         //Then
         mockMvc.perform(get("/drivers/edit/1"))
