@@ -29,6 +29,20 @@
         .clickable-row td {
             vertical-align: inherit !important;
         }
+
+        /* Sticky footer styles */
+        html {
+          position: relative;
+          min-height: 100%;
+        }
+        body {
+          /* Margin bottom by footer height */
+          margin-bottom: 60px;
+        }
+        .footer {
+          position: absolute;
+          bottom: 0;
+        }
     </style>
     <jsp:invoke fragment="head"/>
 </head>
@@ -79,7 +93,6 @@
     <!-- page body -->
     <jsp:invoke fragment="body"/>
 
-    <!-- footer -->
     <footer class="footer">
         <p>&copy;&nbsp;<%=java.time.Year.now().toString()%><f:message key="page.footer"/></p>
     </footer>
