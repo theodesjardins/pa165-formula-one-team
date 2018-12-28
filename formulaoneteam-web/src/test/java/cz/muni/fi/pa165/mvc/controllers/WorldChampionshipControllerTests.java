@@ -7,13 +7,15 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class WorldChampionshipControllerTests extends BaseControllerTest<WorldChampionshipController> {
+
     @InjectMocks
     private WorldChampionshipController controller;
 
     @Test
     public void list_statusIsOk() throws Exception {
         //Then
-        mockMvc.perform(get("/world-championship/list").sessionAttr("isAuthenticated", false))
+        mockMvc.perform(get("/world-championship/list")
+                .sessionAttr("isAuthenticated", false))
                 .andExpect(status().isOk());
     }
 

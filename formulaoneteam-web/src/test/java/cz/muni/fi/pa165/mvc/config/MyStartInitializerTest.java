@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.mvc.config;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
@@ -10,7 +9,6 @@ import static org.junit.Assert.assertNull;
 /**
  * @author elderanakain (Arcadii Rubailo)
  */
-@Ignore
 public class MyStartInitializerTest {
 
     private MyStartInitializer myStartInitializer = new MyStartInitializer();
@@ -33,7 +31,6 @@ public class MyStartInitializerTest {
         assertEquals(((CharacterEncodingFilter) myStartInitializer.getServletFilters()[0]).getEncoding(), "utf-8");
     }
 
-    @Ignore
     @Test
     public void getServletConfigClasses() {
         //then

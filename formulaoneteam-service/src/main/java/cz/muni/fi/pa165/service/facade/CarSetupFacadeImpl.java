@@ -4,7 +4,7 @@ import cz.muni.fi.pa165.dto.carsetup.CarSetupDTO;
 import cz.muni.fi.pa165.entity.CarSetup;
 import cz.muni.fi.pa165.facade.CarSetupFacade;
 import cz.muni.fi.pa165.service.CarSetupService;
-import cz.muni.fi.pa165.service.facade.base.BaseEntityFacadeImpl;
+import cz.muni.fi.pa165.service.facade.base.EntityFacadeImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class CarSetupFacadeImpl
-        extends BaseEntityFacadeImpl<CarSetupDTO, CarSetup, CarSetupService>
+        extends EntityFacadeImpl<CarSetupDTO, CarSetup, CarSetupService>
         implements CarSetupFacade {
 
     @Override

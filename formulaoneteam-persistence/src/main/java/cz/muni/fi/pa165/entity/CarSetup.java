@@ -2,10 +2,7 @@ package cz.muni.fi.pa165.entity;
 
 import cz.muni.fi.pa165.entity.base.BaseEntity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.*;
 
 /**
@@ -35,6 +32,9 @@ public class CarSetup extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "carSetup")
     private Set<RaceParticipation> raceParticipations = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "carSetup")
+    private Set<TestDrive> testDrives = new HashSet<>();
+
     public CarSetup(
             Component engine,
             Component suspension,
@@ -60,6 +60,14 @@ public class CarSetup extends BaseEntity {
 
     public void setRaceParticipations(Set<RaceParticipation> raceParticipations) {
         this.raceParticipations = raceParticipations;
+    }
+
+    public Set<TestDrive> getTestDrives() {
+        return testDrives;
+    }
+
+    public void setTestDrives(Set<TestDrive> testDrives) {
+        this.testDrives = testDrives;
     }
 
     public Component getEngine() {

@@ -45,7 +45,7 @@ public class DriversControllerTests extends BaseControllerTest<DriversController
     public void list_whenDriversArePresent_attributeEquals() throws Exception {
         //When
         List<DriverDTO> drivers = Arrays.asList(createDriverDTO(), createDriverDTO());
-        when(driverFacadeMock.getAllDrivers()).thenReturn(drivers);
+        when(driverFacadeMock.getAll()).thenReturn(drivers);
 
         //Then
         mockMvc.perform(get("/drivers/list"))

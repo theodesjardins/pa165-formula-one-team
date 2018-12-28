@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.service;
 
-import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.springframework.stereotype.Service;
 

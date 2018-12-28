@@ -14,10 +14,13 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 /**
  * @author mrnda (Michal Mrnuštík)
  */
-public abstract class BaseEntityController<
-        Facade extends BaseEntityFacade<DTO, Entity>,
+public abstract class EntityController<
+        Facade extends BaseEntityFacade<DTO, SaveDTO, Entity>,
         DTO extends BaseDTO,
-        Entity extends BaseEntity> extends BaseCrudController<Facade, DTO, Entity> {
+        SaveDTO extends BaseDTO,
+        Entity extends BaseEntity
+        >
+        extends BaseCrudController<Facade, DTO, Entity> {
 
     @RequestMapping(value = "/{id}", method = DELETE)
     public ResponseEntity remove(@PathVariable long id) {
@@ -26,13 +29,13 @@ public abstract class BaseEntityController<
     }
 
     @RequestMapping(method = POST, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<DTO> add(@RequestBody DTO dto) {
+    public ResponseEntity<DTO> add(@RequestBody SaveDTO dto) {
         long id = facade.add(dto);
         return ok(facade.findById(id));
     }
 
     @RequestMapping(value = "/{id}", method = PUT, consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity update(@RequestBody DTO updatedDto, @PathVariable long id) {
+    public ResponseEntity update(@RequestBody SaveDTO updatedDto, @PathVariable long id) {
         facade.update(updatedDto, id);
         return ok();
     }

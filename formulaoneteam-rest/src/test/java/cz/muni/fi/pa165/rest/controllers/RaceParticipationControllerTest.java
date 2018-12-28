@@ -2,7 +2,8 @@ package cz.muni.fi.pa165.rest.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import cz.muni.fi.pa165.dto.RaceParticipationDTO;
+import cz.muni.fi.pa165.dto.raceparticipation.RaceParticipationDTO;
+import cz.muni.fi.pa165.dto.raceparticipation.SaveRaceParticipationDTO;
 import cz.muni.fi.pa165.exceptions.EntityNotFoundException;
 import cz.muni.fi.pa165.facade.RaceParticipationFacade;
 import cz.muni.fi.pa165.rest.RootWebContext;
@@ -55,7 +56,7 @@ public class RaceParticipationControllerTest extends AbstractTestNGSpringContext
     @Test
     public void getValidRaceParticipationTest() throws Exception {
         //Given
-        List<RaceParticipationDTO> raceParticipation = this.createRaceParticipation();
+        List<RaceParticipationDTO> raceParticipation = createRaceParticipationDTO();
         doReturn(raceParticipation.get(0)).when(raceParticipationFacade).findById(1l);
         doReturn(raceParticipation.get(1)).when(raceParticipationFacade).findById(2l);
 
@@ -72,7 +73,6 @@ public class RaceParticipationControllerTest extends AbstractTestNGSpringContext
     @Test
     public void getInvalidRaceParticipationTest() throws Exception {
         //Given
-        List<RaceParticipationDTO> raceParticipation = this.createRaceParticipation();
         when(raceParticipationFacade.findById(1)).thenThrow(EntityNotFoundException.class);
 
         //Then
@@ -82,7 +82,7 @@ public class RaceParticipationControllerTest extends AbstractTestNGSpringContext
     @Test
     public void getRaceParticipation() throws Exception {
         //Given
-        doReturn(Collections.unmodifiableList(this.createRaceParticipation())).when(raceParticipationFacade).getAll();
+        doReturn(Collections.unmodifiableList(this.createUpdateRaceParticipationDTO())).when(raceParticipationFacade).getAll();
 
         //Then
         mockMvc.perform(get("/race-participation/")).andExpect(status().isOk())
@@ -111,9 +111,10 @@ public class RaceParticipationControllerTest extends AbstractTestNGSpringContext
     @Test
     public void addRaceParticipation_returnsOk() throws Exception {
         //Given
-        List<RaceParticipationDTO> raceParticipation = createRaceParticipation();
+        RaceParticipationDTO raceParticipationDTO = new RaceParticipationDTO();
+        List<SaveRaceParticipationDTO> raceParticipation = createUpdateRaceParticipationDTO();
         when(raceParticipationFacade.add(raceParticipation.get(0))).thenReturn(raceParticipation.get(0).getId());
-        when(raceParticipationFacade.findById(raceParticipation.get(0).getId())).thenReturn(raceParticipation.get(0));
+        when(raceParticipationFacade.findById(raceParticipation.get(0).getId())).thenReturn(raceParticipationDTO);
         String json = convertToString(raceParticipation.get(0));
 
         //Then
@@ -122,13 +123,13 @@ public class RaceParticipationControllerTest extends AbstractTestNGSpringContext
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .content(json))
                 .andExpect(status().isOk())
-                .andExpect(content().json(convertToString(raceParticipation.get(0))));
+                .andExpect(content().json(convertToString(raceParticipationDTO)));
     }
 
     @Test
     public void addRaceParticipation_returnsException() throws Exception {
         //Given
-        RaceParticipationDTO raceParticipationDTO = new RaceParticipationDTO();
+        SaveRaceParticipationDTO raceParticipationDTO = new SaveRaceParticipationDTO();
         raceParticipationDTO.setId(-1);
         when(raceParticipationFacade.add(raceParticipationDTO)).thenThrow(FormulaOneTeamException.class);
         String json = convertToString(raceParticipationDTO);
@@ -144,7 +145,7 @@ public class RaceParticipationControllerTest extends AbstractTestNGSpringContext
     @Test
     public void updateRaceParticipation_returnsException() throws Exception {
         //Given
-        RaceParticipationDTO raceParticipationDTO = new RaceParticipationDTO();
+        SaveRaceParticipationDTO raceParticipationDTO = new SaveRaceParticipationDTO();
         raceParticipationDTO.setId(0);
         String json = convertToString(raceParticipationDTO);
         doThrow(FormulaOneTeamException.class).when(raceParticipationFacade).update(raceParticipationDTO, 0);
@@ -156,7 +157,19 @@ public class RaceParticipationControllerTest extends AbstractTestNGSpringContext
                 .andExpect(status().isUnprocessableEntity());
     }
 
-    private List<RaceParticipationDTO> createRaceParticipation() {
+    private List<SaveRaceParticipationDTO> createUpdateRaceParticipationDTO() {
+        SaveRaceParticipationDTO raceParticipationOne = new SaveRaceParticipationDTO();
+        raceParticipationOne.setId(1l);
+        raceParticipationOne.setResultPosition(4);
+
+        SaveRaceParticipationDTO raceParticipationTwo = new SaveRaceParticipationDTO();
+        raceParticipationTwo.setId(2l);
+        raceParticipationTwo.setResultPosition(5);
+
+        return Arrays.asList(raceParticipationOne, raceParticipationTwo);
+    }
+
+    private List<RaceParticipationDTO> createRaceParticipationDTO() {
         RaceParticipationDTO raceParticipationOne = new RaceParticipationDTO();
         raceParticipationOne.setId(1l);
         raceParticipationOne.setResultPosition(4);

@@ -20,7 +20,7 @@ public class TestDrive extends BaseEntity {
     private Date date;
 
     @ManyToOne(optional = false)
-    private CarSetup car;
+    private CarSetup carSetup;
 
     @ManyToOne(optional = false)
     private Driver driver;
@@ -31,7 +31,7 @@ public class TestDrive extends BaseEntity {
 
     public TestDrive(CarSetup car, Driver driver, @NotNull String notes, @NotNull Date date) {
         this.date = date;
-        this.car = car;
+        this.carSetup = car;
         this.driver = driver;
         this.notes = notes;
     }
@@ -40,7 +40,7 @@ public class TestDrive extends BaseEntity {
     }
 
     public CarSetup getCarSetup() {
-        return car;
+        return carSetup;
     }
 
     public void setDriver(Driver driver) {
@@ -51,8 +51,8 @@ public class TestDrive extends BaseEntity {
         return driver;
     }
 
-    public void setCar(CarSetup car) {
-        this.car = car;
+    public void setCarSetup(CarSetup carSetup) {
+        this.carSetup = carSetup;
     }
 
     public Date getDate() {
@@ -81,14 +81,14 @@ public class TestDrive extends BaseEntity {
         if (!(o instanceof TestDrive)) return false;
         TestDrive testDrive = (TestDrive) o;
         return Objects.equals(getDate(), testDrive.getDate()) &&
-                Objects.equals(car, testDrive.car) &&
+                Objects.equals(carSetup, testDrive.carSetup) &&
                 Objects.equals(getDriver(), testDrive.getDriver()) &&
                 Objects.equals(getNotes(), testDrive.getNotes());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getDate(), car, getDriver(), getNotes());
+        return Objects.hash(getDate(), carSetup, getDriver(), getNotes());
     }
 
     @Override

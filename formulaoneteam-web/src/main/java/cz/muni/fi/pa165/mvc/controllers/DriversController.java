@@ -37,7 +37,7 @@ public class DriversController {
 
     @RequestMapping("/list")
     public String list(Model model) {
-        model.addAttribute("drivers", driverFacade.getAllDrivers());
+        model.addAttribute("drivers", driverFacade.getAll());
         return "drivers/list";
     }
 

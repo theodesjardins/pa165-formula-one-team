@@ -2,7 +2,8 @@ package cz.muni.fi.pa165.rest.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import cz.muni.fi.pa165.dto.TestDriveDTO;
+import cz.muni.fi.pa165.dto.testdrive.SaveTestDriveDTO;
+import cz.muni.fi.pa165.dto.testdrive.TestDriveDTO;
 import cz.muni.fi.pa165.exceptions.EntityNotFoundException;
 import cz.muni.fi.pa165.facade.TestDriveFacade;
 import cz.muni.fi.pa165.rest.RootWebContext;
@@ -114,8 +115,9 @@ public class TestDriveControllerTest extends AbstractTestNGSpringContextTests {
     @Test
     public void addTestDrive_returnsOk() throws Exception {
         //Given
-        List<TestDriveDTO> testDrive = this.createTestDrive();
-        when(testDriveFacade.add(testDrive.get(0))).thenReturn(testDrive.get(0).getId());
+        List<SaveTestDriveDTO> saveTestDrive = createSaveTestDrive();
+        List<TestDriveDTO> testDrive = createTestDrive();
+        when(testDriveFacade.add(saveTestDrive.get(0))).thenReturn(testDrive.get(0).getId());
         when(testDriveFacade.findById(testDrive.get(0).getId())).thenReturn(testDrive.get(0));
         String json = convertToString(testDrive.get(0));
 
@@ -131,7 +133,7 @@ public class TestDriveControllerTest extends AbstractTestNGSpringContextTests {
     @Test
     public void addTestDrive_returnsException() throws Exception {
         //Given
-        TestDriveDTO testDriveDTO = new TestDriveDTO();
+        SaveTestDriveDTO testDriveDTO = new SaveTestDriveDTO();
         testDriveDTO.setId(-1);
         when(testDriveFacade.add(testDriveDTO)).thenThrow(FormulaOneTeamException.class);
         String json = convertToString(testDriveDTO);
@@ -147,7 +149,7 @@ public class TestDriveControllerTest extends AbstractTestNGSpringContextTests {
     @Test
     public void updateTestDrive_returnsException() throws Exception {
         //Given
-        TestDriveDTO testDriveDTO = new TestDriveDTO();
+        SaveTestDriveDTO testDriveDTO = new SaveTestDriveDTO();
         testDriveDTO.setId(0);
         String json = convertToString(testDriveDTO);
         doThrow(FormulaOneTeamException.class).when(testDriveFacade).update(testDriveDTO, 0);
@@ -165,6 +167,18 @@ public class TestDriveControllerTest extends AbstractTestNGSpringContextTests {
         testDriveOne.setNotes("notes1");
 
         TestDriveDTO testDriveTwo = new TestDriveDTO();
+        testDriveTwo.setId(2l);
+        testDriveTwo.setNotes("notes2");
+
+        return Arrays.asList(testDriveOne, testDriveTwo);
+    }
+
+    private List<SaveTestDriveDTO> createSaveTestDrive() {
+        SaveTestDriveDTO testDriveOne = new SaveTestDriveDTO();
+        testDriveOne.setId(1l);
+        testDriveOne.setNotes("notes1");
+
+        SaveTestDriveDTO testDriveTwo = new SaveTestDriveDTO();
         testDriveTwo.setId(2l);
         testDriveTwo.setNotes("notes2");
 

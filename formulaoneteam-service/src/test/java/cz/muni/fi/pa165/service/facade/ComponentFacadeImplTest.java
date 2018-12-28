@@ -14,6 +14,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,7 +30,7 @@ import static org.testng.AssertJUnit.*;
 public class ComponentFacadeImplTest extends BaseFacadeTest<Component, ComponentDTO> {
 
     @Mock
-    private ComponentService componentService;
+    private ComponentService service;
 
     @Mock
     private ComponentParameterService componentParameterService;
@@ -43,6 +44,7 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
     @Override
     public void setUp() {
         super.setUp();
+        ReflectionTestUtils.setField(componentFacade, "service", service);
 
         when(beanMappingServiceMock.mapTo(dto, Component.class)).thenReturn(entity);
     }
@@ -50,7 +52,7 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
     @Test
     public void findComponentById() {
         //Given
-        when(componentService.findById(entity.getId())).thenReturn(entity);
+        when(service.findById(entity.getId())).thenReturn(entity);
         when(beanMappingServiceMock.mapTo(entity, ComponentDTO.class)).thenReturn(dto);
 
         //When
@@ -67,7 +69,7 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
         componentFacade.remove(dto.getId());
 
         //then
-        verify(componentService, times(1)).remove(entity.getId());
+        verify(service, times(1)).remove(entity.getId());
     }
 
     @Test(expected = FormulaOneTeamException.class)
@@ -76,7 +78,7 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
         final CarSetup carSetupMock = mock(CarSetup.class);
         when(carSetupMock.getComponents()).thenReturn(Collections.singletonList(entity));
         when(carSetupService.getAll()).thenReturn(Collections.singletonList(carSetupMock));
-        when(componentService.findById(entity.getId())).thenReturn(entity);
+        when(service.findById(entity.getId())).thenReturn(entity);
 
         //when
         componentFacade.remove(dto.getId());
@@ -91,18 +93,18 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
         componentFacade.update(dto, 1);
 
         //then
-        verify(componentService, times(1)).update(entity);
+        verify(service, times(1)).update(entity);
     }
 
     @Test
     public void addComponentTest() {
         //when
-        when(componentService.add(entity)).thenReturn(entity);
+        when(service.add(entity)).thenReturn(entity);
 
         componentFacade.add(dto);
 
         //then
-        verify(componentService, times(1)).add(entity);
+        verify(service, times(1)).add(entity);
     }
 
     @Test
@@ -111,7 +113,7 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
         //Given
         List<Component> listComponent = new ArrayList<>();
         listComponent.add(entity);
-        when(componentService.getAll()).thenReturn(listComponent);
+        when(service.getAll()).thenReturn(listComponent);
         List<ComponentDTO> listDTOComponent = new ArrayList<>();
         listDTOComponent.add(dto);
         when(beanMappingServiceMock.mapTo(listComponent, ComponentDTO.class)).thenReturn(listDTOComponent);
@@ -120,7 +122,7 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
         List<ComponentDTO> resListComponentDTO = new ArrayList<>(componentFacade.getAll());
 
         //Then
-        verify(componentService).getAll();
+        verify(service).getAll();
         assertEquals(resListComponentDTO.size(), 1);
         Assert.assertTrue(resListComponentDTO.contains(dto));
     }
@@ -132,14 +134,14 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
         ComponentParameterDTO componentParameterDTO = createComponentParameterDTO();
         when(beanMappingServiceMock.mapTo(componentParameterDTO, ComponentParameter.class)).thenReturn(componentParameter);
         when(componentParameterService.add(componentParameter)).thenReturn(componentParameter);
-        when(componentService.findById(entity.getId())).thenReturn(entity);
+        when(service.findById(entity.getId())).thenReturn(entity);
 
         //When
         componentFacade.addParameter(entity.getId(), componentParameterDTO);
 
         //Then
         verify(componentParameterService).add(componentParameter);
-        verify(componentService).update(entity);
+        verify(service).update(entity);
         assertTrue(entity.getParameters().size() > 0);
     }
 
@@ -151,7 +153,7 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
         when(beanMappingServiceMock.mapTo(componentParameterDTO, ComponentParameter.class)).thenReturn(componentParameter);
         when(componentParameterService.add(componentParameter)).thenReturn(componentParameter);
         entity.addParameter(componentParameter);
-        when(componentService.findById(entity.getId())).thenReturn(entity);
+        when(service.findById(entity.getId())).thenReturn(entity);
 
         //When
         componentFacade.addParameter(entity.getId(), componentParameterDTO);
@@ -167,14 +169,14 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
         ComponentParameterDTO componentParameterDTO = createComponentParameterDTO();
         entity.addParameter(componentParameter);
         when(componentParameterService.findById(componentParameterDTO.getId())).thenReturn(componentParameter);
-        when(componentService.findById(entity.getId())).thenReturn(entity);
+        when(service.findById(entity.getId())).thenReturn(entity);
 
         //When
         componentFacade.removeParameter(entity.getId(), componentParameterDTO.getId());
 
         //Then
         verify(componentParameterService).remove(componentParameterDTO.getId());
-        verify(componentService).update(entity);
+        verify(service).update(entity);
         assertEquals(0, entity.getParameters().size());
     }
 

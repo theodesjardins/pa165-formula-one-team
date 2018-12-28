@@ -1,10 +1,11 @@
-package cz.muni.fi.pa165.dto;
+package cz.muni.fi.pa165.dto.testdrive;
 
 import cz.muni.fi.pa165.dto.base.BaseDTO;
 import cz.muni.fi.pa165.dto.carsetup.CarSetupDTO;
-import cz.muni.fi.pa165.dto.driver.DriverDTO;
+import cz.muni.fi.pa165.dto.driver.SimpleDriverDTO;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author Adel Chakouri
@@ -12,7 +13,7 @@ import java.util.Date;
 public class TestDriveDTO extends BaseDTO {
 
     private CarSetupDTO carSetup;
-    private DriverDTO driver;
+    private SimpleDriverDTO driver;
     private String notes;
     private Date date;
 
@@ -32,11 +33,11 @@ public class TestDriveDTO extends BaseDTO {
         this.carSetup = car;
     }
 
-    public DriverDTO getDriver() {
+    public SimpleDriverDTO getDriver() {
         return driver;
     }
 
-    public void setDriver(DriverDTO driver) {
+    public void setDriver(SimpleDriverDTO driver) {
         this.driver = driver;
     }
 
@@ -55,10 +56,10 @@ public class TestDriveDTO extends BaseDTO {
 
         TestDriveDTO that = (TestDriveDTO) o;
 
-        if (carSetup != null ? !carSetup.equals(that.carSetup) : that.carSetup != null) return false;
-        if (driver != null ? !driver.equals(that.driver) : that.driver != null) return false;
-        if (notes != null ? !notes.equals(that.notes) : that.notes != null) return false;
-        return date != null ? date.equals(that.date) : that.date == null;
+        return Objects.equals(date, that.date)
+                && Objects.equals(carSetup, that.carSetup)
+                && Objects.equals(driver, that.driver)
+                && Objects.equals(notes, that.notes);
     }
 
     @Override

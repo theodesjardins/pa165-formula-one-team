@@ -5,7 +5,7 @@ import cz.muni.fi.pa165.dto.ComponentParameterDTO;
 import cz.muni.fi.pa165.entity.Component;
 import cz.muni.fi.pa165.facade.ComponentFacade;
 import cz.muni.fi.pa165.rest.ApiUris;
-import cz.muni.fi.pa165.rest.controllers.base.BaseEntityController;
+import cz.muni.fi.pa165.rest.controllers.base.EntityController;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping(ApiUris.ROOT_URI_COMPONENT)
-public class ComponentController extends BaseEntityController<ComponentFacade, ComponentDTO, Component> {
+class ComponentController extends EntityController<ComponentFacade, ComponentDTO, ComponentDTO, Component> {
 
     @RequestMapping(value = "/parameters/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ComponentDTO> addParameter(@PathVariable long id, @RequestBody ComponentParameterDTO parameter) {

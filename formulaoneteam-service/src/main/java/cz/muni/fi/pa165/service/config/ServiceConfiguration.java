@@ -9,11 +9,12 @@ import cz.muni.fi.pa165.service.ManagerServiceImpl;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
-import org.dozer.loader.api.TypeMappingOptions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+
+import static org.dozer.loader.api.TypeMappingOptions.oneWay;
 
 /**
  * @author elderanakain (Arcadii Rubailo)
@@ -30,8 +31,8 @@ public class ServiceConfiguration {
                 new BeanMappingBuilder() {
                     @Override
                     protected void configure() {
-                        mapping(BaseDTO.class, BaseEntity.class, TypeMappingOptions.oneWay()).exclude("id");
-                        mapping(User.class, UserDTO.class, TypeMappingOptions.oneWay()).exclude("password");
+                        mapping(BaseDTO.class, BaseEntity.class, oneWay()).exclude("id");
+                        mapping(User.class, UserDTO.class, oneWay()).exclude("password");
                     }
                 }
         );

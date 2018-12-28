@@ -19,11 +19,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class CarControllerTests extends BaseControllerTests<CarController> {
-    @InjectMocks
-    private CarController controller;
 
     @Mock
     private CarSetupFacade facade;
+
+    @InjectMocks
+    private CarController controller;
 
     @Test
     public void getCars_whenCarsPresent_carsReturned() throws Exception {

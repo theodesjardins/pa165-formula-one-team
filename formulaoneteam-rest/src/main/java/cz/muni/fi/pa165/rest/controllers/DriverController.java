@@ -13,5 +13,5 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(ApiUris.ROOT_URI_DRIVER)
-public class DriverController extends BaseUserController<DriverFacade, DriverDTO, Driver> {
+class DriverController extends BaseUserController<DriverFacade, DriverDTO, Driver> {
 }

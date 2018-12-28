@@ -6,6 +6,8 @@ import cz.muni.fi.pa165.dto.*;
 import cz.muni.fi.pa165.dto.carsetup.CarSetupDTO;
 import cz.muni.fi.pa165.dto.driver.DriverDTO;
 import cz.muni.fi.pa165.dto.race.RaceDTO;
+import cz.muni.fi.pa165.dto.testdrive.SaveTestDriveDTO;
+import cz.muni.fi.pa165.dto.testdrive.TestDriveDTO;
 import cz.muni.fi.pa165.enums.ComponentType;
 import cz.muni.fi.pa165.enums.DriverStatus;
 import org.junit.Before;
@@ -109,14 +111,14 @@ public abstract class BaseControllerTests<Controller> {
         return testDriveDTO;
     }
 
-    protected RaceParticipationDTO createRaceParticipationDTO() {
-        RaceParticipationDTO raceParticipationDTO = new RaceParticipationDTO();
-        raceParticipationDTO.setId(1);
-        raceParticipationDTO.setCarSetup(createCarSetupDTO());
-        raceParticipationDTO.setDriver(createDriverDTO());
-        raceParticipationDTO.setRace(createRaceDTO());
-        raceParticipationDTO.setResultPosition(1);
-        return raceParticipationDTO;
+    protected SaveTestDriveDTO createSaveTestDriveDTO() {
+        SaveTestDriveDTO testDriveDTO = new SaveTestDriveDTO();
+        testDriveDTO.setId(22);
+        testDriveDTO.setCarSetupId(createCarSetupDTO().getId());
+        testDriveDTO.setDate(new Date());
+        testDriveDTO.setDriverId(createDriverDTO().getId());
+        testDriveDTO.setNotes("notes");
+        return testDriveDTO;
     }
 
     protected EngineerDTO createEngineerDTO() {

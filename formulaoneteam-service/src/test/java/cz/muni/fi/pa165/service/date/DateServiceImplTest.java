@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.service.date;
 
 import cz.muni.fi.pa165.service.base.BaseTest;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 
@@ -53,7 +52,6 @@ public class DateServiceImplTest extends BaseTest {
         assertEquals(mockDate(), date);
     }
 
-    @Ignore
     @Test
     public void whenGetCurrentTime_returnsCurrentTime() {
         //given

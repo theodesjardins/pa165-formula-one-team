@@ -16,8 +16,6 @@ public interface DriverFacade extends BaseUserFacade<DriverDTO, Driver> {
 
     void updateDriver(DriverDTO driver);
 
-    List<DriverDTO> getAllDrivers();
-
     List<DriverDTO> getAllDriversByStatus(DriverStatus status);
 
     DriverDTO findDriverWithHighestCharacteristicsValue(CharacteristicsType characteristicsType);

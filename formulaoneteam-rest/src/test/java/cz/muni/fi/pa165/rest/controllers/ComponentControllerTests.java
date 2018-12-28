@@ -19,11 +19,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class ComponentControllerTests extends BaseControllerTests<ComponentController> {
-    @InjectMocks
-    private ComponentController controller;
 
     @Mock
     private ComponentFacade facade;
+
+    @InjectMocks
+    private ComponentController controller;
 
     @Test
     public void getComponents_whenComponentsPresent_componentsReturned() throws Exception {

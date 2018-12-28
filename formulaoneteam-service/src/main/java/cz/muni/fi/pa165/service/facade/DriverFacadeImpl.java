@@ -8,11 +8,13 @@ import cz.muni.fi.pa165.entity.Driver;
 import cz.muni.fi.pa165.enums.CharacteristicsType;
 import cz.muni.fi.pa165.enums.DriverStatus;
 import cz.muni.fi.pa165.facade.DriverFacade;
+import cz.muni.fi.pa165.service.CharacteristicsValueService;
 import cz.muni.fi.pa165.service.DriverService;
 import cz.muni.fi.pa165.service.facade.base.BaseUserFacadeImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,9 @@ import java.util.List;
 public class DriverFacadeImpl
         extends BaseUserFacadeImpl<DriverDTO, Driver, DriverService>
         implements DriverFacade {
+
+    @Inject
+    protected CharacteristicsValueService characteristicsValueService;
 
     @Override
     public void register(DriverDTO driver, String unencryptedPassword) {
@@ -49,12 +54,6 @@ public class DriverFacadeImpl
             characteristicsValueService.update(valueEntity);
         }
         service.update(driverEntity);
-    }
-
-    @Override
-    public List<DriverDTO> getAllDrivers() {
-        List<Driver> allDriverEntities = service.getAll();
-        return beanMappingService.mapTo(allDriverEntities, DriverDTO.class);
     }
 
     @Override

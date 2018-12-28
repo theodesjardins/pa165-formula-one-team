@@ -1,9 +1,16 @@
 package cz.muni.fi.pa165.service.base;
 
-import cz.muni.fi.pa165.dto.*;
+import cz.muni.fi.pa165.dto.ComponentDTO;
+import cz.muni.fi.pa165.dto.ComponentParameterDTO;
+import cz.muni.fi.pa165.dto.EngineerDTO;
 import cz.muni.fi.pa165.dto.carsetup.CarSetupDTO;
 import cz.muni.fi.pa165.dto.driver.DriverDTO;
+import cz.muni.fi.pa165.dto.driver.SimpleDriverDTO;
 import cz.muni.fi.pa165.dto.race.RaceDTO;
+import cz.muni.fi.pa165.dto.raceparticipation.RaceParticipationDTO;
+import cz.muni.fi.pa165.dto.raceparticipation.SaveRaceParticipationDTO;
+import cz.muni.fi.pa165.dto.testdrive.SaveTestDriveDTO;
+import cz.muni.fi.pa165.dto.testdrive.TestDriveDTO;
 import cz.muni.fi.pa165.entity.*;
 import cz.muni.fi.pa165.enums.CharacteristicsType;
 import cz.muni.fi.pa165.enums.ComponentType;
@@ -30,7 +37,6 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
 
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
-
 
     protected Date createDate(int day, int month, int year) {
         Calendar calendar = Calendar.getInstance();
@@ -104,6 +110,19 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
         return driverDetailDTO;
     }
 
+    protected SimpleDriverDTO createSimpleDriverDTO() {
+        SimpleDriverDTO driverDetailDTO = new SimpleDriverDTO();
+        driverDetailDTO.setId(22);
+        driverDetailDTO.setName("John");
+        driverDetailDTO.setSurname("Doe");
+        driverDetailDTO.setEmail("John@doe.com");
+        driverDetailDTO.setNationality("American");
+        driverDetailDTO.setBirthday(createDate(2, 9, 1989));
+        driverDetailDTO.setCharacteristics(new ArrayList<>());
+        driverDetailDTO.setDriverStatus(DriverStatus.MAIN);
+        return driverDetailDTO;
+    }
+
     protected ComponentDTO createComponentDTO() {
         return createComponentDTO(ComponentType.ENGINE);
     }
@@ -147,12 +166,32 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
         return testDriveDTO;
     }
 
+    protected SaveTestDriveDTO createSaveTestDriveDTO() {
+        SaveTestDriveDTO dto = new SaveTestDriveDTO();
+        dto.setId(22);
+        dto.setCarSetupId(createCarSetupDTO().getId());
+        dto.setDate(new Date());
+        dto.setDriverId(createDriverDTO().getId());
+        dto.setNotes("notes");
+        return dto;
+    }
+
     protected RaceParticipationDTO createRaceParticipationDTO() {
         RaceParticipationDTO raceParticipationDTO = new RaceParticipationDTO();
         raceParticipationDTO.setId(1);
         raceParticipationDTO.setCarSetup(createCarSetupDTO());
-        raceParticipationDTO.setDriver(createDriverDTO());
+        raceParticipationDTO.setDriver(createSimpleDriverDTO());
         raceParticipationDTO.setRace(createRaceDTO());
+        raceParticipationDTO.setResultPosition(1);
+        return raceParticipationDTO;
+    }
+
+    protected SaveRaceParticipationDTO createUpdateRaceParticipationDTO() {
+        SaveRaceParticipationDTO raceParticipationDTO = new SaveRaceParticipationDTO();
+        raceParticipationDTO.setId(1);
+        raceParticipationDTO.setCarSetupId(createCarSetupDTO().getId());
+        raceParticipationDTO.setDriverId(createDriverDTO().getId());
+        raceParticipationDTO.setRaceId(createRaceDTO().getId());
         raceParticipationDTO.setResultPosition(1);
         return raceParticipationDTO;
     }

@@ -9,5 +9,4 @@ import cz.muni.fi.pa165.facade.base.BaseUserFacade;
  * @author Ivan Dendis
  */
 public interface EngineerFacade extends BaseUserFacade<EngineerDTO, Engineer> {
-
 }

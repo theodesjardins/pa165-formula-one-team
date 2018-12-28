@@ -13,5 +13,5 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(ApiUris.ROOT_URI_MANAGER)
-public class ManagerController extends BaseUserController<ManagerFacade, ManagerDTO, Manager> {
+class ManagerController extends BaseUserController<ManagerFacade, ManagerDTO, Manager> {
 }

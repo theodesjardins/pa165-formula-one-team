@@ -40,8 +40,6 @@ public abstract class DaoImpl<T extends BaseEntity> implements Dao<T> {
     public void update(T entity) {
         T managed = findById(entity.getId());
 
-        entityManager.detach(managed);
-
         BeanUtils.copyProperties(entity, managed);
 
         entityManager.merge(managed);

@@ -1,9 +1,11 @@
-package cz.muni.fi.pa165.dto;
+package cz.muni.fi.pa165.dto.raceparticipation;
 
 import cz.muni.fi.pa165.dto.base.BaseDTO;
 import cz.muni.fi.pa165.dto.carsetup.CarSetupDTO;
-import cz.muni.fi.pa165.dto.driver.DriverDTO;
+import cz.muni.fi.pa165.dto.driver.SimpleDriverDTO;
 import cz.muni.fi.pa165.dto.race.RaceDTO;
+
+import java.util.Objects;
 
 /**
  * @author Adel Chakouri
@@ -11,7 +13,7 @@ import cz.muni.fi.pa165.dto.race.RaceDTO;
 public class RaceParticipationDTO extends BaseDTO {
 
     private CarSetupDTO carSetup;
-    private DriverDTO driver;
+    private SimpleDriverDTO driver;
     private RaceDTO race;
     private int resultPosition;
 
@@ -23,11 +25,11 @@ public class RaceParticipationDTO extends BaseDTO {
         this.carSetup = car;
     }
 
-    public DriverDTO getDriver() {
+    public SimpleDriverDTO getDriver() {
         return driver;
     }
 
-    public void setDriver(DriverDTO driver) {
+    public void setDriver(SimpleDriverDTO driver) {
         this.driver = driver;
     }
 
@@ -55,9 +57,9 @@ public class RaceParticipationDTO extends BaseDTO {
         RaceParticipationDTO that = (RaceParticipationDTO) o;
 
         if (resultPosition != that.resultPosition) return false;
-        if (carSetup != null ? !carSetup.equals(that.carSetup) : that.carSetup != null) return false;
-        if (driver != null ? !driver.equals(that.driver) : that.driver != null) return false;
-        return race != null ? race.equals(that.race) : that.race == null;
+        if (!Objects.equals(carSetup, that.carSetup)) return false;
+        if (!Objects.equals(driver, that.driver)) return false;
+        return Objects.equals(race, that.race);
     }
 
     @Override

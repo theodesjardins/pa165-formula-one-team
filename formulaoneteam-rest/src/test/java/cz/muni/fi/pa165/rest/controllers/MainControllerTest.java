@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class MainControllerTest extends BaseControllerTests<MainController> {
 
     @InjectMocks
-    MainController controller;
+    private MainController controller;
 
     @Test
     public void onGetRequest_statusIsOk() throws Exception {

@@ -1,8 +1,9 @@
 package cz.muni.fi.pa165.service.facade;
 
-import cz.muni.fi.pa165.dto.TestDriveDTO;
 import cz.muni.fi.pa165.dto.carsetup.CarSetupDTO;
 import cz.muni.fi.pa165.dto.driver.DriverDTO;
+import cz.muni.fi.pa165.dto.testdrive.SaveTestDriveDTO;
+import cz.muni.fi.pa165.dto.testdrive.TestDriveDTO;
 import cz.muni.fi.pa165.entity.CarSetup;
 import cz.muni.fi.pa165.entity.Driver;
 import cz.muni.fi.pa165.entity.TestDrive;
@@ -24,7 +25,7 @@ import java.util.Map;
 @Service
 @Transactional
 public class TestDriveFacadeImpl
-        extends BaseEntityFacadeImpl<TestDriveDTO, TestDrive, TestDriveService>
+        extends BaseEntityFacadeImpl<TestDriveDTO, SaveTestDriveDTO, TestDrive, TestDriveService>
         implements TestDriveFacade {
 
     @Inject
@@ -32,6 +33,21 @@ public class TestDriveFacadeImpl
 
     @Inject
     private CarSetupService carSetupService;
+
+    @Override
+    public long add(SaveTestDriveDTO dto) {
+        TestDrive testDrive = mapDtoToEntity(dto);
+
+        return service.add(testDrive).getId();
+    }
+
+    @Override
+    public void update(SaveTestDriveDTO dto, long id) {
+        TestDrive testDrive = mapDtoToEntity(dto);
+        testDrive.setId(id);
+
+        service.update(testDrive);
+    }
 
     @Override
     public Map<CarSetupDTO, List<String>> getNotesForDriver(DriverDTO driverDto) {
@@ -59,5 +75,14 @@ public class TestDriveFacadeImpl
     @Override
     protected Class<TestDrive> getEntityClass() {
         return TestDrive.class;
+    }
+
+    private TestDrive mapDtoToEntity(SaveTestDriveDTO driveDTO) {
+        return new TestDrive(
+                carSetupService.findById(driveDTO.getCarSetupId()),
+                driverService.findById(driveDTO.getDriverId()),
+                driveDTO.getNotes(),
+                driveDTO.getDate()
+        );
     }
 }

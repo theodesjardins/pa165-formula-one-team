@@ -5,11 +5,15 @@ import cz.muni.fi.pa165.dto.ComponentParameterDTO;
 import cz.muni.fi.pa165.entity.Component;
 import cz.muni.fi.pa165.entity.ComponentParameter;
 import cz.muni.fi.pa165.facade.ComponentFacade;
+import cz.muni.fi.pa165.service.CarSetupService;
+import cz.muni.fi.pa165.service.ComponentParameterService;
 import cz.muni.fi.pa165.service.ComponentService;
 import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
-import cz.muni.fi.pa165.service.facade.base.BaseEntityFacadeImpl;
+import cz.muni.fi.pa165.service.facade.base.EntityFacadeImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.inject.Inject;
 
 /**
  * @author Théo Desjardins
@@ -17,8 +21,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class ComponentFacadeImpl
-        extends BaseEntityFacadeImpl<ComponentDTO, Component, ComponentService>
+        extends EntityFacadeImpl<ComponentDTO, Component, ComponentService>
         implements ComponentFacade {
+
+    @Inject
+    protected CarSetupService carSetupService;
+
+    @Inject
+    protected ComponentParameterService componentParameterService;
 
     @Override
     public void remove(long id) {

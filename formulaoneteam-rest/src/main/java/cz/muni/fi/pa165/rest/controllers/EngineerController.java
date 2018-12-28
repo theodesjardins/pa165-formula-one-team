@@ -13,5 +13,5 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(ApiUris.ROOT_URI_ENGINEER)
-public class EngineerController extends BaseUserController<EngineerFacade, EngineerDTO, Engineer> {
+class EngineerController extends BaseUserController<EngineerFacade, EngineerDTO, Engineer> {
 }

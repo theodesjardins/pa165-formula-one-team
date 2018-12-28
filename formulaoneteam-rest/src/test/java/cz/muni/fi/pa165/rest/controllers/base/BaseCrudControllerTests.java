@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.rest.controllers.base;
 
 import cz.muni.fi.pa165.exceptions.EntityNotFoundException;
-import cz.muni.fi.pa165.facade.base.BaseEntityFacade;
+import cz.muni.fi.pa165.facade.base.SimpleEntityFacade;
 import cz.muni.fi.pa165.rest.controllers.BaseControllerTests;
 import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
 import org.junit.Test;
@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class BaseCrudControllerTests extends BaseControllerTests<TestController> {
 
     @Mock
-    private BaseEntityFacade<TestDTO, TestEntity> testFacade;
+    private SimpleEntityFacade<TestDTO, TestEntity> testFacade;
 
     @InjectMocks
     private TestController controller;
@@ -155,9 +155,9 @@ public class BaseCrudControllerTests extends BaseControllerTests<TestController>
         //Given
         TestDTO noIdDTO = createTestDto(-1, null);
         String dtoString = convertToJson(noIdDTO);
-        when(testFacade.add(noIdDTO)).thenThrow(FormulaOneTeamException.class);
 
         //When
+        when(testFacade.add(noIdDTO)).thenThrow(FormulaOneTeamException.class);
 
         //Then
         mockMvc.perform(post("/")

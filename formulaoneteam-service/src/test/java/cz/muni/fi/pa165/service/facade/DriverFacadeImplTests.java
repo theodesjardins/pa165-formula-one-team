@@ -7,19 +7,20 @@ import cz.muni.fi.pa165.entity.CharacteristicsValue;
 import cz.muni.fi.pa165.entity.Driver;
 import cz.muni.fi.pa165.enums.CharacteristicsType;
 import cz.muni.fi.pa165.enums.DriverStatus;
-import cz.muni.fi.pa165.service.CharacteristicsValueService;
-import cz.muni.fi.pa165.service.DriverService;
+import cz.muni.fi.pa165.service.*;
 import cz.muni.fi.pa165.service.base.BaseFacadeTest;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static cz.muni.fi.pa165.enums.CharacteristicsType.AGGRESSIVITY;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 
@@ -29,13 +30,26 @@ import static org.testng.AssertJUnit.assertTrue;
 public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDTO> {
 
     @Mock
-    private DriverService driverServiceMock;
+    protected CarSetupService carSetupService;
 
     @Mock
-    private CharacteristicsValueService characteristicsValueServiceMock;
+    protected RaceService raceService;
+
+    @Mock
+    protected DriverService service;
+
+    @Mock
+    protected CharacteristicsValueService characteristicsValueService;
 
     @InjectMocks
     private DriverFacadeImpl driverFacade;
+
+    @Override
+    public void setUp() {
+        super.setUp();
+
+        ReflectionTestUtils.setField(driverFacade, "service", service);
+    }
 
     @Test
     public void registerDriver_withValidData_addsDefaultCharacteristics() {
@@ -47,7 +61,7 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDTO> {
         driverFacade.register(dto, "password");
 
         //Then
-        verify(driverServiceMock, times(1)).register(driverEntity, "password");
+        verify(service).register(driverEntity, "password");
         assertEquals(1, driverEntity.getCharacteristics().size());
     }
 
@@ -65,8 +79,8 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDTO> {
         driverFacade.register(dto, "password");
 
         //Then
-        verify(driverServiceMock, times(1)).register(driverEntity, "password");
-        verify(characteristicsValueServiceMock, times(1)).add(characteristicsValueEntity);
+        verify(service).register(driverEntity, "password");
+        verify(characteristicsValueService).add(characteristicsValueEntity);
     }
 
     @Test
@@ -74,7 +88,7 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDTO> {
         //Given
         String password = "secret";
         when(beanMappingServiceMock.mapTo(dto, Driver.class)).thenReturn(entity);
-        when(driverServiceMock.authenticate(dto.getEmail(), password)).thenReturn(true);
+        when(service.authenticate(dto.getEmail(), password)).thenReturn(true);
 
         AuthenticateDTO authenticateDTO = new AuthenticateDTO();
         authenticateDTO.setEmail(dto.getEmail());
@@ -85,14 +99,14 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDTO> {
 
         //Then
         assertTrue(result);
-        verify(driverServiceMock, times(1)).authenticate(dto.getEmail(), password);
+        verify(service).authenticate(dto.getEmail(), password);
     }
 
     @Test
     public void findDriverById_withExistingDriver_returnsItsDetail() {
         //Given
         when(beanMappingServiceMock.mapTo(entity, DriverDTO.class)).thenReturn(dto);
-        when(driverServiceMock.findById(dto.getId())).thenReturn(entity);
+        when(service.findById(dto.getId())).thenReturn(entity);
 
         //When
         DriverDTO foundDriver = driverFacade.findById(dto.getId());
@@ -105,7 +119,7 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDTO> {
     public void findDriverByEmail_withExistingDriver_returnsItsDetail() {
         //Given
         when(beanMappingServiceMock.mapTo(entity, DriverDTO.class)).thenReturn(dto);
-        when(driverServiceMock.findByEmail(dto.getEmail())).thenReturn(entity);
+        when(service.findByEmail(dto.getEmail())).thenReturn(entity);
 
         //When
         DriverDTO foundDriver = driverFacade.findByEmail(dto.getEmail());
@@ -124,10 +138,10 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDTO> {
         List<Driver> entitiesCollection = Arrays.asList(johnDoeEntity, janeDoeEntity);
         List<DriverDTO> dtosCollection = Arrays.asList(johnDoe, janeDoe);
         when(beanMappingServiceMock.mapTo(entitiesCollection, DriverDTO.class)).thenReturn(dtosCollection);
-        when(driverServiceMock.getAll()).thenReturn(entitiesCollection);
+        when(service.getAll()).thenReturn(entitiesCollection);
 
         //When
-        List<DriverDTO> allDrivers = driverFacade.getAllDrivers();
+        List<DriverDTO> allDrivers = driverFacade.getAll();
 
         //Then
         assertEquals(allDrivers, dtosCollection);
@@ -143,7 +157,7 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDTO> {
         List<Driver> entitiesCollection = Arrays.asList(johnDoeEntity, janeDoeEntity);
         List<DriverDTO> dtosCollection = Arrays.asList(johnDoe, janeDoe);
         when(beanMappingServiceMock.mapTo(entitiesCollection, DriverDTO.class)).thenReturn(dtosCollection);
-        when(driverServiceMock.getAllDriversByStatus(DriverStatus.TEST)).thenReturn(entitiesCollection);
+        when(service.getAllDriversByStatus(DriverStatus.TEST)).thenReturn(entitiesCollection);
 
         //When
         List<DriverDTO> allDrivers = driverFacade.getAllDriversByStatus(DriverStatus.TEST);
@@ -156,7 +170,7 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDTO> {
     public void findDriverWithHighestCharacteristicsValue_withExistingDriver_returnsItsDetail() {
         //Given
         when(beanMappingServiceMock.mapTo(entity, DriverDTO.class)).thenReturn(dto);
-        when(driverServiceMock.findDriverWithHighestCharacteristicsValue(AGGRESSIVITY)).thenReturn(entity);
+        when(service.findDriverWithHighestCharacteristicsValue(AGGRESSIVITY)).thenReturn(entity);
 
         //When
         DriverDTO foundDriver = driverFacade.findDriverWithHighestCharacteristicsValue(AGGRESSIVITY);
@@ -169,7 +183,7 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDTO> {
     public void updateCharacteristicsValue_withValidDate_updatesCharacteristics() {
         //Given
         when(beanMappingServiceMock.mapTo(dto, Driver.class)).thenReturn(entity);
-        when(driverServiceMock.findById(dto.getId())).thenReturn(entity);
+        when(service.findById(dto.getId())).thenReturn(entity);
         when(beanMappingServiceMock.mapTo(entity, DriverDTO.class)).thenReturn(dto);
         CharacteristicsValueDTO characteristicsValueDTO = createCharacteristicsValueDto(dto);
         CharacteristicsValue characteristicsValue = createCharacteristicsValue();
@@ -181,7 +195,7 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDTO> {
 
         //Then
         assertEquals(dto, updatedDriverDTO);
-        verify(characteristicsValueServiceMock, times(1)).update(characteristicsValue);
+        verify(characteristicsValueService).update(characteristicsValue);
     }
 
     @Test
@@ -215,8 +229,8 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDTO> {
 
         //Then
         entity.setId(1);
-        verify(driverServiceMock).update(entity);
-        verify(characteristicsValueServiceMock).update(valueEntity);
+        verify(service).update(entity);
+        verify(characteristicsValueService).update(valueEntity);
     }
 
     @Override

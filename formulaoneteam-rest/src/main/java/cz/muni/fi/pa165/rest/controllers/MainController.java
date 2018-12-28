@@ -14,7 +14,7 @@ import java.util.Map;
  * @author mrnda (Michal Mrnuštík)
  */
 @RestController
-public class MainController {
+class MainController {
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final Map<String, String> getResources() {
