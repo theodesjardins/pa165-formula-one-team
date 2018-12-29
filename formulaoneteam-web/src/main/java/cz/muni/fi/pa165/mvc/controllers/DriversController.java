@@ -3,7 +3,6 @@ package cz.muni.fi.pa165.mvc.controllers;
 import cz.muni.fi.pa165.dto.driver.DriverDTO;
 import cz.muni.fi.pa165.enums.DriverStatus;
 import cz.muni.fi.pa165.facade.DriverFacade;
-import cz.muni.fi.pa165.mvc.config.security.AuthenticationFacade;
 import cz.muni.fi.pa165.mvc.config.security.SecurityRole;
 import cz.muni.fi.pa165.mvc.utils.Navigator;
 import cz.muni.fi.pa165.utils.DateUtils;
@@ -24,13 +23,10 @@ import javax.validation.Valid;
  */
 @Controller
 @RequestMapping("/drivers")
-public class DriversController {
+public class DriversController extends BaseController {
 
     @Inject
     private DriverFacade driverFacade;
-
-    @Inject
-    private AuthenticationFacade authenticationFacade;
 
     @RequestMapping("/list")
     public String list(Model model) {

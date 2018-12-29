@@ -5,16 +5,12 @@ import cz.muni.fi.pa165.dto.testdrive.TestDriveDTO;
 import cz.muni.fi.pa165.facade.CarSetupFacade;
 import cz.muni.fi.pa165.facade.DriverFacade;
 import cz.muni.fi.pa165.facade.TestDriveFacade;
-import cz.muni.fi.pa165.mvc.config.security.AuthenticationFacade;
 import cz.muni.fi.pa165.mvc.config.security.SecurityRole;
 import cz.muni.fi.pa165.mvc.utils.Navigator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -24,7 +20,7 @@ import javax.validation.Valid;
  */
 @Controller
 @RequestMapping("/test-drives")
-class TestDrivesController {
+class TestDrivesController extends BaseController {
 
     @Inject
     private TestDriveFacade testDriveFacade;
@@ -32,8 +28,6 @@ class TestDrivesController {
     private CarSetupFacade carSetupFacade;
     @Inject
     private DriverFacade driverFacade;
-    @Inject
-    private AuthenticationFacade authenticationFacade;
 
     @RequestMapping
     public String list(Model model) {
@@ -83,7 +77,7 @@ class TestDrivesController {
         return "redirect:/test-drives";
     }
 
-    @RequestMapping("/create")
+    @GetMapping("/create")
     public String create(Model model) {
         if (authenticationFacade.hasRole(SecurityRole.MANAGER)) {
             model.addAttribute("saveTestDrive", new SaveTestDriveDTO());
@@ -93,10 +87,5 @@ class TestDrivesController {
         } else {
             return Navigator.openForbiddenPage("Only manager can create new test drives.");
         }
-    }
-
-    private boolean userCanEdit() {
-        return authenticationFacade.isAuthenticated()
-                && (authenticationFacade.hasRole(SecurityRole.MANAGER));
     }
 }

@@ -10,6 +10,8 @@ import cz.muni.fi.pa165.service.ComponentParameterService;
 import cz.muni.fi.pa165.service.ComponentService;
 import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
 import cz.muni.fi.pa165.service.facade.base.EntityFacadeImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,11 +26,41 @@ public class ComponentFacadeImpl
         extends EntityFacadeImpl<ComponentDTO, Component, ComponentService>
         implements ComponentFacade {
 
+    private Logger logger = LoggerFactory.getLogger(ComponentFacadeImpl.class);
+
+
     @Inject
     protected CarSetupService carSetupService;
 
     @Inject
     protected ComponentParameterService componentParameterService;
+
+    @Override
+    public long add(ComponentDTO dto) {
+        Component entity = beanMappingService.mapTo(dto, Component.class);
+        if (dto.getParameters() != null) {
+            for (ComponentParameterDTO parameter : dto.getParameters()) {
+                entity.addParameter(saveComponentParameter(parameter));
+            }
+        }
+        return service.add(entity).getId();
+    }
+
+    @Override
+    public void update(ComponentDTO dto, long id) {
+        Component entity = beanMappingService.mapTo(dto, Component.class);
+        entity.setId(id);
+        if (dto.getParameters() != null) {
+            for (ComponentParameterDTO parameter : dto.getParameters()) {
+                if (parameter.getId() == 0) {
+                    entity.addParameter(saveComponentParameter(parameter));
+                } else {
+                    updateParameter(parameter.getId(), parameter);
+                }
+            }
+        }
+        service.update(entity);
+    }
 
     @Override
     public void remove(long id) {
@@ -74,5 +106,10 @@ public class ComponentFacadeImpl
         component.removeParameter(componentParameter);
         service.update(component);
         componentParameterService.remove(parameterId);
+    }
+
+    private ComponentParameter saveComponentParameter(ComponentParameterDTO dto) {
+        final ComponentParameter parameterEntity = beanMappingService.mapTo(dto, ComponentParameter.class);
+        return componentParameterService.add(parameterEntity);
     }
 }

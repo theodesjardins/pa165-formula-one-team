@@ -9,9 +9,6 @@
 <f:message var="title" key="feature.drivers"/>
 
 <my:pagetemplate title="${title}">
-<jsp:attribute name="head">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css"/>
-</jsp:attribute>
     <jsp:attribute name="body">
     <div class="container">
         <sec:authorize access="hasAuthority('ADMIN')">

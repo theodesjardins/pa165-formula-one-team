@@ -5,15 +5,53 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <f:message var="title" key="feature.components"/>
 
 <my:pagetemplate title="${title}">
-<jsp:attribute name="body">
+    <jsp:attribute name="body">
+        <div class="container">
+            <sec:authorize access="hasAuthority('ADMIN') || hasAuthority('ENGINEER')">
+                <div class="row">
+                    <my:a href="/components/create" class="btn btn-primary pull-right">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <fmt:message key="feature.components.add"/>
+                    </my:a>
+                </div>
+            </sec:authorize>
+        </div>
 
-    <div class="jumbotron">
-        <h1><c:out value="${title}"/> list</h1>
-    </div>
+        <table class="table" id="components-table">
+            <thead>
+            <tr>
+                <th><f:message key="common.name"/></th>
+                <th><f:message key="feature.components.type"/></th>
+                <th><f:message key="feature.components.parameters"/></th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${components}" var="component">
+                    <tr class="clickable-row" data-href="/components/detail/${component.id}">
+                        <td><c:out value="${component.name}"/></td>
+                        <td><c:out value="${component.type}"/></td>
+                        <td>
+                            <c:forEach items="${component.parameters}" var="parameter">
+                                <c:out value="${parameter.name}"/>
+                                <br>
+                            </c:forEach>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </jsp:attribute>
 
-</jsp:attribute>
+    <jsp:attribute name="script">
+        <script>
+            $(document).ready(function () {
+                $("#components-table").DataTable({paging: false, searching: false, info: false, order: []});
+            });
+        </script>
+    </jsp:attribute>
 </my:pagetemplate>

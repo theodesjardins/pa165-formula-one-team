@@ -22,10 +22,10 @@ public class Component extends BaseEntity {
     @Column
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<ComponentParameter> parameters = new HashSet<>();
 
-    @OneToMany(orphanRemoval = true, mappedBy = "engine")
+    @OneToMany(mappedBy = "engine")
     private Set<CarSetup> carSetups = new HashSet<>();
 
     public Component(String name, ComponentType type) {

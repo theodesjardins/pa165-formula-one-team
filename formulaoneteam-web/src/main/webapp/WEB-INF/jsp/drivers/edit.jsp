@@ -65,15 +65,15 @@
                                      itemLabel="displayName"/>
                     </div>
                     <spring:bind path="birthdayString">
-                    <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
-                        <form:label path="birthdayString">Birthday:</form:label>
-                        <span class="text-danger">
-                            <c:out value="${status.errorMessage}"/>
-                        </span>
-                        <form:input cssClass="form-control" id="datepicker" placeholder="dd/MM/yyyy"
-                                    path="birthdayString" readonly="true"/>
-                    </div>
-                </spring:bind>
+                        <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
+                            <form:label path="birthdayString">Birthday:</form:label>
+                            <span class="text-danger">
+                                <c:out value="${status.errorMessage}"/>
+                            </span>
+                            <form:input cssClass="form-control" id="datepicker" placeholder="dd/MM/yyyy"
+                                        path="birthdayString" readonly="true"/>
+                        </div>
+                    </spring:bind>
                 </div>
                 <div class="row">
                 <spring:bind path="password">
