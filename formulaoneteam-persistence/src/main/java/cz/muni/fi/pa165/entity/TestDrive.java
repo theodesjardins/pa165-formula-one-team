@@ -19,15 +19,15 @@ public class TestDrive extends BaseEntity {
     @NotNull
     private Date date;
 
+    @NotNull
+    @Column(nullable = false)
+    private String notes;
+
     @ManyToOne(optional = false)
     private CarSetup carSetup;
 
     @ManyToOne(optional = false)
     private Driver driver;
-
-    @NotNull
-    @Column(nullable = false)
-    private String notes;
 
     public TestDrive(CarSetup car, Driver driver, @NotNull String notes, @NotNull Date date) {
         this.date = date;

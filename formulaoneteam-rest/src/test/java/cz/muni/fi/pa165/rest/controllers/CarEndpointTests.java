@@ -18,13 +18,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class CarControllerTests extends BaseControllerTests<CarController> {
+public class CarEndpointTests extends BaseControllerTests<CarEndpoint> {
 
     @Mock
     private CarSetupFacade facade;
 
     @InjectMocks
-    private CarController controller;
+    private CarEndpoint controller;
 
     @Test
     public void getCars_whenCarsPresent_carsReturned() throws Exception {
@@ -124,7 +124,7 @@ public class CarControllerTests extends BaseControllerTests<CarController> {
     }
 
     @Override
-    protected CarController getController() {
+    protected CarEndpoint getController() {
         return controller;
     }
 }

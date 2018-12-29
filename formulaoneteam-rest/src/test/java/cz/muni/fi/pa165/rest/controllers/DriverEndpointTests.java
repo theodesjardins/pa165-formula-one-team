@@ -19,9 +19,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class DriverControllerTests extends BaseControllerTests<DriverController> {
+public class DriverEndpointTests extends BaseControllerTests<DriverEndpoint> {
     @InjectMocks
-    private DriverController controller;
+    private DriverEndpoint controller;
 
     @Mock
     private DriverFacade facade;
@@ -124,7 +124,7 @@ public class DriverControllerTests extends BaseControllerTests<DriverController>
     }
 
     @Override
-    protected DriverController getController() {
+    protected DriverEndpoint getController() {
         return controller;
     }
 

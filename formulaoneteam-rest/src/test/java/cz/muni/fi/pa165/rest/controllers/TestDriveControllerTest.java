@@ -1,81 +1,51 @@
 package cz.muni.fi.pa165.rest.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import cz.muni.fi.pa165.dto.testdrive.SaveTestDriveDTO;
 import cz.muni.fi.pa165.dto.testdrive.TestDriveDTO;
 import cz.muni.fi.pa165.exceptions.EntityNotFoundException;
 import cz.muni.fi.pa165.facade.TestDriveFacade;
-import cz.muni.fi.pa165.rest.RootWebContext;
 import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 /**
  * @author Adel Chakouri
  */
-
-@WebAppConfiguration
-@ContextConfiguration(classes = { RootWebContext.class})
-public class TestDriveControllerTest extends AbstractTestNGSpringContextTests {
+public class TestDriveControllerTest extends BaseControllerTests<TestDriveEndpoint> {
 
     @Mock
     private TestDriveFacade testDriveFacade;
 
     @InjectMocks
-    private TestDriveController testDriveController;
-
-    @Rule
-    public MockitoRule rule = MockitoJUnit.rule();
-
-    private MockMvc mockMvc;
-
-    @Before
-    public void setup(){
-        mockMvc = standaloneSetup(testDriveController)
-                .build();
-    }
+    private TestDriveEndpoint testDriveEndpoint;
 
     @Test
     public void getValidTestDriveTest() throws Exception {
-        //Given
-        List<TestDriveDTO> raceParticipation = this.createTestDrive();
-        doReturn(raceParticipation.get(0)).when(testDriveFacade).findById(1l);
-        doReturn(raceParticipation.get(1)).when(testDriveFacade).findById(2l);
+        //given
+        TestDriveDTO testDriveDTO = createTestDriveDTO();
+        String json = convertToJson(testDriveDTO);
 
-        //Then
-        mockMvc.perform(get("/test-drive/1")).andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(jsonPath("$.notes").value("notes1"));
+        //when
+        when(testDriveFacade.findById(testDriveDTO.getId())).thenReturn(testDriveDTO);
 
-        mockMvc.perform(get("/test-drive/2")).andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(jsonPath("$.notes").value("notes2"));
+        //then
+        mockMvc.perform(get("/test-drive/22"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(json));
     }
 
     @Test
     public void getInvalidTestDriveTest() throws Exception {
         //Given
-        List<TestDriveDTO> testDrive = this.createTestDrive();
         when(testDriveFacade.findById(1)).thenThrow(EntityNotFoundException.class);
 
         //Then
@@ -84,14 +54,17 @@ public class TestDriveControllerTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void getTestDrive() throws Exception {
-        //Given
-        doReturn(Collections.unmodifiableList(this.createTestDrive())).when(testDriveFacade).getAll();
+        //given
+        List<TestDriveDTO> testDrives = Arrays.asList(createTestDriveDTO(), createTestDriveDTO());
+        String json = convertToJson(testDrives);
 
-        //Then
+        //when
+        when(testDriveFacade.getAll()).thenReturn(testDrives);
+
+        //then
         mockMvc.perform(get("/test-drive/")).andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(jsonPath("$.[?(@.id==1)].notes").value("notes1"))
-                .andExpect(jsonPath("$.[?(@.id==2)].notes").value("notes2"));
+                .andExpect(content().json(json));
     }
 
     @Test
@@ -114,20 +87,21 @@ public class TestDriveControllerTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void addTestDrive_returnsOk() throws Exception {
-        //Given
-        List<SaveTestDriveDTO> saveTestDrive = createSaveTestDrive();
-        List<TestDriveDTO> testDrive = createTestDrive();
-        when(testDriveFacade.add(saveTestDrive.get(0))).thenReturn(testDrive.get(0).getId());
-        when(testDriveFacade.findById(testDrive.get(0).getId())).thenReturn(testDrive.get(0));
-        String json = convertToString(testDrive.get(0));
+        //given
+        SaveTestDriveDTO saveTestDrive = createSaveTestDriveDTO();
+        TestDriveDTO testDrive = createTestDriveDTO();
+
+        //when
+        when(testDriveFacade.add(saveTestDrive)).thenReturn(testDrive.getId());
+        when(testDriveFacade.findById(testDrive.getId())).thenReturn(testDrive);
 
         //Then
         mockMvc.perform(post("/test-drive/")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
-                .content(json))
+                .content(convertToJson(saveTestDrive)))
                 .andExpect(status().isOk())
-                .andExpect(content().json(convertToString(testDrive.get(0))));
+                .andExpect(content().json(convertToJson(testDrive)));
     }
 
     @Test
@@ -135,8 +109,10 @@ public class TestDriveControllerTest extends AbstractTestNGSpringContextTests {
         //Given
         SaveTestDriveDTO testDriveDTO = new SaveTestDriveDTO();
         testDriveDTO.setId(-1);
+
+        //when
         when(testDriveFacade.add(testDriveDTO)).thenThrow(FormulaOneTeamException.class);
-        String json = convertToString(testDriveDTO);
+        String json = convertToJson(testDriveDTO);
 
         //Then
         mockMvc.perform(post("/test-drive/")
@@ -151,7 +127,7 @@ public class TestDriveControllerTest extends AbstractTestNGSpringContextTests {
         //Given
         SaveTestDriveDTO testDriveDTO = new SaveTestDriveDTO();
         testDriveDTO.setId(0);
-        String json = convertToString(testDriveDTO);
+        String json = convertToJson(testDriveDTO);
         doThrow(FormulaOneTeamException.class).when(testDriveFacade).update(testDriveDTO, 0);
 
         //Then
@@ -161,32 +137,8 @@ public class TestDriveControllerTest extends AbstractTestNGSpringContextTests {
                 .andExpect(status().isUnprocessableEntity());
     }
 
-    private List<TestDriveDTO> createTestDrive() {
-        TestDriveDTO testDriveOne = new TestDriveDTO();
-        testDriveOne.setId(1l);
-        testDriveOne.setNotes("notes1");
-
-        TestDriveDTO testDriveTwo = new TestDriveDTO();
-        testDriveTwo.setId(2l);
-        testDriveTwo.setNotes("notes2");
-
-        return Arrays.asList(testDriveOne, testDriveTwo);
-    }
-
-    private List<SaveTestDriveDTO> createSaveTestDrive() {
-        SaveTestDriveDTO testDriveOne = new SaveTestDriveDTO();
-        testDriveOne.setId(1l);
-        testDriveOne.setNotes("notes1");
-
-        SaveTestDriveDTO testDriveTwo = new SaveTestDriveDTO();
-        testDriveTwo.setId(2l);
-        testDriveTwo.setNotes("notes2");
-
-        return Arrays.asList(testDriveOne, testDriveTwo);
-    }
-
-    private String convertToString(Object object) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.writeValueAsString(object);
+    @Override
+    protected TestDriveEndpoint getController() {
+        return testDriveEndpoint;
     }
 }

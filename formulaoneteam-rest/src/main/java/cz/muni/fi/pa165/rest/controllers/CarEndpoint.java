@@ -13,5 +13,5 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(ApiUris.ROOT_URI_CAR)
-class CarController extends EntityController<CarSetupFacade, CarSetupDTO, CarSetupDTO, CarSetup> {
+class CarEndpoint extends EntityController<CarSetupFacade, CarSetupDTO, CarSetupDTO, CarSetup> {
 }

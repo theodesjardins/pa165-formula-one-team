@@ -34,13 +34,13 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
  */
 @WebAppConfiguration
 @ContextConfiguration(classes = { RootWebContext.class})
-public class RaceParticipationControllerTest extends AbstractTestNGSpringContextTests {
+public class RaceParticipationEndpointTest extends AbstractTestNGSpringContextTests {
 
     @Mock
     private RaceParticipationFacade raceParticipationFacade;
 
     @InjectMocks
-    private RaceParticipationController raceParticipationController;
+    private RaceParticipationEndpoint raceParticipationEndpoint;
 
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
@@ -49,7 +49,7 @@ public class RaceParticipationControllerTest extends AbstractTestNGSpringContext
 
     @Before
     public void setup(){
-        mockMvc = standaloneSetup(raceParticipationController)
+        mockMvc = standaloneSetup(raceParticipationEndpoint)
                 .build();
     }
 

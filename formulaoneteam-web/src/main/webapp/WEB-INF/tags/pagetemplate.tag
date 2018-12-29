@@ -66,6 +66,7 @@
                 <li><my:a href="/world-championship/list"><f:message key="feature.world_championship"/></my:a></li>
                 <li><my:a href="/cars/list"><f:message key="feature.cars"/></my:a></li>
                 <li><my:a href="/components/list"><f:message key="feature.components"/></my:a></li>
+                <li><my:a href="/test-drives"><f:message key="feature.test_drives"/></my:a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <sec:authorize access="!isAuthenticated()">
@@ -100,6 +101,9 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/plug-ins/1.10.19/sorting/datetime-moment.js"></script>
 <script>
     $(document).ready(function () {
         $(".clickable-row").click(function () {

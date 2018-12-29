@@ -14,6 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(ApiUris.ROOT_URI_RACE_PARTICIPATION)
-class RaceParticipationController extends EntityController
+class RaceParticipationEndpoint extends EntityController
         <RaceParticipationFacade, RaceParticipationDTO, SaveRaceParticipationDTO, RaceParticipation> {
 }

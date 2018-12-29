@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.sample.data;
 
-import com.google.common.collect.Sets;
 import cz.muni.fi.pa165.entity.*;
 import cz.muni.fi.pa165.enums.ComponentType;
 import cz.muni.fi.pa165.enums.DriverStatus;
@@ -10,8 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.util.HashSet;
 import java.util.Set;
 
+import static com.google.common.collect.Sets.newHashSet;
 import static cz.muni.fi.pa165.entity.RaceParticipation.NO_RESULT_POSITION;
 import static cz.muni.fi.pa165.enums.CharacteristicsType.*;
 import static cz.muni.fi.pa165.enums.ComponentType.*;
@@ -76,7 +77,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                         "Spanish",
                         dateService.createDate(29, 6, 1981),
                         DriverStatus.MAIN,
-                        characteristicsValueService.add(Sets.newHashSet(
+                        characteristicsValueService.add(newHashSet(
                                 new CharacteristicsValue(AGGRESSIVITY, 100),
                                 new CharacteristicsValue(STEERING, 50),
                                 new CharacteristicsValue(DRIVING_ON_WET, 15),
@@ -95,7 +96,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                         "German",
                         dateService.createDate(3, 1, 1969),
                         DriverStatus.MAIN,
-                        characteristicsValueService.add(Sets.newHashSet(
+                        characteristicsValueService.add(newHashSet(
                                 new CharacteristicsValue(AGGRESSIVITY, 40),
                                 new CharacteristicsValue(STEERING, 100),
                                 new CharacteristicsValue(DRIVING_ON_WET, 20),
@@ -114,7 +115,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                         "Finnish",
                         dateService.createDate(3, 1, 1995),
                         DriverStatus.TEST,
-                        characteristicsValueService.add(Sets.newHashSet(
+                        characteristicsValueService.add(newHashSet(
                                 new CharacteristicsValue(AGGRESSIVITY, 10),
                                 new CharacteristicsValue(STEERING, 15),
                                 new CharacteristicsValue(DRIVING_ON_WET, 20),
@@ -134,7 +135,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                         "American",
                         dateService.createDate(4, 11, 1998),
                         DriverStatus.TEST,
-                        characteristicsValueService.add(Sets.newHashSet(
+                        characteristicsValueService.add(newHashSet(
                                 new CharacteristicsValue(AGGRESSIVITY, 10),
                                 new CharacteristicsValue(STEERING, 15),
                                 new CharacteristicsValue(DRIVING_ON_WET, 20),
@@ -145,40 +146,103 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                 "john-does-password"
         );
 
-        final Component engine1 = createComponent(
-                "Engine no.1",
+        final Component cosworthEngine = createComponent(
+                "Cosworth DFV",
                 ENGINE,
-                componentParameterService.add(Sets.newHashSet(
-                        new ComponentParameter("Power", "114kW"),
-                        new ComponentParameter("Torque", "1500Nm")
+                componentParameterService.add(newHashSet(
+                        new ComponentParameter("Power", "440 kW"),
+                        new ComponentParameter("Torque", "9,000 rpm")
                 ))
         );
 
-        final Component engine2 = createComponent(
-                "Engine no.2",
+        final Component tipo500Engine = createComponent(
+                "Tipo 500",
                 ENGINE,
-                componentParameterService.add(Sets.newHashSet(
-                        new ComponentParameter("Torque", "1800Nm"),
-                        new ComponentParameter("Power", "180kW")
+                componentParameterService.add(newHashSet(
+                        new ComponentParameter("Power", "138 kW"),
+                        new ComponentParameter("Torque", "4,000 rpm")
                 ))
         );
 
-        final Component brake = createComponent(
-                "Brakes",
+        final Component tipo375Engine = createComponent(
+                "Tipo 375",
+                ENGINE,
+                componentParameterService.add(newHashSet(
+                        new ComponentParameter("Power", "164 kW"),
+                        new ComponentParameter("Torque", "5,500 rpm")
+                ))
+        );
+
+        final Component aCDelcoBrake = createComponent(
+                "ACDelco 171-1040 GM",
                 BRAKES,
-                Sets.newHashSet(componentParameterService.add(new ComponentParameter("Max brake force", "25kN")))
+                createComponentParameter(new ComponentParameter("Material", "Friction-enhancing material"))
         );
 
-        final Component suspension = createComponent(
-                "Suspension",
+        final Component boschBrake = createComponent(
+                "Bosch BC905 QuietCast",
+                BRAKES,
+                createComponentParameter(new ComponentParameter("Material", "Ceramic"))
+        );
+
+        final Component bremboBrake = createComponent(
+                "Brembo P83024N Rear",
+                BRAKES,
+                createComponentParameter(new ComponentParameter("Material", "Ceramic"))
+        );
+
+        final Component eBCBrake = createComponent(
+                "EBC Brakes DP31210C",
+                BRAKES,
+                createComponentParameter(new ComponentParameter("Material", "Friction-enhancing material"))
+        );
+
+        final Component hawkBrake = createComponent(
+                "Hawk HB453F.585 HPS",
+                BRAKES,
+                createComponentParameter(new ComponentParameter("Material", "Carbon Disc Brake"))
+        );
+
+        final Component satchellSuspension = createComponent(
+                "Satchell link",
                 SUSPENSION,
-                Sets.newHashSet(componentParameterService.add(new ComponentParameter("Type", "Dependent")))
+                createComponentParameter(new ComponentParameter("Type", "Dependent"))
         );
 
-        final Component transmission = createComponent(
-                "Suspension",
+        final Component slidingPillarSuspension = createComponent(
+                "Sliding pillar",
+                SUSPENSION,
+                createComponentParameter(new ComponentParameter("Type", "Independent"))
+        );
+
+        final Component multiLinkSuspension = createComponent(
+                "Multi-link",
+                SUSPENSION,
+                createComponentParameter(new ComponentParameter("Type", "Independent"))
+        );
+
+        final Component cumminsTransmission = createComponent(
+                "Cummins: 68 RFE",
                 TRANSMISSION,
-                componentParameterService.add(Sets.newHashSet(
+                componentParameterService.add(newHashSet(
+                        new ComponentParameter("Type", "Automatic"),
+                        new ComponentParameter("Number of gears", "6")
+                ))
+        );
+
+        final Component cruiseTransmission = createComponent(
+                "Cruise-O-Matic",
+                TRANSMISSION,
+                componentParameterService.add(newHashSet(
+                        new ComponentParameter("Type", "Automatic"),
+                        new ComponentParameter("Number of gears", "3")
+                ))
+        );
+
+        final Component torqueFliteTransmission = createComponent(
+                "TorqueFlite",
+                TRANSMISSION,
+                componentParameterService.add(newHashSet(
                         new ComponentParameter("Type", "Automatic"),
                         new ComponentParameter("Number of gears", "8")
                 ))
@@ -187,30 +251,36 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         final Component tires1 = createComponent(
                 "Suspension",
                 TIRES,
-                componentParameterService.add(Sets.newHashSet(
+                componentParameterService.add(newHashSet(
                         new ComponentParameter("Manufacturer", "Michellin"),
                         new ComponentParameter("Nominal section width", "205mm")
                 ))
         );
 
         final Component tires2 = createComponent(
-                "Suspension",
+                "Tires",
                 TIRES,
-                componentParameterService.add(Sets.newHashSet(
+                componentParameterService.add(newHashSet(
                         new ComponentParameter("Manufacturer", "Barum"),
                         new ComponentParameter("Nominal section width", "108mm")
                 ))
         );
 
         final Component cover = createComponent(
-                "Suspension",
+                "Carbon",
                 TIRES,
-                Sets.newHashSet(componentParameterService.add(new ComponentParameter("Reference area", "2800 ft*ft")))
+                newHashSet(componentParameterService.add(new ComponentParameter("Reference area", "2800 ft*ft")))
         );
 
-        CarSetup carSetup1 = carSetupService.add(new CarSetup(engine1, suspension, brake, transmission, tires1, cover));
-        CarSetup carSetup2 = carSetupService.add(new CarSetup(engine2, suspension, brake, transmission, tires1, cover));
-        CarSetup carSetup3 = carSetupService.add(new CarSetup(engine1, suspension, brake, transmission, tires2, cover));
+        CarSetup carSetup1 = carSetupService.add(
+                new CarSetup(cosworthEngine, satchellSuspension, aCDelcoBrake, cumminsTransmission, tires1, cover)
+        );
+        CarSetup carSetup2 = carSetupService.add(
+                new CarSetup(tipo500Engine, slidingPillarSuspension, boschBrake, cruiseTransmission, tires1, cover)
+        );
+        CarSetup carSetup3 = carSetupService.add(
+                new CarSetup(tipo375Engine, multiLinkSuspension, bremboBrake, torqueFliteTransmission, tires2, cover)
+        );
 
         Race pastRace = raceService.add(
                 new Race(dateService.getPastDate(15), "WC Valencia", "Valencia")
@@ -219,21 +289,21 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                 new Race(dateService.getFutureDate(30), "Germany World Championship", "Nuremberg")
         );
 
-        raceParticipationService.add(Sets.newHashSet(
+        raceParticipationService.add(newHashSet(
                 new RaceParticipation(carSetup1, michaelSchumacher, pastRace, 1),
                 new RaceParticipation(carSetup2, fernardoAlonso, pastRace, 5),
                 new RaceParticipation(carSetup2, fernardoAlonso, futureRace, NO_RESULT_POSITION),
                 new RaceParticipation(carSetup1, michaelSchumacher, futureRace, NO_RESULT_POSITION)
         ));
 
-        testDriveService.add(Sets.newHashSet(
-                new TestDrive(carSetup1, testDriver1, "Steering maybe too stiff", dateService.getPastDate(40)),
-                new TestDrive(carSetup1, testDriver2, "Great power", dateService.getPastDate(40)),
-                new TestDrive(carSetup2, testDriver1, "Pretty good steering, ", dateService.getPastDate(30)),
-                new TestDrive(carSetup2, testDriver2, "Did not finish, transmission broke", dateService.getPastDate(30)),
-                new TestDrive(carSetup3, testDriver1, "Fast, but missing some advantages of no. 2", dateService.getPastDate(20)),
-                new TestDrive(carSetup3, testDriver2, "Pretty fast", dateService.getPastDate(20)),
-                new TestDrive(carSetup3, testDriver2, "Slides a lot on wet", dateService.getPastDate(5))
+        testDriveService.add(newHashSet(
+                new TestDrive(carSetup1, testDriver1, "Steering maybe too stiff.", dateService.getPastDate(40)),
+                new TestDrive(carSetup1, testDriver2, "Great power.", dateService.getPastDate(40)),
+                new TestDrive(carSetup2, testDriver1, "Pretty good steering.", dateService.getPastDate(30)),
+                new TestDrive(carSetup2, testDriver2, "Did not finish, transmission broke.", dateService.getPastDate(30)),
+                new TestDrive(carSetup3, testDriver1, "Fast, but missing some advantages of no. 2.", dateService.getPastDate(20)),
+                new TestDrive(carSetup3, testDriver2, "Pretty fast.", dateService.getPastDate(20)),
+                new TestDrive(carSetup3, testDriver2, "Slides a lot on wet.", dateService.getPastDate(5))
         ));
     }
 
@@ -244,5 +314,13 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         }
         componentService.add(component);
         return component;
+    }
+
+    private HashSet<ComponentParameter> createComponentParameter(ComponentParameter... parameters) {
+        for (ComponentParameter parameter : parameters) {
+            componentParameterService.add(parameter);
+        }
+
+        return newHashSet(parameters);
     }
 }

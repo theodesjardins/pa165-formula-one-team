@@ -71,7 +71,7 @@
                             <c:out value="${status.errorMessage}"/>
                         </span>
                         <form:input cssClass="form-control" id="datepicker" placeholder="dd/MM/yyyy"
-                                    path="birthdayString"/>
+                                    path="birthdayString" readonly="true"/>
                     </div>
                 </spring:bind>
                 </div>

@@ -24,6 +24,7 @@ import static cz.muni.fi.pa165.enums.EngineerSpecialization.AERODYNAMICS;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 public abstract class BaseControllerTests<Controller> {
+
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
 

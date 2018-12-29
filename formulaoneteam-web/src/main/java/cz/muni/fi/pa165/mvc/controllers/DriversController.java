@@ -5,7 +5,8 @@ import cz.muni.fi.pa165.enums.DriverStatus;
 import cz.muni.fi.pa165.facade.DriverFacade;
 import cz.muni.fi.pa165.mvc.config.security.AuthenticationFacade;
 import cz.muni.fi.pa165.mvc.config.security.SecurityRole;
-import org.springframework.security.access.AccessDeniedException;
+import cz.muni.fi.pa165.mvc.utils.Navigator;
+import cz.muni.fi.pa165.utils.DateUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 /**
  * @author mrnda (Michal Mrnuštík)
@@ -32,8 +31,6 @@ public class DriversController {
 
     @Inject
     private AuthenticationFacade authenticationFacade;
-
-    private static final SimpleDateFormat birthdayDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     @RequestMapping("/list")
     public String list(Model model) {
@@ -55,7 +52,7 @@ public class DriversController {
             model.addAttribute("driver", driverFacade.createDefaultDriver());
             return "drivers/edit";
         } else {
-            throw new AccessDeniedException("Only manager can create new users.");
+            return Navigator.openForbiddenPage("Only manager can create new users.");
         }
     }
 
@@ -66,17 +63,13 @@ public class DriversController {
             model.addAttribute("driver", driver);
             return "drivers/edit";
         } else {
-            throw new AccessDeniedException("You can't edit this user!");
+            return Navigator.openForbiddenPage("You can't edit this user!");
         }
     }
 
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
     public String submitDriver(@Valid @ModelAttribute("driver") DriverDTO driver, BindingResult bindingResult) {
-        try {
-            driver.setBirthday(birthdayDateFormat.parse(driver.getBirthdayString()));
-        } catch (ParseException e) {
-            bindingResult.addError(new FieldError("driver", "birthdayString", "has invalid format"));
-        }
+        driver.setBirthday(DateUtils.parseDate(driver.getBirthdayString()));
 
         if (!driver.getPassword().equals(driver.getConfirmPassword())) {
             bindingResult.addError(new FieldError("driver", "password", "does not match"));
@@ -110,6 +103,4 @@ public class DriversController {
                 && (authenticationFacade.hasRole(SecurityRole.MANAGER)
                 || authenticationFacade.getCurrentUserEmail().equals(driver.getEmail()));
     }
-
-
 }

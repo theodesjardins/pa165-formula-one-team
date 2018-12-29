@@ -13,5 +13,5 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(ApiUris.ROOT_URI_RACE)
-class RaceController extends EntityController<RaceFacade, RaceDTO, RaceDTO, Race> {
+class RaceEndpoint extends EntityController<RaceFacade, RaceDTO, RaceDTO, Race> {
 }

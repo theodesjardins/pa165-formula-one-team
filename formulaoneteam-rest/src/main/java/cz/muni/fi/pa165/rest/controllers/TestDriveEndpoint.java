@@ -14,5 +14,5 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(ApiUris.ROOT_URI_TEST_DRIVE)
-class TestDriveController extends EntityController<TestDriveFacade, TestDriveDTO, SaveTestDriveDTO, TestDrive> {
+class TestDriveEndpoint extends EntityController<TestDriveFacade, TestDriveDTO, SaveTestDriveDTO, TestDrive> {
 }

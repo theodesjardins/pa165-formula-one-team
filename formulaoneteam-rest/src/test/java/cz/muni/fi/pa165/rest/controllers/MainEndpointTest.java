@@ -12,10 +12,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author mrnda (Michal Mrnuštík)
  */
 
-public class MainControllerTest extends BaseControllerTests<MainController> {
+public class MainEndpointTest extends BaseControllerTests<MainEndpoint> {
 
     @InjectMocks
-    private MainController controller;
+    private MainEndpoint controller;
 
     @Test
     public void onGetRequest_statusIsOk() throws Exception {
@@ -41,7 +41,7 @@ public class MainControllerTest extends BaseControllerTests<MainController> {
     }
 
     @Override
-    protected MainController getController() {
+    protected MainEndpoint getController() {
         return controller;
     }
 }

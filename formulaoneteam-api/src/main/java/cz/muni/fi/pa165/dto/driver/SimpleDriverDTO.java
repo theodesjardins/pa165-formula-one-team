@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.dto.driver;
 import cz.muni.fi.pa165.dto.CharacteristicsValueDTO;
 import cz.muni.fi.pa165.dto.UserDTO;
 import cz.muni.fi.pa165.enums.DriverStatus;
+import cz.muni.fi.pa165.utils.DateUtils;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
@@ -16,8 +17,7 @@ public class SimpleDriverDTO extends UserDTO {
 
     @NotEmpty
     private String nationality;
-    private Date birthday;
-    private String birthdayString;
+    private Date birthday = new Date();
     private DriverStatus driverStatus;
     private List<CharacteristicsValueDTO> characteristics = new ArrayList<>();
 
@@ -38,11 +38,11 @@ public class SimpleDriverDTO extends UserDTO {
     }
 
     public String getBirthdayString() {
-        return birthdayString;
+        return DateUtils.getFormattedDate(birthday);
     }
 
     public void setBirthdayString(String birthdayString) {
-        this.birthdayString = birthdayString;
+        this.birthday = DateUtils.parseDate(birthdayString);
     }
 
     public DriverStatus getDriverStatus() {

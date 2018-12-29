@@ -18,13 +18,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class ComponentControllerTests extends BaseControllerTests<ComponentController> {
+public class ComponentEndpointTests extends BaseControllerTests<ComponentEndpoint> {
 
     @Mock
     private ComponentFacade facade;
 
     @InjectMocks
-    private ComponentController controller;
+    private ComponentEndpoint controller;
 
     @Test
     public void getComponents_whenComponentsPresent_componentsReturned() throws Exception {
@@ -124,7 +124,7 @@ public class ComponentControllerTests extends BaseControllerTests<ComponentContr
     }
 
     @Override
-    protected ComponentController getController() {
+    protected ComponentEndpoint getController() {
         return controller;
     }
 }

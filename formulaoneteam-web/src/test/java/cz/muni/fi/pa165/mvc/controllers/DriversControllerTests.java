@@ -8,20 +8,17 @@ import cz.muni.fi.pa165.mvc.config.security.SecurityRole;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.security.access.AccessDeniedException;
 
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class DriversControllerTests extends BaseControllerTest<DriversController> {
 
@@ -76,12 +73,14 @@ public class DriversControllerTests extends BaseControllerTest<DriversController
     }
 
     @Test
-    public void create_withoutManagerLoggedIn_throwsAccessDenied() {
+    public void create_withoutManagerLoggedIn_throwsAccessDenied() throws Exception {
         when(authenticationFacade.hasRole(SecurityRole.MANAGER)).thenReturn(false);
 
         //Then
-        assertThatThrownBy(() -> mockMvc.perform(get("/drivers/create")))
-                .hasCauseInstanceOf(AccessDeniedException.class);
+        mockMvc.perform(get("/drivers/create"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/forbidden?message=Only manager can create new users.&driverStatusValues=Main&driverStatusValues=Test"))
+                .andReturn();
     }
 
     @Test
@@ -107,15 +106,17 @@ public class DriversControllerTests extends BaseControllerTest<DriversController
     }
 
     @Test
-    public void edit_withExistingDriverAndWithoutLogin_throwsAccessDenied() {
+    public void edit_withExistingDriverAndWithoutLogin_throwsAccessDenied() throws Exception {
         //When
         final DriverDTO driverDTO = createDriverDTO();
         when(driverFacadeMock.findById(1)).thenReturn(driverDTO);
         when(authenticationFacade.isAuthenticated()).thenReturn(false);
 
         //Then
-        assertThatThrownBy(() -> mockMvc.perform(get("/drivers/edit/1")))
-                .hasCauseInstanceOf(AccessDeniedException.class);
+        mockMvc.perform(get("/drivers/edit/1"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/forbidden?message=You can't edit this user!&driverStatusValues=Main&driverStatusValues=Test"))
+                .andReturn();
     }
 
     @Test
@@ -208,15 +209,6 @@ public class DriversControllerTests extends BaseControllerTest<DriversController
         driverDTO.setConfirmPassword("");
         mockMvc.perform(post("/drivers/submit").flashAttr("driver", driverDTO))
                 .andExpect(model().attributeHasFieldErrors("driver", "password", "confirmPassword"));
-    }
-
-    @Test
-    public void submit_withInvalidBirthdayStringDriver_addsError() throws Exception {
-        //Then
-        final DriverDTO driverDTO = createDriverDTO();
-        driverDTO.setBirthdayString("1254");
-        mockMvc.perform(post("/drivers/submit").flashAttr("driver", driverDTO))
-                .andExpect(model().attributeHasFieldErrors("driver", "birthdayString"));
     }
 
     @Test

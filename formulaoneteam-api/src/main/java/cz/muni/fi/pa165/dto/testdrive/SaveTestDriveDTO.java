@@ -1,26 +1,24 @@
 package cz.muni.fi.pa165.dto.testdrive;
 
-import cz.muni.fi.pa165.dto.base.BaseDTO;
-
-import java.util.Date;
 import java.util.Objects;
 
 /**
  * @author elderanakain (Arcadii Rubailo)
  */
-public class SaveTestDriveDTO extends BaseDTO {
+public class SaveTestDriveDTO extends BaseTestDriveDTO {
 
     private long carSetupId;
     private long driverId;
-    private String notes;
-    private Date date;
 
-    public Date getDate() {
-        return date;
+    public SaveTestDriveDTO(TestDriveDTO testDriveDTO) {
+        setId(testDriveDTO.getId());
+        setDate(testDriveDTO.getDate());
+        setNotes(testDriveDTO.getNotes());
+        setCarSetupId(testDriveDTO.getCarSetup().getId());
+        setDriverId(testDriveDTO.getDriver().getId());
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public SaveTestDriveDTO() {
     }
 
     public long getCarSetupId() {
@@ -39,14 +37,6 @@ public class SaveTestDriveDTO extends BaseDTO {
         this.driverId = driverId;
     }
 
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -54,8 +44,8 @@ public class SaveTestDriveDTO extends BaseDTO {
 
         SaveTestDriveDTO that = (SaveTestDriveDTO) o;
 
-        return Objects.equals(date, that.date)
-                && Objects.equals(notes, that.notes)
+        return Objects.equals(getDate(), that.getDate())
+                && Objects.equals(getNotes(), that.getNotes())
                 && carSetupId == that.carSetupId
                 && driverId == that.driverId;
     }
@@ -64,18 +54,18 @@ public class SaveTestDriveDTO extends BaseDTO {
     public int hashCode() {
         int result = (int) (carSetupId ^ (carSetupId >>> 32));
         result = 31 * result + (int) (driverId ^ (driverId >>> 32));
-        result = 31 * result + (notes != null ? notes.hashCode() : 0);
-        result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + (getNotes() != null ? getNotes().hashCode() : 0);
+        result = 31 * result + (getDate() != null ? getDate().hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return "TestDriveDTO{" +
+        return "SaveTestDriveDTO{" +
                 "carSetupId=" + carSetupId +
                 ", driverId=" + driverId +
-                ", notes='" + notes + '\'' +
-                ", date=" + date +
+                ", notes='" + getNotes() + '\'' +
+                ", date=" + getDate() +
                 "} " + super.toString();
     }
 }

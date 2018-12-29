@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping(ApiUris.ROOT_URI_COMPONENT)
-class ComponentController extends EntityController<ComponentFacade, ComponentDTO, ComponentDTO, Component> {
+class ComponentEndpoint extends EntityController<ComponentFacade, ComponentDTO, ComponentDTO, Component> {
 
     @RequestMapping(value = "/parameters/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ComponentDTO> addParameter(@PathVariable long id, @RequestBody ComponentParameterDTO parameter) {

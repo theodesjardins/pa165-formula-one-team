@@ -19,9 +19,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class ManagerControllerTests extends BaseControllerTests<ManagerController> {
+public class ManagerEndpointTests extends BaseControllerTests<ManagerEndpoint> {
     @InjectMocks
-    private ManagerController controller;
+    private ManagerEndpoint controller;
 
     @Mock
     private ManagerFacade facade;
@@ -124,7 +124,7 @@ public class ManagerControllerTests extends BaseControllerTests<ManagerControlle
     }
 
     @Override
-    protected ManagerController getController() {
+    protected ManagerEndpoint getController() {
         return controller;
     }
 

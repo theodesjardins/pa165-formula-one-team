@@ -25,10 +25,10 @@
         <table class="table" id="drivers-table">
             <thead>
             <tr>
-                <th><f:message key="feature.drivers.name"/></th>
-                <th><f:message key="feature.drivers.email"/></th>
+                <th><f:message key="common.name"/></th>
+                <th><f:message key="common.email"/></th>
                 <th><f:message key="feature.drivers.status"/></th>
-                <th>current races</th>
+                <th><f:message key="feature.drivers.current_races"/></th>
             </tr>
             </thead>
             <tbody>
@@ -51,19 +51,11 @@
 
 </jsp:attribute>
     <jsp:attribute name="script">
-    <script type="text/javascript" charset="utf8"
-            src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("#drivers-table").DataTable(
-                {
-                    paging: false,
-                    searching: false,
-                    info: false,
-                    order: []
-                }
-            );
-        });
-    </script>
+        <script>
+            $(document).ready(function () {
+                $.fn.dataTable.moment('DD/MM/YYYY');
+                $("#drivers-table").DataTable({paging: false, searching: false, info: false, order: []});
+            });
+        </script>
 </jsp:attribute>
 </my:pagetemplate>

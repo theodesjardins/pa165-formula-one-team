@@ -13,7 +13,7 @@
             <div class="col-md-5 offset-md-3">
                 <form method="POST" role="form">
                     <div class="form-group">
-                        <label for="username"><f:message key="feature.auth.form.email"/>:</label>
+                        <label for="username"><f:message key="common.email"/>:</label>
                         <input type="text" name="username" id="username" class="form-control" required/>
                     </div>
                     <div class="form-group">
