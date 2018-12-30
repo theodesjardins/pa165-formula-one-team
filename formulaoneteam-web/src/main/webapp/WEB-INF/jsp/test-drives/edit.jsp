@@ -22,14 +22,12 @@
                 <div class="row">
                     <spring:bind path="formattedDate">
                         <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
-                            <form:label path="formattedDate">
-                                <f:message key="common.date"/>:
-                            </form:label>
+                            <form:label path="formattedDate"><f:message key="common.date"/>:</form:label>
+                            <form:input cssClass="form-control" id="datepicker" placeholder="dd/MM/yyyy"
+                                        path="formattedDate" readonly="true"/>
                             <span class="text-danger">
                                 <c:out value="${status.errorMessage}"/>
                             </span>
-                            <form:input cssClass="form-control" id="datepicker" placeholder="dd/MM/yyyy"
-                                        path="formattedDate" readonly="true"/>
                         </div>
                     </spring:bind>
                     <spring:bind path="notes">
@@ -74,7 +72,6 @@
         </div>
     </jsp:attribute>
     <jsp:attribute name="script">
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script>
             $(document).ready(function () {
                 $("#datepicker").datepicker({dateFormat: 'dd/mm/yy'});

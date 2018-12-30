@@ -6,6 +6,7 @@ import cz.muni.fi.pa165.dto.raceparticipation.SaveRaceParticipationDTO;
 import cz.muni.fi.pa165.entity.CarSetup;
 import cz.muni.fi.pa165.entity.Driver;
 import cz.muni.fi.pa165.entity.RaceParticipation;
+import cz.muni.fi.pa165.facade.RaceFacade;
 import cz.muni.fi.pa165.facade.RaceParticipationFacade;
 import cz.muni.fi.pa165.service.CarSetupService;
 import cz.muni.fi.pa165.service.DriverService;
@@ -33,7 +34,10 @@ public class RaceParticipationFacadeImpl
     private DriverService driverService;
 
     @Inject
-    protected RaceService raceService;
+    protected RaceFacade raceFacade;
+
+    @Inject
+    private RaceService raceService;
 
     @Inject
     protected CarSetupService carSetupService;
@@ -89,7 +93,7 @@ public class RaceParticipationFacadeImpl
         return new RaceParticipation(
                 carSetupService.findById(dto.getCarSetupId()),
                 driverService.findById(dto.getDriverId()),
-                raceService.findById(dto.getRaceId()),
+                raceService.findById(raceFacade.add(dto.getRaceDTO())),
                 dto.getResultPosition()
         );
     }

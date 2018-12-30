@@ -6,6 +6,7 @@ import cz.muni.fi.pa165.dto.raceparticipation.SaveRaceParticipationDTO;
 import cz.muni.fi.pa165.entity.CarSetup;
 import cz.muni.fi.pa165.entity.Driver;
 import cz.muni.fi.pa165.entity.RaceParticipation;
+import cz.muni.fi.pa165.facade.RaceFacade;
 import cz.muni.fi.pa165.service.CarSetupService;
 import cz.muni.fi.pa165.service.DriverService;
 import cz.muni.fi.pa165.service.RaceParticipationService;
@@ -37,6 +38,8 @@ public class RaceParticipationFacadeImplTest extends BaseFacadeTest<RaceParticip
     private DriverService driverService;
     @Mock
     private RaceParticipationService service;
+    @Mock
+    private RaceFacade raceFacade;
 
     @InjectMocks
     private RaceParticipationFacadeImpl facade;
@@ -115,7 +118,7 @@ public class RaceParticipationFacadeImplTest extends BaseFacadeTest<RaceParticip
         //then
         verify(carSetupService).findById(dto.getCarSetupId());
         verify(driverService).findById(dto.getDriverId());
-        verify(raceService).findById(dto.getRaceId());
+        verify(raceService).findById(0);
 
         verify(service).add(any(RaceParticipation.class));
 

@@ -1,15 +1,18 @@
 package cz.muni.fi.pa165.dto.race;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import cz.muni.fi.pa165.dto.base.BaseDTO;
+import cz.muni.fi.pa165.utils.DateUtils;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author Adel Chakouri
  */
 public class RaceDTO extends BaseDTO {
 
-    private Date date;
+    private Date date = new Date();
     private String title;
     private String location;
 
@@ -37,6 +40,15 @@ public class RaceDTO extends BaseDTO {
         this.location = location;
     }
 
+    @JsonIgnore
+    public String getDateString() {
+        return DateUtils.getFormattedDate(date);
+    }
+
+    public void setDateString(String birthdayString) {
+        this.date = DateUtils.parseDate(birthdayString);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -44,9 +56,9 @@ public class RaceDTO extends BaseDTO {
 
         RaceDTO raceDTO = (RaceDTO) o;
 
-        if (date != null ? !date.equals(raceDTO.date) : raceDTO.date != null) return false;
-        if (title != null ? !title.equals(raceDTO.title) : raceDTO.title != null) return false;
-        return location != null ? location.equals(raceDTO.location) : raceDTO.location == null;
+        if (!Objects.equals(date, raceDTO.date)) return false;
+        if (!Objects.equals(title, raceDTO.title)) return false;
+        return Objects.equals(location, raceDTO.location);
     }
 
     @Override

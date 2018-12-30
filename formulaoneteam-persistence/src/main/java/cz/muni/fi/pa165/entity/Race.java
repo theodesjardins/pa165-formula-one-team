@@ -17,7 +17,7 @@ public class Race extends BaseEntity {
     private Date date;
 
     @NotNull
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String title;
 
     @NotNull

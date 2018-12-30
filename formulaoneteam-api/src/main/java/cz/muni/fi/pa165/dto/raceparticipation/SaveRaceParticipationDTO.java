@@ -1,6 +1,9 @@
 package cz.muni.fi.pa165.dto.raceparticipation;
 
 import cz.muni.fi.pa165.dto.base.BaseDTO;
+import cz.muni.fi.pa165.dto.race.RaceDTO;
+
+import java.util.Objects;
 
 /**
  * @author elderanakain (Arcadii Rubailo)
@@ -9,8 +12,19 @@ public class SaveRaceParticipationDTO extends BaseDTO {
 
     private long carSetupId;
     private long driverId;
-    private long raceId;
-    private int resultPosition;
+    private RaceDTO raceDTO;
+    private int resultPosition = -1;
+
+    public SaveRaceParticipationDTO(RaceParticipationDTO dto) {
+        setId(dto.getId());
+        setCarSetupId(dto.getCarSetup().getId());
+        setDriverId(dto.getDriver().getId());
+        setRaceDTO(dto.getRace());
+        setResultPosition(dto.getResultPosition());
+    }
+
+    public SaveRaceParticipationDTO() {
+    }
 
     public long getCarSetupId() {
         return carSetupId;
@@ -28,12 +42,12 @@ public class SaveRaceParticipationDTO extends BaseDTO {
         this.driverId = driverId;
     }
 
-    public long getRaceId() {
-        return raceId;
+    public RaceDTO getRaceDTO() {
+        return raceDTO;
     }
 
-    public void setRaceId(long raceId) {
-        this.raceId = raceId;
+    public void setRaceDTO(RaceDTO raceDTO) {
+        this.raceDTO = raceDTO;
     }
 
     public int getResultPosition() {
@@ -52,7 +66,7 @@ public class SaveRaceParticipationDTO extends BaseDTO {
         SaveRaceParticipationDTO that = (SaveRaceParticipationDTO) o;
 
         return driverId == that.driverId
-                && raceId == that.raceId
+                && Objects.equals(raceDTO, that.raceDTO)
                 && carSetupId == that.carSetupId;
     }
 
@@ -60,7 +74,7 @@ public class SaveRaceParticipationDTO extends BaseDTO {
     public int hashCode() {
         int result = (int) (carSetupId ^ (carSetupId >>> 32));
         result = 31 * result + (int) (driverId ^ (driverId >>> 32));
-        result = 31 * result + (int) (raceId ^ (raceId >>> 32));
+        result = 31 * result + raceDTO.hashCode();
         result = 31 * result + resultPosition;
         return result;
     }
@@ -70,7 +84,7 @@ public class SaveRaceParticipationDTO extends BaseDTO {
         return "RaceParticipationDTO{" +
                 "carSetupId=" + carSetupId +
                 ", driverId=" + driverId +
-                ", raceId=" + raceId +
+                ", raceId=" + raceDTO.toString() +
                 ", resultPosition=" + resultPosition +
                 "} " + super.toString();
     }

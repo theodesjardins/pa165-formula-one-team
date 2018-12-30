@@ -191,7 +191,7 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
         raceParticipationDTO.setId(1);
         raceParticipationDTO.setCarSetupId(createCarSetupDTO().getId());
         raceParticipationDTO.setDriverId(createDriverDTO().getId());
-        raceParticipationDTO.setRaceId(createRaceDTO().getId());
+        raceParticipationDTO.setRaceDTO(createRaceDTO());
         raceParticipationDTO.setResultPosition(1);
         return raceParticipationDTO;
     }

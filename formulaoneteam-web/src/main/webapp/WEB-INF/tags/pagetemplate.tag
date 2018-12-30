@@ -67,8 +67,8 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li><my:a href="/"><f:message key="feature.home"/></my:a></li>
-                <li><my:a href="/drivers/list"><f:message key="feature.drivers"/></my:a></li>
                 <li><my:a href="/world-championship/list"><f:message key="feature.world_championship"/></my:a></li>
+                <li><my:a href="/drivers/list"><f:message key="feature.drivers"/></my:a></li>
                 <li><my:a href="/cars/list"><f:message key="feature.cars"/></my:a></li>
                 <li><my:a href="/components"><f:message key="feature.components"/></my:a></li>
                 <li><my:a href="/test-drives"><f:message key="feature.test_drives"/></my:a></li>
@@ -113,6 +113,7 @@
         src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
 <script type="text/javascript" charset="utf8"
         src="https://cdn.datatables.net/plug-ins/1.10.19/sorting/datetime-moment.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
     $(document).ready(function () {
         $(".clickable-row").click(function () {
