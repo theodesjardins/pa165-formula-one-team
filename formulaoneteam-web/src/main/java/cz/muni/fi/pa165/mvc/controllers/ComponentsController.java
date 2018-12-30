@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static cz.muni.fi.pa165.mvc.config.security.SecurityRole.ENGINEER;
 import static cz.muni.fi.pa165.mvc.config.security.SecurityRole.MANAGER;
@@ -73,14 +71,6 @@ class ComponentsController extends BaseController {
         if (bindingResult.hasErrors()) {
             return "components/edit";
         }
-
-        List<ComponentParameterDTO> checkedList = new ArrayList<>();
-        component.getParameters().forEach(parameter -> {
-            if (!parameter.getName().isEmpty() && !parameter.getValue().isEmpty()) {
-                checkedList.add(parameter);
-            }
-        });
-        component.setParameters(checkedList);
 
         if (component.getId() == 0) {
             componentFacade.add(component);

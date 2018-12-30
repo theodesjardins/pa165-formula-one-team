@@ -38,6 +38,7 @@
                 <div class="row">
                     <h4><fmt:message key="feature.components.parameters"/></h4>
                     <c:forEach items="${component.parameters}" var="parameter" varStatus="status">
+                        <form:hidden path="parameters[${status.index}].id"/>
                         <label><fmt:message key="common.name"/></label>
                         <form:input cssClass="form-control" path="parameters[${status.index}].name"/>
                         <label><fmt:message key="common.value"/></label>
