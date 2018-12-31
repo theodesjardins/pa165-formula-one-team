@@ -1,15 +1,10 @@
 package cz.muni.fi.pa165.service;
 
-import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author elderanakain (Arcadii Rubailo)
@@ -18,7 +13,7 @@ import java.util.Map;
 public class BeanMappingServiceImpl implements BeanMappingService {
 
     @Inject
-    private DozerBeanMapper dozer;
+    private Mapper dozer;
 
     public <T> List<T> mapTo(Collection<?> objects, Class<T> mapToClass) {
         List<T> mappedCollection = new ArrayList<>();
@@ -31,7 +26,7 @@ public class BeanMappingServiceImpl implements BeanMappingService {
     public <T> T mapTo(Object object, Class<T> mapToClass) {
         return dozer.map(object, mapToClass);
     }
-    
+
     public <T> Map<T, List<String>> mapTo(Map<?, List<String>> map, Class<T> mapToClass) {
         Map<T, List<String>> result = new HashMap<>();
 

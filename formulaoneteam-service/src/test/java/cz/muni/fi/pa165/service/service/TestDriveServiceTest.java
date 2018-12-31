@@ -1,9 +1,13 @@
 package cz.muni.fi.pa165.service.service;
 
 import cz.muni.fi.pa165.dao.TestDrive.TestDriveDao;
-import cz.muni.fi.pa165.entity.*;
+import cz.muni.fi.pa165.entity.CarSetup;
+import cz.muni.fi.pa165.entity.Component;
+import cz.muni.fi.pa165.entity.Driver;
+import cz.muni.fi.pa165.entity.TestDrive;
 import cz.muni.fi.pa165.enums.ComponentType;
 import cz.muni.fi.pa165.enums.DriverStatus;
+import cz.muni.fi.pa165.exceptions.EntityNotFoundException;
 import cz.muni.fi.pa165.service.TestDriveServiceImpl;
 import cz.muni.fi.pa165.service.base.BaseServiceTest;
 import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
@@ -41,7 +45,7 @@ public class TestDriveServiceTest extends BaseServiceTest<TestDrive> {
     @Test(expected = FormulaOneTeamException.class)
     public void addTestDrive_exceptionIsThrown() {
         //when
-        testDriveService.add(null);
+        testDriveService.add((TestDrive) null);
     }
 
     @Test
@@ -56,7 +60,7 @@ public class TestDriveServiceTest extends BaseServiceTest<TestDrive> {
         assertEquals(entity, TestDrive);
     }
 
-    @Test(expected = FormulaOneTeamException.class)
+    @Test(expected = EntityNotFoundException.class)
     public void findById_exceptionIsThrown() {
         //when
         testDriveService.findById(-1);
@@ -80,16 +84,16 @@ public class TestDriveServiceTest extends BaseServiceTest<TestDrive> {
     @Test
     public void removeTestDrive_WithValidValues() {
         //When
-        testDriveService.remove(entity);
+        testDriveService.remove(entity.getId());
 
         //Then
-        verify(testDriveDaoMock, times(1)).delete(entity);
+        verify(testDriveDaoMock, times(1)).delete(entity.getId());
     }
 
     @Test(expected = FormulaOneTeamException.class)
     public void removeTestDrive_exceptionIsThrown() {
         //when
-        testDriveService.remove(null);
+        testDriveService.remove(-1);
     }
 
     @Test
@@ -205,7 +209,7 @@ public class TestDriveServiceTest extends BaseServiceTest<TestDrive> {
     }
 
     private Driver mockDriver(String email) {
-        return new Driver("driver1", "sur", email, "pwd", "meh", new Date(), DriverStatus.TEST, new ArrayList<>());
+        return new Driver("driver1", "sur", email, "meh", new Date(), DriverStatus.TEST);
     }
 
     private CarSetup mockCarSetup(String engine) {

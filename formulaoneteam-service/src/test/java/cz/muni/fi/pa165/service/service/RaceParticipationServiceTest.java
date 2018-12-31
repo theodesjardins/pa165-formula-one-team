@@ -6,6 +6,7 @@ import cz.muni.fi.pa165.entity.Driver;
 import cz.muni.fi.pa165.entity.Race;
 import cz.muni.fi.pa165.entity.RaceParticipation;
 import cz.muni.fi.pa165.enums.DriverStatus;
+import cz.muni.fi.pa165.exceptions.EntityNotFoundException;
 import cz.muni.fi.pa165.service.RaceParticipationServiceImpl;
 import cz.muni.fi.pa165.service.RaceService;
 import cz.muni.fi.pa165.service.base.BaseServiceTest;
@@ -21,7 +22,6 @@ import java.util.*;
 
 import static org.mockito.Mockito.*;
 import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertTrue;
 
 /**
  * @author Adel Chakouri
@@ -52,7 +52,7 @@ public class RaceParticipationServiceTest extends BaseServiceTest<RaceParticipat
     @Test(expected = FormulaOneTeamException.class)
     public void addRaceParticipation_exceptionIsThrown() {
         //when
-        raceParticipationService.add(null);
+        raceParticipationService.add((RaceParticipation) null);
     }
 
     @Test
@@ -67,7 +67,7 @@ public class RaceParticipationServiceTest extends BaseServiceTest<RaceParticipat
         assertEquals(entity, raceParticipation);
     }
 
-    @Test(expected = FormulaOneTeamException.class)
+    @Test(expected = EntityNotFoundException.class)
     public void findById_exceptionIsThrown() {
         //when
         raceParticipationService.findById(-1);
@@ -91,16 +91,16 @@ public class RaceParticipationServiceTest extends BaseServiceTest<RaceParticipat
     @Test
     public void removeRaceParticipation_WithValidValues() {
         //When
-        raceParticipationService.remove(entity);
+        raceParticipationService.remove(entity.getId());
 
         //Then
-        verify(dao, times(1)).delete(entity);
+        verify(dao, times(1)).delete(entity.getId());
     }
 
     @Test(expected = FormulaOneTeamException.class)
     public void removeRaceParticipation_exceptionIsThrown() {
         //when
-        raceParticipationService.remove(null);
+        raceParticipationService.remove(-1);
     }
 
     @Test

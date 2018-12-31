@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.entity.base.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
@@ -16,18 +17,21 @@ import java.util.Objects;
 public class ComponentParameter extends BaseEntity {
 
     @NotNull
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String name = "";
 
     @Column
     private String value = "";
 
-    public ComponentParameter() {
-    }
+    @ManyToOne
+    private Component component;
 
     public ComponentParameter(@NotNull String name, String value) {
         this.name = name;
         this.value = value;
+    }
+
+    protected ComponentParameter() {
     }
 
     public String getName() {
@@ -50,18 +54,26 @@ public class ComponentParameter extends BaseEntity {
         return !getName().isEmpty();
     }
 
+    public Component getComponent() {
+        return component;
+    }
+
+    public void setComponent(Component component) {
+        this.component = component;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ComponentParameter)) return false;
         ComponentParameter that = (ComponentParameter) o;
-        return Objects.equals(that.getValue(), getValue()) &&
-                Objects.equals(getName(), that.getName());
+        return Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getComponent(), that.getComponent());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getValue());
+        return Objects.hash(getName(), getComponent());
     }
 
     @Override
@@ -71,4 +83,5 @@ public class ComponentParameter extends BaseEntity {
                 + ", value='" + getValue() + '\''
                 + "} " + super.toString();
     }
+
 }

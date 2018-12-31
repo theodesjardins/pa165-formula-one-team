@@ -3,8 +3,8 @@ package cz.muni.fi.pa165.dto;
 import cz.muni.fi.pa165.dto.base.BaseDTO;
 import cz.muni.fi.pa165.enums.ComponentType;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * @author Théo Desjardins
@@ -13,7 +13,7 @@ public class ComponentDTO extends BaseDTO {
 
     private ComponentType type;
     private String name;
-    private Set<ComponentParameterDTO> parameters;
+    private List<ComponentParameterDTO> parameters;
 
     public ComponentType getType() {
         return this.type;
@@ -23,7 +23,7 @@ public class ComponentDTO extends BaseDTO {
         return this.name;
     }
 
-    public Set<ComponentParameterDTO> getParameters() {
+    public List<ComponentParameterDTO> getParameters() {
         return this.parameters;
     }
 
@@ -35,7 +35,7 @@ public class ComponentDTO extends BaseDTO {
         this.name = name;
     }
 
-    public void setParameters(Set<ComponentParameterDTO> parameters) {
+    public void setParameters(List<ComponentParameterDTO> parameters) {
         this.parameters = parameters;
     }
 

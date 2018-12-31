@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.service.service;
 
 import cz.muni.fi.pa165.dao.Race.RaceDao;
 import cz.muni.fi.pa165.entity.Race;
+import cz.muni.fi.pa165.exceptions.EntityNotFoundException;
 import cz.muni.fi.pa165.service.RaceServiceImpl;
 import cz.muni.fi.pa165.service.base.BaseServiceTest;
 import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
@@ -48,7 +49,7 @@ public class RaceServiceTest extends BaseServiceTest<Race> {
         assertEquals(entity, race);
     }
 
-    @Test(expected = FormulaOneTeamException.class)
+    @Test(expected = EntityNotFoundException.class)
     public void findById_exceptionIsThrown() {
         //when
         raceService.findById(-1);
@@ -72,16 +73,16 @@ public class RaceServiceTest extends BaseServiceTest<Race> {
     @Test
     public void removeRace_WithValidValues() {
         //when
-        raceService.remove(entity);
+        raceService.remove(entity.getId());
 
         //then
-        verify(raceDaoMock, times(1)).delete(entity);
+        verify(raceDaoMock, times(1)).delete(entity.getId());
     }
 
     @Test(expected = FormulaOneTeamException.class)
     public void removeRace_exceptionIsThrown() {
         //when
-        raceService.remove(null);
+        raceService.remove(-1);
     }
 
     @Test

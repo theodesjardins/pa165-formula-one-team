@@ -1,8 +1,9 @@
 package cz.muni.fi.pa165.service.facade;
 
-import cz.muni.fi.pa165.dto.CarSetupDTO;
-import cz.muni.fi.pa165.dto.DriverDetailDTO;
-import cz.muni.fi.pa165.dto.TestDriveDTO;
+import cz.muni.fi.pa165.dto.carsetup.CarSetupDTO;
+import cz.muni.fi.pa165.dto.driver.DriverDTO;
+import cz.muni.fi.pa165.dto.testdrive.SaveTestDriveDTO;
+import cz.muni.fi.pa165.dto.testdrive.TestDriveDTO;
 import cz.muni.fi.pa165.entity.CarSetup;
 import cz.muni.fi.pa165.entity.Driver;
 import cz.muni.fi.pa165.entity.TestDrive;
@@ -45,6 +46,7 @@ public class TestDriveFacadeImplTest extends BaseFacadeTest<TestDrive, TestDrive
         super.setUp();
 
         when(beanMappingServiceMock.mapTo(dto, TestDrive.class)).thenReturn(entity);
+        when(service.add(any(TestDrive.class))).thenReturn(entity);
     }
 
     @Test
@@ -81,44 +83,62 @@ public class TestDriveFacadeImplTest extends BaseFacadeTest<TestDrive, TestDrive
 
     @Test
     public void deleteTestDriveTest() {
+        when(service.findById(dto.getId())).thenReturn(entity);
+
         //When
-        testDriveFacade.remove(dto);
+        testDriveFacade.remove(dto.getId());
 
         //Then
-        verify(service, times(1)).remove(entity);
+        verify(service, times(1)).remove(entity.getId());
     }
 
     @Test
     public void updateTestDriveTest() {
-        //When
-        testDriveFacade.update(dto);
+        //given
+        SaveTestDriveDTO dto = createSaveTestDriveDTO();
 
-        //Then
-        verify(service, times(1)).update(entity);
+        //When
+        testDriveFacade.update(dto, 1);
+
+        //then
+        verify(carSetupService).findById(dto.getCarSetupId());
+        verify(driverService).findById(dto.getDriverId());
+
+        verify(service).update(any(TestDrive.class));
     }
 
     @Test
     public void addTestDriveTest() {
-        //When
-        testDriveFacade.add(dto);
+        //given
+        SaveTestDriveDTO dto = createSaveTestDriveDTO();
 
-        //Then
-        verify(service, times(1)).add(entity);
+        //when
+        when(service.add(entity)).thenReturn(entity);
+
+        long id = testDriveFacade.add(dto);
+
+        //then
+        verify(carSetupService).findById(dto.getCarSetupId());
+        verify(driverService).findById(dto.getDriverId());
+
+        verify(service).add(any(TestDrive.class));
+
+        assertEquals(dto.getId(), id);
     }
 
     @Test
     public void whenGetNotesForDriver_beanMappingIsCalled() {
         //given
         Driver driver = createDriver();
-        DriverDetailDTO driverDetailDTO = createDriverDetailDTO();
+        DriverDTO DriverDTO = createDriverDTO();
 
         Map<CarSetup, List<String>> notes = new HashMap<>();
 
         //when
-        when(driverService.findById(driverDetailDTO.getId())).thenReturn(driver);
+        when(driverService.findById(DriverDTO.getId())).thenReturn(driver);
         when(service.getNotesForDriver(driver)).thenReturn(notes);
 
-        testDriveFacade.getNotesForDriver(driverDetailDTO);
+        testDriveFacade.getNotesForDriver(DriverDTO);
 
         //then
         verify(beanMappingServiceMock).mapTo(notes, CarSetupDTO.class);
@@ -138,7 +158,7 @@ public class TestDriveFacadeImplTest extends BaseFacadeTest<TestDrive, TestDrive
         testDriveFacade.getNotesForCar(carSetupDTO);
 
         //then
-        verify(beanMappingServiceMock).mapTo(notes, DriverDetailDTO.class);
+        verify(beanMappingServiceMock).mapTo(notes, DriverDTO.class);
     }
 
     @Override

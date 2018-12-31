@@ -2,9 +2,8 @@ package cz.muni.fi.pa165.entity;
 
 import cz.muni.fi.pa165.entity.base.BaseEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import java.util.Objects;
+import javax.persistence.*;
+import java.util.*;
 
 /**
  * @author Théo Desjardins
@@ -12,23 +11,29 @@ import java.util.Objects;
 @Entity
 public class CarSetup extends BaseEntity {
 
-    @OneToOne
+    @ManyToOne
     private Component engine;
 
-    @OneToOne
+    @ManyToOne
     private Component suspension;
 
-    @OneToOne
+    @ManyToOne
     private Component brakes;
 
-    @OneToOne
+    @ManyToOne
     private Component transmission;
 
-    @OneToOne
+    @ManyToOne
     private Component tires;
 
-    @OneToOne
+    @ManyToOne
     private Component cover;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "carSetup", fetch = FetchType.EAGER)
+    private Set<RaceParticipation> raceParticipations = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "carSetup", fetch = FetchType.EAGER)
+    private Set<TestDrive> testDrives = new HashSet<>();
 
     public CarSetup(
             Component engine,
@@ -47,6 +52,22 @@ public class CarSetup extends BaseEntity {
     }
 
     protected CarSetup() {
+    }
+
+    public Set<RaceParticipation> getRaceParticipations() {
+        return raceParticipations;
+    }
+
+    public void setRaceParticipations(Set<RaceParticipation> raceParticipations) {
+        this.raceParticipations = raceParticipations;
+    }
+
+    public Set<TestDrive> getTestDrives() {
+        return testDrives;
+    }
+
+    public void setTestDrives(Set<TestDrive> testDrives) {
+        this.testDrives = testDrives;
     }
 
     public Component getEngine() {
@@ -95,6 +116,10 @@ public class CarSetup extends BaseEntity {
 
     public void setCover(Component cover) {
         this.cover = cover;
+    }
+
+    public List<Component> getComponents() {
+        return Arrays.asList(getEngine(), getBrakes(), getCover(), getSuspension(), getTransmission(), getTires());
     }
 
     public boolean isConfigured() {

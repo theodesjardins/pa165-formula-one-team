@@ -2,9 +2,9 @@ package cz.muni.fi.pa165.service.facade.base;
 
 import cz.muni.fi.pa165.dto.base.BaseDTO;
 import cz.muni.fi.pa165.entity.base.BaseEntity;
+import cz.muni.fi.pa165.exceptions.EntityNotFoundException;
 import cz.muni.fi.pa165.facade.base.BaseFacade;
-import cz.muni.fi.pa165.service.BeanMappingService;
-import cz.muni.fi.pa165.service.CharacteristicsValueService;
+import cz.muni.fi.pa165.service.*;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -21,13 +21,8 @@ public abstract class BaseFacadeImpl<DTO extends BaseDTO, E extends BaseEntity, 
     @Inject
     protected BeanMappingService beanMappingService;
 
-    @Inject
-    protected CharacteristicsValueService characteristicsValueService;
-
     @Override
-    public DTO findById(long id) {
-        E entity = service.findById(id);
-        if (entity == null) throw new IllegalArgumentException("cannot find entity by this id");
+    public DTO findById(long id) throws EntityNotFoundException {
         return beanMappingService.mapTo(service.findById(id), getDtoClass());
     }
 

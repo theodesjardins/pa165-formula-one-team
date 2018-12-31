@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.service.service;
 
 import cz.muni.fi.pa165.dao.characteristics.CharacteristicsValueDao;
 import cz.muni.fi.pa165.entity.CharacteristicsValue;
+import cz.muni.fi.pa165.exceptions.EntityNotFoundException;
 import cz.muni.fi.pa165.service.CharacteristicsValueServiceImpl;
 import cz.muni.fi.pa165.service.base.BaseServiceTest;
 import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
@@ -57,22 +58,22 @@ public class CharacteristicsValueServiceImplTests extends BaseServiceTest<Charac
     @Test
     public void removeValue_withValidValues_valueDeleted() {
         //When
-        characteristicsValueService.remove(entity);
+        characteristicsValueService.remove(entity.getId());
 
         //Then
-        verify(characteristicsValueDaoMock, times(1)).delete(entity);
+        verify(characteristicsValueDaoMock, times(1)).delete(entity.getId());
     }
 
     @Test(expected = FormulaOneTeamException.class)
     public void add_throwsException() {
         //when
-        characteristicsValueService.add(null);
+        characteristicsValueService.add((CharacteristicsValue) null);
 
         //then
         fail("Exception is not thrown");
     }
 
-    @Test(expected = FormulaOneTeamException.class)
+    @Test(expected = EntityNotFoundException.class)
     public void update_exceptionIsThrown() {
         //given
         entity.setId(-1);
@@ -88,7 +89,7 @@ public class CharacteristicsValueServiceImplTests extends BaseServiceTest<Charac
     @Test(expected = FormulaOneTeamException.class)
     public void remove_exceptionIsThrown() {
         //when
-        characteristicsValueService.remove(null);
+        characteristicsValueService.remove(-1);
 
         //then
         fail("Exception is not thrown");

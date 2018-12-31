@@ -5,7 +5,7 @@
     <groupId>cz.muni.fi.pa165</groupId>
     <artifactId>formulateoneteam-parent</artifactId>
     <packaging>pom</packaging>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.3-SNAPSHOT</version>
     <name>FormulaOneTeam Parent</name>
 
     <properties>
@@ -37,6 +37,21 @@
                 <artifactId>javax.inject</artifactId>
                 <version>1</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.taglibs</groupId>
+                <artifactId>taglibs-standard-impl</artifactId>
+                <version>1.2.5</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.taglibs</groupId>
+                <artifactId>taglibs-standard-spec</artifactId>
+                <version>1.2.5</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>19.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -49,6 +64,21 @@
                     <configuration>
                         <source>1.8</source>
                         <target>1.8</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.cargo</groupId>
+                    <artifactId>cargo-maven2-plugin</artifactId>
+                    <version>1.7.0</version>
+                    <configuration>
+                        <container>
+                            <containerId>tomcat9x</containerId>
+                            <artifactInstaller>
+                                <groupId>org.apache.tomcat</groupId>
+                                <artifactId>tomcat</artifactId>
+                                <version>${tomcat.version}</version>
+                            </artifactInstaller>
+                        </container>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -70,6 +100,9 @@
     <modules>
         <module>formulaoneteam-persistence</module>
         <module>formulaoneteam-api</module>
+        <module>formulaoneteam-web</module>
         <module>formulaoneteam-service</module>
+        <module>formulaoneteam-sample-data</module>
+        <module>formulaoneteam-rest</module>
     </modules>
 </project>

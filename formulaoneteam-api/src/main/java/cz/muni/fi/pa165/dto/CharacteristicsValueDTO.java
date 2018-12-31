@@ -2,13 +2,15 @@ package cz.muni.fi.pa165.dto;
 
 import cz.muni.fi.pa165.dto.base.BaseDTO;
 import cz.muni.fi.pa165.enums.CharacteristicsType;
+import org.springframework.format.annotation.NumberFormat;
 
 import java.util.Objects;
 
 public class CharacteristicsValueDTO extends BaseDTO {
+
+    @NumberFormat(style = NumberFormat.Style.DEFAULT)
     private double value;
     private CharacteristicsType type;
-    private DriverDetailDTO driver;
 
     public double getValue() {
         return value;
@@ -26,27 +28,18 @@ public class CharacteristicsValueDTO extends BaseDTO {
         this.type = type;
     }
 
-    public DriverDetailDTO getDriver() {
-        return driver;
-    }
-
-    public void setDriver(DriverDetailDTO driver) {
-        this.driver = driver;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof CharacteristicsValueDTO)) return false;
         CharacteristicsValueDTO that = (CharacteristicsValueDTO) o;
         return Double.compare(that.getValue(), getValue()) == 0 &&
-                getType() == that.getType() &&
-                Objects.equals(getDriver(), that.getDriver());
+                getType() == that.getType();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getValue(), getType(), getDriver());
+        return Objects.hash(getValue(), getType());
     }
 
     @Override
@@ -55,7 +48,6 @@ public class CharacteristicsValueDTO extends BaseDTO {
                 "id=" + getId() +
                 ", value=" + getValue() +
                 ", type=" + getType() +
-                ", driver=" + getDriver() +
                 '}';
     }
 }

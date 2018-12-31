@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.service.service;
 
 import cz.muni.fi.pa165.dao.component.ComponentDao;
 import cz.muni.fi.pa165.entity.Component;
+import cz.muni.fi.pa165.exceptions.EntityNotFoundException;
 import cz.muni.fi.pa165.service.ComponentServiceImpl;
 import cz.muni.fi.pa165.service.base.BaseServiceTest;
 import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
@@ -65,10 +66,10 @@ public class ComponentServiceImplTest extends BaseServiceTest<Component> {
     @Test
     public void removeComponent_withValidValues() {
         //when
-        componentService.remove(entity);
+        componentService.remove(entity.getId());
 
         //then
-        verify(componentDaoMock, times(1)).delete(entity);
+        verify(componentDaoMock, times(1)).delete(entity.getId());
     }
 
     @Test
@@ -91,13 +92,13 @@ public class ComponentServiceImplTest extends BaseServiceTest<Component> {
     @Test(expected = FormulaOneTeamException.class)
     public void add_throwsException() {
         //when
-        componentService.add(null);
+        componentService.add((Component) null);
 
         //then
         fail("Exception is not thrown");
     }
 
-    @Test(expected = FormulaOneTeamException.class)
+    @Test(expected = EntityNotFoundException.class)
     public void update_exceptionIsThrown() {
         //given
         entity.setName("");
@@ -113,7 +114,7 @@ public class ComponentServiceImplTest extends BaseServiceTest<Component> {
     @Test(expected = FormulaOneTeamException.class)
     public void remove_exceptionIsThrown() {
         //when
-        componentService.remove(null);
+        componentService.remove(-1);
 
         //then
         fail("Exception is not thrown");

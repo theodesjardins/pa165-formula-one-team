@@ -1,8 +1,8 @@
 package cz.muni.fi.pa165.dto;
 
-import java.util.Objects;
-
 import cz.muni.fi.pa165.dto.base.BaseDTO;
+
+import java.util.Objects;
 
 /**
  * @author Ivan Dendis
@@ -40,5 +40,13 @@ public class ComponentParameterDTO extends BaseDTO {
     @Override
     public int hashCode() {
         return Objects.hash(getValue(), getName());
+    }
+
+    @Override
+    public String toString() {
+        return "ComponentParameterDTO{" +
+                "name='" + name + '\'' +
+                ", value='" + value + '\'' +
+                "} " + super.toString();
     }
 }

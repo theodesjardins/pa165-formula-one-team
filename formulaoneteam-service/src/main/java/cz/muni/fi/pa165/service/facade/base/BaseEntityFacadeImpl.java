@@ -4,28 +4,27 @@ import cz.muni.fi.pa165.dto.base.BaseDTO;
 import cz.muni.fi.pa165.entity.base.BaseEntity;
 import cz.muni.fi.pa165.facade.base.BaseEntityFacade;
 
+import static cz.muni.fi.pa165.entity.base.BaseEntity.NO_ID;
+
 /**
  * @author elderanakain (Arcadii Rubailo)
  */
-public abstract class BaseEntityFacadeImpl<DTO extends BaseDTO, E extends BaseEntity, S extends BaseEntityService<E>>
+public abstract class BaseEntityFacadeImpl
+        <DTO extends BaseDTO, SaveDTO extends BaseDTO, E extends BaseEntity, S extends BaseEntityService<E>>
         extends BaseFacadeImpl<DTO, E, S>
-        implements BaseEntityFacade<DTO, E> {
+        implements BaseEntityFacade<DTO, SaveDTO, E> {
 
     @Override
-    public void add(DTO dto) {
+    public long add(SaveDTO dto) {
         if (dto == null) throw new IllegalArgumentException("null DTO, cannot add");
-        service.add(beanMappingService.mapTo(dto, getEntityClass()));
+        E entity = service.add(beanMappingService.mapTo(dto, getEntityClass()));
+        return entity.getId();
     }
 
     @Override
-    public void remove(DTO dto) {
-        if (dto == null) throw new IllegalArgumentException("null DTO, cannot delete");
-        service.remove(beanMappingService.mapTo(dto, getEntityClass()));
-    }
+    public void remove(long id) {
+        if (id == NO_ID) throw new IllegalArgumentException("Invalid id");
 
-    @Override
-    public void update(DTO dto) {
-        if (dto == null) throw new IllegalArgumentException("null raceDTO, cannot update");
-        service.update(beanMappingService.mapTo(dto, getEntityClass()));
+        service.remove(id);
     }
 }

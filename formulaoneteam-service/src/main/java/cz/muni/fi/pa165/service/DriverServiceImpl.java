@@ -6,6 +6,7 @@ import cz.muni.fi.pa165.enums.CharacteristicsType;
 import cz.muni.fi.pa165.enums.DriverStatus;
 import cz.muni.fi.pa165.service.base.BaseUserServiceImpl;
 import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
+import cz.muni.fi.pa165.service.utils.Validator;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -21,6 +22,17 @@ public class DriverServiceImpl extends BaseUserServiceImpl<Driver, DriverDao> im
 
     @Inject
     private DriverDao driverDao;
+
+    @Override
+    public Driver update(Driver entity) throws FormulaOneTeamException {
+        if (entity.getPassword().isEmpty()) {
+            final Driver originalDriver = findById(entity.getId());
+            entity.setPassword(originalDriver.getPassword());
+        } else {
+            entity.setPassword(Validator.createHash(entity.getPassword()));
+        }
+        return super.update(entity);
+    }
 
     @Override
     public List<Driver> getAllDriversByStatus(DriverStatus status) {
@@ -45,5 +57,10 @@ public class DriverServiceImpl extends BaseUserServiceImpl<Driver, DriverDao> im
         if (entity == null || !entity.isConfigured()) {
             throw new FormulaOneTeamException("Driver is null or not configured.");
         }
+    }
+
+    @Override
+    protected Class<Driver> getEntityClass() {
+        return Driver.class;
     }
 }
