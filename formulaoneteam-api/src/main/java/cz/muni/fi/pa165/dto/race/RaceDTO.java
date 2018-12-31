@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import cz.muni.fi.pa165.dto.base.BaseDTO;
 import cz.muni.fi.pa165.utils.DateUtils;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 import java.util.Objects;
 
@@ -12,9 +13,11 @@ import java.util.Objects;
  */
 public class RaceDTO extends BaseDTO {
 
+    @NotEmpty
+    private String title = "";
+    @NotEmpty
+    private String location = "";
     private Date date = new Date();
-    private String title;
-    private String location;
 
     public Date getDate() {
         return date;

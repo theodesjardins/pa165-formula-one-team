@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cz.muni.fi.pa165.dto.*;
 import cz.muni.fi.pa165.dto.carsetup.CarSetupDTO;
+import cz.muni.fi.pa165.dto.carsetup.SaveCarSetupDTO;
 import cz.muni.fi.pa165.dto.driver.DriverDTO;
 import cz.muni.fi.pa165.dto.race.RaceDTO;
 import cz.muni.fi.pa165.dto.testdrive.SaveTestDriveDTO;
@@ -90,6 +91,18 @@ public abstract class BaseControllerTests<Controller> {
         dto.setCover(createComponentDTO(ComponentType.COVER));
         dto.setTires(createComponentDTO(ComponentType.TIRES));
         dto.setTransmission(createComponentDTO(ComponentType.TRANSMISSION));
+        return dto;
+    }
+
+    protected SaveCarSetupDTO createSaveCarSetupDTO() {
+        SaveCarSetupDTO dto = new SaveCarSetupDTO();
+        dto.setId(1);
+        dto.setEngineId(createComponentDTO(ComponentType.ENGINE).getId());
+        dto.setSuspensionId(createComponentDTO(ComponentType.SUSPENSION).getId());
+        dto.setBrakesId(createComponentDTO(ComponentType.BRAKES).getId());
+        dto.setCoverId(createComponentDTO(ComponentType.COVER).getId());
+        dto.setTiresId(createComponentDTO(ComponentType.TIRES).getId());
+        dto.setTransmissionId(createComponentDTO(ComponentType.TRANSMISSION).getId());
         return dto;
     }
 

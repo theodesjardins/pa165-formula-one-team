@@ -34,14 +34,6 @@ public class DriversController extends BaseController {
         return "drivers/list";
     }
 
-    @RequestMapping("/detail/{id}")
-    public String detail(Model model, @PathVariable long id) {
-        final DriverDTO driver = driverFacade.findById(id);
-        model.addAttribute("driver", driver);
-        model.addAttribute("editingEnabled", userCanEditDriver(driver));
-        return "drivers/detail";
-    }
-
     @RequestMapping("/create")
     public String create(Model model) {
         if (authenticationFacade.hasRole(SecurityRole.MANAGER)) {
@@ -92,6 +84,14 @@ public class DriversController extends BaseController {
     @ModelAttribute("driverStatusValues")
     public DriverStatus[] getDriverStatusValues() {
         return DriverStatus.values();
+    }
+
+    @Override
+    protected String onGetDetail(Model model, long id) {
+        final DriverDTO driver = driverFacade.findById(id);
+        model.addAttribute("driver", driver);
+        model.addAttribute("editingEnabled", userCanEditDriver(driver));
+        return "drivers/detail";
     }
 
     private boolean userCanEditDriver(DriverDTO driver) {

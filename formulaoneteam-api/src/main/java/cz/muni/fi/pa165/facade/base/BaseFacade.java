@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.facade.base;
 
 import cz.muni.fi.pa165.dto.base.BaseDTO;
 import cz.muni.fi.pa165.entity.base.BaseEntity;
+import cz.muni.fi.pa165.exceptions.EntityNotFoundException;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public interface BaseFacade<DTO extends BaseDTO, E extends BaseEntity> {
 
-    DTO findById(long id);
+    DTO findById(long id) throws EntityNotFoundException;
 
     List<DTO> getAll();
 }

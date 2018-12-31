@@ -11,28 +11,28 @@ import java.util.*;
 @Entity
 public class CarSetup extends BaseEntity {
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Component engine;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Component suspension;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Component brakes;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Component transmission;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Component tires;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Component cover;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "carSetup")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "carSetup", fetch = FetchType.EAGER)
     private Set<RaceParticipation> raceParticipations = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "carSetup")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "carSetup", fetch = FetchType.EAGER)
     private Set<TestDrive> testDrives = new HashSet<>();
 
     public CarSetup(

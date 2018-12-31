@@ -16,9 +16,7 @@
                             <span class="glyphicon glyphicon-pencil"></span>
                             <fmt:message key="common.update"/>
                         </my:a>
-                        <sec:authorize access="hasAuthority('ADMIN')">
-                            <my:deleteButton action="/pa165/components/delete/${component.id}"/>
-                        </sec:authorize>
+                        <my:deleteButton action="/pa165/components/delete/${component.id}"/>
                     </div>
                 </div>
             </sec:authorize>

@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.service.facade.base;
 
 import cz.muni.fi.pa165.dto.base.BaseDTO;
 import cz.muni.fi.pa165.entity.base.BaseEntity;
+import cz.muni.fi.pa165.exceptions.EntityNotFoundException;
 import cz.muni.fi.pa165.facade.base.BaseFacade;
 import cz.muni.fi.pa165.service.*;
 
@@ -21,7 +22,7 @@ public abstract class BaseFacadeImpl<DTO extends BaseDTO, E extends BaseEntity, 
     protected BeanMappingService beanMappingService;
 
     @Override
-    public DTO findById(long id) {
+    public DTO findById(long id) throws EntityNotFoundException {
         return beanMappingService.mapTo(service.findById(id), getDtoClass());
     }
 

@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.rest.controllers;
 
 import cz.muni.fi.pa165.dto.carsetup.CarSetupDTO;
+import cz.muni.fi.pa165.dto.carsetup.SaveCarSetupDTO;
 import cz.muni.fi.pa165.exceptions.EntityNotFoundException;
 import cz.muni.fi.pa165.facade.CarSetupFacade;
 import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
@@ -75,8 +76,8 @@ public class CarEndpointTests extends BaseControllerTests<CarEndpoint> {
     @Test
     public void createCar_whenCarIsInvalid_statusIsUnprocessable() throws Exception {
         //Given
-        final CarSetupDTO car = createCarSetupDTO();
-        car.setBrakes(null);
+        final SaveCarSetupDTO car = createSaveCarSetupDTO();
+        car.setBrakesId(0);
 
         //When
         when(facade.add(car)).thenThrow(FormulaOneTeamException.class);
@@ -103,8 +104,8 @@ public class CarEndpointTests extends BaseControllerTests<CarEndpoint> {
     @Test
     public void updateCar_whenCarIsInvalid_statusIsUnprocessable() throws Exception {
         //Given
-        final CarSetupDTO car = createCarSetupDTO();
-        car.setBrakes(null);
+        final SaveCarSetupDTO car = createSaveCarSetupDTO();
+        car.setBrakesId(0);
 
         //When
         doThrow(FormulaOneTeamException.class).when(facade).update(car, car.getId());

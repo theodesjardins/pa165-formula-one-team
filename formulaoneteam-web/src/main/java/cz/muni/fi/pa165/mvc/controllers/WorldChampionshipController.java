@@ -16,6 +16,7 @@ import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -48,12 +49,6 @@ public class WorldChampionshipController extends BaseController {
         return "world-championship/list";
     }
 
-    @RequestMapping("/detail/{id}")
-    public String detail(Model model, @PathVariable long id) {
-        model.addAttribute("raceParticipation", raceParticipationFacade.findById(id));
-        return "world-championship/detail";
-    }
-
     @RequestMapping("/edit/{id}")
     public String edit(Model model, @PathVariable long id) {
         RaceParticipationDTO raceParticipationDTO = raceParticipationFacade.findById(id);
@@ -74,11 +69,18 @@ public class WorldChampionshipController extends BaseController {
         }
     }
 
-    @RequestMapping(value = "/submit", method = RequestMethod.POST)
+    @PostMapping(value = "/submit")
     public String submitDriver(
             @Valid @ModelAttribute("saveRaceParticipation") SaveRaceParticipationDTO dto,
             BindingResult bindingResult
     ) {
+        if (dto.getRaceDTO().getTitle().isEmpty()) {
+            bindingResult.addError(new FieldError("saveRaceParticipation", "raceDTO.title", "cannot be empty"));
+        }
+        if (dto.getRaceDTO().getLocation().isEmpty()) {
+            bindingResult.addError(new FieldError("saveRaceParticipation", "raceDTO.location", "cannot be empty"));
+        }
+
         if (bindingResult.hasErrors()) {
             return "world-championship/edit";
         }
@@ -119,5 +121,11 @@ public class WorldChampionshipController extends BaseController {
     @ModelAttribute("mainDrivers")
     public List<DriverDTO> getMainDrivers() {
         return driverFacade.getAllDriversByStatus(DriverStatus.MAIN);
+    }
+
+    @Override
+    protected String onGetDetail(Model model, long id) {
+        model.addAttribute("raceParticipation", raceParticipationFacade.findById(id));
+        return "world-championship/detail";
     }
 }

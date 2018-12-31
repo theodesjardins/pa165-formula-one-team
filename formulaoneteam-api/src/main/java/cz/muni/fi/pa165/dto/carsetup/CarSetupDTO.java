@@ -2,7 +2,10 @@ package cz.muni.fi.pa165.dto.carsetup;
 
 import cz.muni.fi.pa165.dto.ComponentDTO;
 import cz.muni.fi.pa165.dto.base.BaseDTO;
+import cz.muni.fi.pa165.dto.raceparticipation.RaceParticipationDTO;
+import cz.muni.fi.pa165.dto.testdrive.TestDriveDTO;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -16,9 +19,19 @@ public class CarSetupDTO extends BaseDTO {
     private ComponentDTO transmission;
     private ComponentDTO tires;
     private ComponentDTO cover;
+    private List<RaceParticipationDTO> raceParticipations;
+    private List<TestDriveDTO> testDrives;
 
     public ComponentDTO getEngine() {
         return engine;
+    }
+    
+    public List<RaceParticipationDTO> getRaceParticipations() {
+        return raceParticipations;
+    }
+
+    public void setRaceParticipations(List<RaceParticipationDTO> races) {
+        this.raceParticipations = races;
     }
 
     public ComponentDTO getSuspension() {
@@ -63,6 +76,14 @@ public class CarSetupDTO extends BaseDTO {
 
     public void setCover(ComponentDTO cover) {
         this.cover = cover;
+    }
+
+    public List<TestDriveDTO> getTestDrives() {
+        return testDrives;
+    }
+
+    public void setTestDrives(List<TestDriveDTO> testDrives) {
+        this.testDrives = testDrives;
     }
 
     @Override

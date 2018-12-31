@@ -36,12 +36,6 @@ class ComponentsController extends BaseController {
         return "components/list";
     }
 
-    @GetMapping("/detail/{id}")
-    public String detail(Model model, @PathVariable long id) {
-        model.addAttribute("component", componentFacade.findById(id));
-        return "components/detail";
-    }
-
     @GetMapping("/create")
     public String create(Model model) {
         if (authenticationFacade.hasRole(MANAGER) || authenticationFacade.hasRole(ENGINEER)) {
@@ -96,6 +90,12 @@ class ComponentsController extends BaseController {
     @ModelAttribute("componentTypeValues")
     public ComponentType[] getComponentTypeValues() {
         return ComponentType.values();
+    }
+
+    @Override
+    protected String onGetDetail(Model model, long id) {
+        model.addAttribute("component", componentFacade.findById(id));
+        return "components/detail";
     }
 
     @Override

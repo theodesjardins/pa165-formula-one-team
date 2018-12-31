@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" session="false" %>
+<%@ page import="cz.muni.fi.pa165.entity.RaceParticipation" %>
+
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -7,7 +9,7 @@
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<my:pagetemplate title="World Championship detail ${raceParticipation.race.title}">
+<my:pagetemplate title="${raceParticipation.race.title}">
     <jsp:attribute name="body">
         <div class="container">
             <sec:authorize access="hasAuthority('ADMIN')">
@@ -46,14 +48,21 @@
                     <table class="table" id="race-table">
                         <thead>
                         <tr>
-                            <th>Date</th>
                             <th>Title</th>
                             <th>Result</th>
+                            <th>Date</th>
                         </tr>
                         </thead>
                         <tbody>
                         <td><c:out value="${raceParticipation.race.title}"/></td>
-                        <td><c:out value="${raceParticipation.resultPosition}"/></td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${raceParticipation.resultPosition eq RaceParticipation.NO_RESULT_POSITION}">
+                                    <fmt:message key="feature.race.unfinished"/>
+                                </c:when>
+                                <c:otherwise><c:out value="${raceParticipation.resultPosition}"/></c:otherwise>
+                            </c:choose>
+                        </td>
                         <td><fmt:formatDate value="${raceParticipation.race.date}" pattern="dd/MM/YYYY"/></td>
                         </tbody>
                     </table>

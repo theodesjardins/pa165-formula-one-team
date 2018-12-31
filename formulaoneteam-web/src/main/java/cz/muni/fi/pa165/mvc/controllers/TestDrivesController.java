@@ -37,12 +37,6 @@ class TestDrivesController extends BaseController {
         return "test-drives/list";
     }
 
-    @RequestMapping("/detail/{id}")
-    public String detail(Model model, @PathVariable long id) {
-        model.addAttribute("testDrive", testDriveFacade.findById(id));
-        return "test-drives/detail";
-    }
-
     @RequestMapping("/edit/{id}")
     public String edit(Model model, @PathVariable long id) {
         if (userCanEdit()) {
@@ -100,5 +94,11 @@ class TestDrivesController extends BaseController {
         } else {
             return Navigator.openForbiddenPage("Only manager can create new test drives.");
         }
+    }
+
+    @Override
+    protected String onGetDetail(Model model, long id) {
+        model.addAttribute("testDrive", testDriveFacade.findById(id));
+        return "test-drives/detail";
     }
 }

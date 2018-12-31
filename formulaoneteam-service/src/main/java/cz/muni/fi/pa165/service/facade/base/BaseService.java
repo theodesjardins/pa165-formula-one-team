@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.service.facade.base;
 
 import cz.muni.fi.pa165.entity.base.BaseEntity;
+import cz.muni.fi.pa165.exceptions.EntityNotFoundException;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -16,7 +17,7 @@ public interface BaseService<E extends BaseEntity> {
     E update(@Nullable E entity);
 
     @NonNull
-    E findById(long id);
+    E findById(long id) throws EntityNotFoundException;
 
     @NonNull
     List<E> getAll();

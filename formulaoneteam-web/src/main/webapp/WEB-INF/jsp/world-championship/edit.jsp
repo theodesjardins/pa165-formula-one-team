@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" session="false" %>
+<%@ page import="cz.muni.fi.pa165.entity.RaceParticipation" %>
+
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -52,14 +54,14 @@
                                 <c:out value="${status.errorMessage}"/>
                             </span>
                             <form:input cssClass="form-control"
-                                        cssStyle="${raceParticipation.resultPosition eq RaceParticipation.NO_RESULT_POSITION ? 'display: none;' : ''}"
+                                        cssStyle="${saveRaceParticipation.resultPosition eq RaceParticipation.NO_RESULT_POSITION ? 'display: none;' : ''}"
                                         id="resultInput"
                                         path="resultPosition"/>
                             <br>
                             <label>
                                 <input type="checkbox"
                                        id="resultCheckbox"
-                                        <c:if test="${raceParticipation.resultPosition eq RaceParticipation.NO_RESULT_POSITION}">
+                                        <c:if test="${saveRaceParticipation.resultPosition eq RaceParticipation.NO_RESULT_POSITION}">
                                        checked
                                        </c:if>
                                 />

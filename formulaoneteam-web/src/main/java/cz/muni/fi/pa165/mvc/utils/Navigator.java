@@ -9,6 +9,10 @@ public class Navigator {
         return "redirect:/forbidden?message=" + message;
     }
 
+    public static String openNotFoundPage(String message) {
+        return "redirect:/notFound?message=" + message;
+    }
+
     private Navigator() {
         throw new IllegalAccessError("This constructor should never get called.");
     }

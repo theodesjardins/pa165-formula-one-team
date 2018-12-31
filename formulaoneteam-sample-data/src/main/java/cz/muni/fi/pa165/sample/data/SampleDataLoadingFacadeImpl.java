@@ -249,7 +249,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         );
 
         final Component tires1 = createComponent(
-                "Suspension",
+                "Tires 1",
                 TIRES,
                 componentParameterService.add(newHashSet(
                         new ComponentParameter("Manufacturer", "Michellin"),
@@ -258,7 +258,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         );
 
         final Component tires2 = createComponent(
-                "Tires",
+                "Tires 2",
                 TIRES,
                 componentParameterService.add(newHashSet(
                         new ComponentParameter("Manufacturer", "Barum"),
@@ -268,7 +268,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
         final Component cover = createComponent(
                 "Carbon",
-                TIRES,
+                COVER,
                 newHashSet(componentParameterService.add(new ComponentParameter("Reference area", "2800 ft*ft")))
         );
 

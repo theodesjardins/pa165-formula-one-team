@@ -1,13 +1,18 @@
 package cz.muni.fi.pa165.service.facade;
 
 import cz.muni.fi.pa165.dto.carsetup.CarSetupDTO;
+import cz.muni.fi.pa165.dto.carsetup.SaveCarSetupDTO;
 import cz.muni.fi.pa165.entity.CarSetup;
 import cz.muni.fi.pa165.service.CarSetupService;
+import cz.muni.fi.pa165.service.ComponentService;
+import cz.muni.fi.pa165.service.RaceParticipationService;
+import cz.muni.fi.pa165.service.TestDriveService;
 import cz.muni.fi.pa165.service.base.BaseFacadeTest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +29,12 @@ public class CarSetupFacadeImplTest extends BaseFacadeTest<CarSetup, CarSetupDTO
     
     @Mock
     private CarSetupService carSetupService;
+    @Mock
+    private ComponentService componentService;
+    @Mock
+    private TestDriveService testDriveService;
+    @Mock
+    private RaceParticipationService raceParticipationService;
 
     @InjectMocks
     private CarSetupFacadeImpl carSetupFacade;
@@ -31,6 +42,8 @@ public class CarSetupFacadeImplTest extends BaseFacadeTest<CarSetup, CarSetupDTO
     @Override
     public void setUp() {
         super.setUp();
+        ReflectionTestUtils.setField(carSetupFacade, "service", carSetupService);
+
         when(beanMappingServiceMock.mapTo(dto, CarSetup.class)).thenReturn(entity);
     }
 
@@ -56,8 +69,18 @@ public class CarSetupFacadeImplTest extends BaseFacadeTest<CarSetup, CarSetupDTO
 
     @Test
     public void updateCarSetupTest() {
+        when(componentService.findById(1)).thenReturn(createComponent());
         //when
-        carSetupFacade.update(dto, 1);
+        SaveCarSetupDTO saveDto = new SaveCarSetupDTO();
+        saveDto.setBrakesId(1);
+        saveDto.setCoverId(1);
+        saveDto.setEngineId(1);
+        saveDto.setId(1);
+        saveDto.setSuspensionId(1);
+        saveDto.setTiresId(1);
+        saveDto.setTransmissionId(1);
+
+        carSetupFacade.update(saveDto, 1);
 
         //then
         verify(carSetupService, times(1)).update(entity);
@@ -65,10 +88,20 @@ public class CarSetupFacadeImplTest extends BaseFacadeTest<CarSetup, CarSetupDTO
 
     @Test
     public void addCarSetupTest() {
+        when(componentService.findById(1)).thenReturn(createComponent());
         //when
         when(carSetupService.add(entity)).thenReturn(entity);
+        
+        SaveCarSetupDTO saveDto = new SaveCarSetupDTO();
+        saveDto.setBrakesId(1);
+        saveDto.setCoverId(1);
+        saveDto.setEngineId(1);
+        saveDto.setId(1);
+        saveDto.setSuspensionId(1);
+        saveDto.setTiresId(1);
+        saveDto.setTransmissionId(1);
 
-        carSetupFacade.add(dto);
+        carSetupFacade.add(saveDto);
 
         //then
         verify(carSetupService, times(1)).add(entity);

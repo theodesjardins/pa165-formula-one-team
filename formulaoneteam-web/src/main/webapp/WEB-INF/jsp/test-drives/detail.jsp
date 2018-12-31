@@ -48,12 +48,12 @@
                         <thead>
                         <tr>
                             <th><f:message key="common.id"/></th>
-                            <th><f:message key="feature.car.table.engine"/></th>
-                            <th><f:message key="feature.car.table.suspension"/></th>
-                            <th><f:message key="feature.car.table.brakes"/></th>
-                            <th><f:message key="feature.car.table.transmission"/></th>
-                            <th><f:message key="feature.car.table.tires"/></th>
-                            <th><f:message key="feature.car.table.cover"/></th>
+                            <th><f:message key="feature.car.engine"/></th>
+                            <th><f:message key="feature.car.suspension"/></th>
+                            <th><f:message key="feature.car.brakes"/></th>
+                            <th><f:message key="feature.car.transmission"/></th>
+                            <th><f:message key="feature.car.tires"/></th>
+                            <th><f:message key="feature.car.cover"/></th>
                         </tr>
                         </thead>
                         <tbody>
