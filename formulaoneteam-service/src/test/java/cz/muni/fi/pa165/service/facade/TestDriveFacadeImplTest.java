@@ -83,6 +83,8 @@ public class TestDriveFacadeImplTest extends BaseFacadeTest<TestDrive, TestDrive
 
     @Test
     public void deleteTestDriveTest() {
+        when(service.findById(dto.getId())).thenReturn(entity);
+
         //When
         testDriveFacade.remove(dto.getId());
 

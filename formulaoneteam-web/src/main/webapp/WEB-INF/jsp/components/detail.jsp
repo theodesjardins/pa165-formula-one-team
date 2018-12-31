@@ -11,10 +11,15 @@
         <div class="container">
             <sec:authorize access="hasAuthority('ADMIN') || hasAuthority('ENGINEER')">
                 <div class="row">
-                    <my:a href="/components/edit/${component.id}" class="btn btn-primary pull-right">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                        <fmt:message key="common.update"/>
-                    </my:a>
+                    <div class="pull-right">
+                        <my:a href="/components/edit/${component.id}" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            <fmt:message key="common.update"/>
+                        </my:a>
+                        <sec:authorize access="hasAuthority('ADMIN')">
+                            <my:deleteButton action="/pa165/components/delete/${component.id}"/>
+                        </sec:authorize>
+                    </div>
                 </div>
             </sec:authorize>
             <div class="row">

@@ -5,16 +5,22 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <my:pagetemplate title="World Championship detail ${raceParticipation.race.title}">
     <jsp:attribute name="body">
         <div class="container">
-            <div class="row">
-                <my:a href="/world-championship/edit/${raceParticipation.id}" class="btn btn-primary pull-right">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                    <fmt:message key="common.update"/>
-                </my:a>
-            </div>
+            <sec:authorize access="hasAuthority('ADMIN')">
+                <div class="row">
+                    <div class="pull-right">
+                        <my:a href="/world-championship/edit/${raceParticipation.id}" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            <fmt:message key="common.update"/>
+                        </my:a>
+                        <my:deleteButton action="/pa165/world-championship/delete/${raceParticipation.id}"/>
+                    </div>
+                </div>
+            </sec:authorize>
             <div class="row">
                 <div class="col-md-6 col-xs-12">
                     <h4>Driver information</h4>

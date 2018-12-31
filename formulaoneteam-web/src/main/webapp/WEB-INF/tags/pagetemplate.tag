@@ -96,6 +96,12 @@
         </div>
     </c:if>
 
+    <c:if test="${not empty errorMessage}">
+        <div class="alert alert-danger" role="alert">
+                ${errorMessage}
+        </div>
+    </c:if>
+
     <!-- page body -->
     <jsp:invoke fragment="body"/>
 

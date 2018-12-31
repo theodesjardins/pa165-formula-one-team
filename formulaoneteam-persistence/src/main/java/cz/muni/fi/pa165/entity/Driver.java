@@ -35,11 +35,11 @@ public class Driver extends User {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "driver", fetch = FetchType.EAGER)
     @Fetch(FetchMode.SELECT)
-    private Collection<RaceParticipation> raceParticipations;
+    private Collection<RaceParticipation> raceParticipations = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "driver", fetch = FetchType.EAGER)
     @Fetch(FetchMode.SELECT)
-    private Collection<TestDrive> testDrives;
+    private Collection<TestDrive> testDrives = new ArrayList<>();
 
     public Driver(
             String name,

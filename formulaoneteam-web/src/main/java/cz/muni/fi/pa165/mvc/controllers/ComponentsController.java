@@ -5,10 +5,12 @@ import cz.muni.fi.pa165.dto.ComponentParameterDTO;
 import cz.muni.fi.pa165.enums.ComponentType;
 import cz.muni.fi.pa165.facade.ComponentFacade;
 import cz.muni.fi.pa165.mvc.utils.Navigator;
+import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -76,6 +78,17 @@ class ComponentsController extends BaseController {
             componentFacade.add(component);
         } else {
             componentFacade.update(component, component.getId());
+        }
+        return "redirect:/components";
+    }
+
+    @PostMapping(value = "/delete/{id}")
+    public String delete(@PathVariable long id, RedirectAttributes redirectAttributes) {
+        try {
+            componentFacade.remove(id);
+        } catch (FormulaOneTeamException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+            return "redirect:/components/detail/" + id;
         }
         return "redirect:/components";
     }

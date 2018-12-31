@@ -12,13 +12,12 @@ import cz.muni.fi.pa165.facade.RaceFacade;
 import cz.muni.fi.pa165.facade.RaceParticipationFacade;
 import cz.muni.fi.pa165.mvc.config.security.SecurityRole;
 import cz.muni.fi.pa165.mvc.utils.Navigator;
+import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -97,6 +96,17 @@ public class WorldChampionshipController extends BaseController {
             raceParticipationFacade.add(dto);
         } else {
             raceParticipationFacade.update(dto, dto.getId());
+        }
+        return "redirect:/world-championship/list";
+    }
+
+    @PostMapping(value = "/delete/{id}")
+    public String delete(@PathVariable long id, RedirectAttributes redirectAttributes) {
+        try {
+            raceParticipationFacade.remove(id);
+        } catch (FormulaOneTeamException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+            return "redirect:/world-championship/detail/" + id;
         }
         return "redirect:/world-championship/list";
     }

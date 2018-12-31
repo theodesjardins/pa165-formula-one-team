@@ -50,6 +50,14 @@ public class TestDriveFacadeImpl
     }
 
     @Override
+    public void remove(long id) {
+        final TestDrive testDrive = service.findById(id);
+        removeTestDriveFromDriver(testDrive);
+        removeTestDriveFromCarSetup(testDrive);
+        service.remove(id);
+    }
+
+    @Override
     public Map<CarSetupDTO, List<String>> getNotesForDriver(DriverDTO driverDto) {
         Driver driver = driverService.findById(driverDto.getId());
 
@@ -84,5 +92,17 @@ public class TestDriveFacadeImpl
                 driveDTO.getNotes(),
                 driveDTO.getDate()
         );
+    }
+
+    private void removeTestDriveFromCarSetup(TestDrive testDrive) {
+        final CarSetup carSetup = testDrive.getCarSetup();
+        carSetup.getTestDrives().remove(testDrive);
+        carSetupService.update(carSetup);
+    }
+
+    private void removeTestDriveFromDriver(TestDrive testDrive) {
+        final Driver driver = testDrive.getDriver();
+        driver.getTestDrives().remove(testDrive);
+        driverService.update(driver);
     }
 }

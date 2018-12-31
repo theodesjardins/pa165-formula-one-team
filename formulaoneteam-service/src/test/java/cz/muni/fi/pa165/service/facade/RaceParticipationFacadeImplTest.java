@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.service.facade;
 
-import cz.muni.fi.pa165.dto.raceparticipation.RaceParticipationDTO;
 import cz.muni.fi.pa165.dto.WorldChampionshipSetupDTO;
+import cz.muni.fi.pa165.dto.raceparticipation.RaceParticipationDTO;
 import cz.muni.fi.pa165.dto.raceparticipation.SaveRaceParticipationDTO;
 import cz.muni.fi.pa165.entity.CarSetup;
 import cz.muni.fi.pa165.entity.Driver;
@@ -86,6 +86,8 @@ public class RaceParticipationFacadeImplTest extends BaseFacadeTest<RaceParticip
 
     @Test
     public void deleteRaceParticipationTest() {
+        when(service.findById(dto.getId())).thenReturn(entity);
+
         //When
         facade.remove(dto.getId());
 

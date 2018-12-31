@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.dto.raceparticipation.RaceParticipationDTO;
 import cz.muni.fi.pa165.dto.raceparticipation.SaveRaceParticipationDTO;
 import cz.muni.fi.pa165.entity.CarSetup;
 import cz.muni.fi.pa165.entity.Driver;
+import cz.muni.fi.pa165.entity.Race;
 import cz.muni.fi.pa165.entity.RaceParticipation;
 import cz.muni.fi.pa165.facade.RaceFacade;
 import cz.muni.fi.pa165.facade.RaceParticipationFacade;
@@ -80,6 +81,15 @@ public class RaceParticipationFacadeImpl
     }
 
     @Override
+    public void remove(long id) {
+        final RaceParticipation participation = service.findById(id);
+        removeParticipationFromRace(participation);
+        removeParticipationFromCarSetup(participation);
+        removeParticipationFromDriver(participation);
+        service.remove(id);
+    }
+
+    @Override
     protected Class<RaceParticipationDTO> getDtoClass() {
         return RaceParticipationDTO.class;
     }
@@ -96,6 +106,24 @@ public class RaceParticipationFacadeImpl
                 raceService.findById(raceFacade.add(dto.getRaceDTO())),
                 dto.getResultPosition()
         );
+    }
+
+    private void removeParticipationFromRace(RaceParticipation participation) {
+        final Race race = participation.getRace();
+        race.getRaceParticipations().remove(participation);
+        raceService.update(race);
+    }
+
+    private void removeParticipationFromCarSetup(RaceParticipation participation) {
+        final CarSetup carSetup = participation.getCarSetup();
+        carSetup.getRaceParticipations().remove(participation);
+        carSetupService.update(carSetup);
+    }
+
+    private void removeParticipationFromDriver(RaceParticipation participation) {
+        final Driver driver = participation.getDriver();
+        driver.getRaceParticipations().remove(participation);
+        driverService.update(driver);
     }
 }
 

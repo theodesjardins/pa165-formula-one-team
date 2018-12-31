@@ -18,10 +18,13 @@
         <div class="container">
             <sec:authorize access="hasAuthority('ADMIN')">
                 <div class="row">
-                    <my:a href="/test-drives/edit/${testDrive.id}" class="btn btn-primary pull-right">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                        Update
-                    </my:a>
+                    <div class="pull-right">
+                        <my:a href="/test-drives/edit/${testDrive.id}" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            Update
+                        </my:a>
+                        <my:deleteButton action="/pa165/test-drives/delete/${testDrive.id}"/>
+                    </div>
                 </div>
             </sec:authorize>
             <div class="row">
