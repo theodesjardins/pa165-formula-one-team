@@ -4,21 +4,12 @@ import cz.muni.fi.pa165.dao.base.BaseTest;
 import cz.muni.fi.pa165.entity.Manager;
 import org.junit.Test;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
-import org.junit.runner.RunWith;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.testng.Assert.assertThrows;
 import static org.testng.AssertJUnit.assertNotNull;
 
 /**
@@ -91,22 +82,6 @@ public class ManagerDaoTest extends BaseTest {
 
     @Test(expected = InvalidDataAccessApiUsageException.class)
     public void addNullManager_illegalArgumentExceptionThrown() {
-        assertThrows(InvalidDataAccessApiUsageException.class, () -> {
-            managerDao.add(null);
-        });
-    }
-    
-    @Test
-    public void addNonConfiguredManager_exceptionThrownAndManagerNotAdded() {
-        String mail = "test@mail.com";
-        Manager m = createManager(mail);
-        
-        m.setPasswordHash("");
-        
-        assertThrows(InvalidDataAccessApiUsageException.class, () -> {
-            managerDao.add(m);
-        });        
-        assertNull(managerDao.findByEmail(mail));
         managerDao.add(null);
     }
 
