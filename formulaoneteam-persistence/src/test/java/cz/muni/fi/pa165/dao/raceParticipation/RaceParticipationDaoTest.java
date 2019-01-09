@@ -10,7 +10,6 @@ import org.springframework.dao.InvalidDataAccessApiUsageException;
 import javax.inject.Inject;
 import java.util.List;
 
-import static junit.framework.Assert.assertNotNull;
 import static org.testng.Assert.*;
 
 /**

@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.dto.AuthenticateDTO;
 import cz.muni.fi.pa165.dto.base.BaseDTO;
 import cz.muni.fi.pa165.entity.base.User;
 import cz.muni.fi.pa165.facade.base.BaseUserFacade;
+import cz.muni.fi.pa165.service.base.BaseUserService;
 
 /**
  * @author elderanakain (Arcadii Rubailo)

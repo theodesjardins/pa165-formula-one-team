@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.service.base;
 
 import cz.muni.fi.pa165.dao.base.UserDao;
 import cz.muni.fi.pa165.entity.base.User;
-import cz.muni.fi.pa165.service.facade.base.BaseUserService;
 import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
 import cz.muni.fi.pa165.service.utils.Validator;
 

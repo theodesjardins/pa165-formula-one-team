@@ -1,4 +1,5 @@
 package cz.muni.fi.pa165.dao.Race;
+
 import cz.muni.fi.pa165.dao.base.Dao;
 import cz.muni.fi.pa165.entity.Race;
 import org.springframework.stereotype.Repository;

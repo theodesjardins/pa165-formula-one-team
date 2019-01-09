@@ -4,7 +4,6 @@ import cz.muni.fi.pa165.dao.base.Dao;
 import cz.muni.fi.pa165.entity.base.BaseEntity;
 import cz.muni.fi.pa165.exceptions.EntityNotFoundException;
 import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
-import cz.muni.fi.pa165.service.facade.base.BaseService;
 
 import javax.inject.Inject;
 import java.util.List;

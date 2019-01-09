@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.service.facade.base;
+package cz.muni.fi.pa165.service.base;
 
 import cz.muni.fi.pa165.entity.base.BaseEntity;
 import org.springframework.lang.Nullable;
