@@ -63,8 +63,9 @@ class ComponentsController extends BaseController {
     }
 
     @PostMapping(value = "/submit")
-    public String submitComponent(@Valid @ModelAttribute("component") ComponentDTO component, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
+    public String submitComponent(@Valid @ModelAttribute("component") ComponentDTO component, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {    
+            model.addAttribute("component",component);        
             return "components/edit";
         }
 

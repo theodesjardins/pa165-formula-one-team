@@ -20,7 +20,9 @@
                     <spring:bind path="name">
                         <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
                             <form:label path="name"><fmt:message key="common.name"/></form:label>
-                            <span class="text-danger"><c:out value="${status.errorMessage}"/></span>
+                            <span class="text-danger ml-1">
+                                <form:errors path="name"/>
+                            </span>
                             <form:input cssClass="form-control" path="name"/>
                         </div>
                     </spring:bind>
@@ -40,12 +42,15 @@
                     <c:forEach items="${component.parameters}" var="parameter" varStatus="status">
                         <form:hidden path="parameters[${status.index}].id"/>
                         <label><fmt:message key="common.name"/></label>
+                        <span class="text-danger ml-1">
+                            <form:errors path="parameters[${status.index}].name"/>
+                        </span>
                         <form:input cssClass="form-control" path="parameters[${status.index}].name"/>
                         <label><fmt:message key="common.value"/></label>
-                        <form:input cssClass="form-control" path="parameters[${status.index}].value"/>
-                        <span class="text-danger">
+                        <span class="text-danger ml-1">
                             <form:errors path="parameters[${status.index}].value"/>
                         </span>
+                        <form:input cssClass="form-control" path="parameters[${status.index}].value"/>
                         <br>
                     </c:forEach>
                 </div>
