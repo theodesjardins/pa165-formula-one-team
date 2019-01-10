@@ -31,7 +31,10 @@ public class DriverServiceImpl extends BaseUserServiceImpl<Driver, DriverDao> im
         } else {
             entity.setPassword(Validator.createHash(entity.getPassword()));
         }
-        return super.update(entity);
+        validateEntity(entity);
+        dao.update(entity);
+
+        return dao.findById(entity.getId());
     }
 
     @Override

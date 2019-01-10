@@ -16,5 +16,5 @@ public interface DriverService extends BaseUserService<Driver> {
 
     Driver findDriverWithHighestCharacteristicsValue(CharacteristicsType characteristicsType);
 
-    public E update(E entity){};
+    Driver update(Driver entity);
 }
