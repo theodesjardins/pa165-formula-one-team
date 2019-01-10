@@ -57,11 +57,13 @@ class TestDrivesController extends BaseController {
     @PostMapping(value = "/submit")
     public String submit(
             @Valid @ModelAttribute("saveTestDrive") SaveTestDriveDTO saveTestDriveDTO,
-            BindingResult bindingResult
+            BindingResult bindingResult,
+            Model model
     ) {
         if (bindingResult.hasErrors()) {
-            return saveTestDriveDTO.getId() == 0 ?
-                    "redirect:test-drives/create" : "redirect:test-drives/edit/" + saveTestDriveDTO.getId();
+            model.addAttribute("cars", carSetupFacade.getAll());
+            model.addAttribute("drivers", driverFacade.getAll());
+            return "test-drives/edit";
         }
 
         if (saveTestDriveDTO.getId() == 0) {

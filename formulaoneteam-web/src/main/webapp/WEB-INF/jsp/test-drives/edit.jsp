@@ -33,8 +33,8 @@
                     <spring:bind path="notes">
                         <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
                             <form:label path="notes"><f:message key="feature.test_drives.notes"/></form:label>
-                            <span class="text-danger">
-                                <c:out value="${status.errorMessage}"/>
+                            <span class="text-danger ml-1">
+                                <form:errors path="notes"/>
                             </span>
                             <form:input cssClass="form-control" path="notes"/>
                         </div>
