@@ -9,7 +9,6 @@ import org.junit.Test;
 import javax.inject.Inject;
 import java.util.List;
 
-import static junit.framework.Assert.assertNotNull;
 import static org.testng.Assert.*;
 
 /**
