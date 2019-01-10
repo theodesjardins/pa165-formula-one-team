@@ -60,7 +60,8 @@ public class TestDriveDaoTest extends BaseTest {
     @Test
     public void findAllRace() {
         //given
-        TestDrive otherTestDrive = new TestDrive(createCarSetup(), createDriver("otherEmail@email.com"), "someNotes",  createDate(20,12,2018));
+        TestDrive otherTestDrive = new TestDrive(createCarSetup(), createDriver("otherEmail@email.com"),
+                "someNotes",  createDate(20,12,2018));
 
         //when
         testDriveDao.add(testDrive);

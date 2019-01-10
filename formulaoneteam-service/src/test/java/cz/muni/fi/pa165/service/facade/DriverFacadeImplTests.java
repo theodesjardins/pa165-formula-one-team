@@ -73,7 +73,8 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDTO> {
         final CharacteristicsValue characteristicsValueEntity = createCharacteristicsValue();
         dto.setCharacteristics(Collections.singletonList(characteristicsValueDto));
         when(beanMappingServiceMock.mapTo(dto, Driver.class)).thenReturn(driverEntity);
-        when(beanMappingServiceMock.mapTo(characteristicsValueDto, CharacteristicsValue.class)).thenReturn(characteristicsValueEntity);
+        when(beanMappingServiceMock.mapTo(characteristicsValueDto, CharacteristicsValue.class)).
+                thenReturn(characteristicsValueEntity);
 
         //When
         driverFacade.register(dto, "password");
@@ -188,7 +189,8 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDTO> {
         CharacteristicsValueDTO characteristicsValueDTO = createCharacteristicsValueDto(dto);
         CharacteristicsValue characteristicsValue = createCharacteristicsValue();
         entity.addCharacteristic(new CharacteristicsValue(AGGRESSIVITY, 50.0));
-        when(beanMappingServiceMock.mapTo(characteristicsValueDTO, CharacteristicsValue.class)).thenReturn(characteristicsValue);
+        when(beanMappingServiceMock.mapTo(characteristicsValueDTO, CharacteristicsValue.class)).
+                thenReturn(characteristicsValue);
 
         //When
         DriverDTO updatedDriverDTO = driverFacade.updateDriversCharacteristicsValue(dto, characteristicsValueDTO);

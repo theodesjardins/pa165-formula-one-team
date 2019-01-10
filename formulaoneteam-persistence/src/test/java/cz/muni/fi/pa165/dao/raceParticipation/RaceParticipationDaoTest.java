@@ -60,7 +60,8 @@ public class RaceParticipationDaoTest extends BaseTest {
 
     @Test
     public void findAllRaceParticipation() {
-        RaceParticipation otherParticipation = createRaceParticipation("other@email.com", "otherRaceTitle");
+        RaceParticipation otherParticipation = createRaceParticipation("other@email.com",
+                "otherRaceTitle");
 
         //when
         raceParticipationDao.add(raceParticipation);

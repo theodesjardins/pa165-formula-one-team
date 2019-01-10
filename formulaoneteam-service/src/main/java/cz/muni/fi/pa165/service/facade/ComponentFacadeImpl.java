@@ -85,7 +85,8 @@ public class ComponentFacadeImpl
                 = componentParameterService.add(beanMappingService.mapTo(parameter, ComponentParameter.class));
         Component component = service.findById(componentId);
         if (component.getParameters().contains(parameterEntity))
-            throw new FormulaOneTeamException("This component already contains parameter with name: " + parameterEntity.getName());
+            throw new FormulaOneTeamException("This component already contains parameter with name: " +
+                    parameterEntity.getName());
         component.addParameter(parameterEntity);
         service.update(component);
     }

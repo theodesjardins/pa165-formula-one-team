@@ -13,7 +13,8 @@ import java.util.List;
  * @author Adel Chakouri
  */
 public interface RaceParticipationService extends BaseEntityService<RaceParticipation> {
-    List<RaceParticipation> participateInWorldChampionship(Date date, String location, List<Pair<CarSetup, Driver>> setups);
+    List<RaceParticipation> participateInWorldChampionship(Date date, String location, List<Pair<CarSetup,
+            Driver>> setups);
 
     List<RaceParticipation> findByRaceId(Long id);
 }

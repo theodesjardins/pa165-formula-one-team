@@ -146,7 +146,8 @@ public class RaceParticipationServiceTest extends BaseServiceTest<RaceParticipat
         when(dateServiceMock.getCurrentDate()).thenReturn(createDate(2, 11, 2018));
 
         //When
-        final List<RaceParticipation> raceParticipations = raceParticipationService.participateInWorldChampionship(date, location, Arrays.asList(firstDriverCarSetup, secondDriverCarSetup));
+        final List<RaceParticipation> raceParticipations = raceParticipationService.participateInWorldChampionship(date,
+                location, Arrays.asList(firstDriverCarSetup, secondDriverCarSetup));
     }
 
     @Test(expected = FormulaOneTeamException.class)
@@ -161,7 +162,8 @@ public class RaceParticipationServiceTest extends BaseServiceTest<RaceParticipat
         when(dateServiceMock.getCurrentDate()).thenReturn(createDate(2, 11, 2018));
 
         //When
-        final List<RaceParticipation> raceParticipations = raceParticipationService.participateInWorldChampionship(date, location, Arrays.asList(firstDriverCarSetup, secondDriverCarSetup));
+        final List<RaceParticipation> raceParticipations = raceParticipationService.participateInWorldChampionship(date,
+                location, Arrays.asList(firstDriverCarSetup, secondDriverCarSetup));
     }
 
     @Test(expected = FormulaOneTeamException.class)
@@ -175,7 +177,8 @@ public class RaceParticipationServiceTest extends BaseServiceTest<RaceParticipat
         when(dateServiceMock.getCurrentDate()).thenReturn(createDate(2, 11, 2018));
 
         //When
-        final List<RaceParticipation> raceParticipations = raceParticipationService.participateInWorldChampionship(date, location, Arrays.asList(firstDriverCarSetup, secondDriverCarSetup, thirdDriverCarSetup));
+        final List<RaceParticipation> raceParticipations = raceParticipationService.participateInWorldChampionship(date,
+                location, Arrays.asList(firstDriverCarSetup, secondDriverCarSetup, thirdDriverCarSetup));
     }
 
     @Test
@@ -191,7 +194,8 @@ public class RaceParticipationServiceTest extends BaseServiceTest<RaceParticipat
         when(dateServiceMock.createCalendarForDate(date)).thenReturn(calendar);
 
         //When
-        final List<RaceParticipation> raceParticipations = raceParticipationService.participateInWorldChampionship(date, location, Arrays.asList(firstDriverCarSetup, secondDriverCarSetup));
+        final List<RaceParticipation> raceParticipations = raceParticipationService.participateInWorldChampionship(date,
+                location, Arrays.asList(firstDriverCarSetup, secondDriverCarSetup));
 
         //Then
         final Race race = new Race(date, "2018 world championship", location);
@@ -211,7 +215,8 @@ public class RaceParticipationServiceTest extends BaseServiceTest<RaceParticipat
         when(dateServiceMock.createCalendarForDate(date)).thenReturn(calendar);
 
         //When
-        final List<RaceParticipation> raceParticipations = raceParticipationService.participateInWorldChampionship(date, location, Arrays.asList(firstDriverCarSetup, secondDriverCarSetup));
+        final List<RaceParticipation> raceParticipations = raceParticipationService.participateInWorldChampionship(date,
+                location, Arrays.asList(firstDriverCarSetup, secondDriverCarSetup));
 
         //Then
         final Race race = new Race(date, "2018 world championship", location);

@@ -60,7 +60,8 @@ public class RaceParticipationFacadeImplTest extends BaseFacadeTest<RaceParticip
         when(service.getAll()).thenReturn(listRaceParticipation);
         List<RaceParticipationDTO> listDTORaceParticipation = new ArrayList<>();
         listDTORaceParticipation.add(dto);
-        when(beanMappingServiceMock.mapTo(listRaceParticipation, RaceParticipationDTO.class)).thenReturn(listDTORaceParticipation);
+        when(beanMappingServiceMock.mapTo(listRaceParticipation, RaceParticipationDTO.class)).
+                thenReturn(listDTORaceParticipation);
 
         //When
         List<RaceParticipationDTO> resListRaceParticipationDTO = new ArrayList<>(facade.getAll());
@@ -139,13 +140,18 @@ public class RaceParticipationFacadeImplTest extends BaseFacadeTest<RaceParticip
         final WorldChampionshipSetupDTO worldChampionshipDTO = createWorldChampionshipDTO();
         final Driver driverEntity = createDriver();
         final CarSetup carSetupEntity = createCarSetup();
-        when(beanMappingServiceMock.mapTo(worldChampionshipDTO.getFirstDriver(), Driver.class)).thenReturn(driverEntity);
-        when(beanMappingServiceMock.mapTo(worldChampionshipDTO.getSecondDriver(), Driver.class)).thenReturn(driverEntity);
-        when(beanMappingServiceMock.mapTo(worldChampionshipDTO.getFirstCarSetup(), CarSetup.class)).thenReturn(carSetupEntity);
-        when(beanMappingServiceMock.mapTo(worldChampionshipDTO.getSecondCarSetup(), CarSetup.class)).thenReturn(carSetupEntity);
+        when(beanMappingServiceMock.mapTo(worldChampionshipDTO.getFirstDriver(), Driver.class)).
+                thenReturn(driverEntity);
+        when(beanMappingServiceMock.mapTo(worldChampionshipDTO.getSecondDriver(), Driver.class)).
+                thenReturn(driverEntity);
+        when(beanMappingServiceMock.mapTo(worldChampionshipDTO.getFirstCarSetup(), CarSetup.class)).
+                thenReturn(carSetupEntity);
+        when(beanMappingServiceMock.mapTo(worldChampionshipDTO.getSecondCarSetup(), CarSetup.class)).
+                thenReturn(carSetupEntity);
 
         //When
-        final List<RaceParticipationDTO> raceParticipationDTOS = facade.participateInWorldChampionship(worldChampionshipDTO);
+        final List<RaceParticipationDTO> raceParticipationDTOS = facade.
+                participateInWorldChampionship(worldChampionshipDTO);
 
         //Then
         verify(service, times(1))

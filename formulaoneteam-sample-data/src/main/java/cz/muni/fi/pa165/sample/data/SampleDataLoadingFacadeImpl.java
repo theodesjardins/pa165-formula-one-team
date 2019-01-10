@@ -63,11 +63,21 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     public void loadData() {
         managerService.register(new Manager("Ross", "Parker", "ross@parker.com"), "p4ssword");
 
-        engineerService.register(new Engineer("Sun", "Li", "sun@engineers.com", AERODYNAMICS), "my-dirty-secret");
-        engineerService.register(new Engineer("Tommy", "Lee", "Tommy@engineers.com", ENGINES), "thisissafepassword");
-        engineerService.register(new Engineer("Orson", "Wells", "Orson@engineers.com", FLUID_MECHANICS), "bestEng1neer");
-        engineerService.register(new Engineer("Karen", "Gillian", "Karen@engineers.com", EMISSIONS), "helloIamCaren");
-        engineerService.register(new Engineer("Robert", "Ford", "Robert@engineers.com", THERMODYNAMICS), "escort");
+        engineerService.register(
+                new Engineer("Sun", "Li", "sun@engineers.com", AERODYNAMICS), "my-dirty-secret"
+        );
+        engineerService.register(
+                new Engineer("Tommy", "Lee", "Tommy@engineers.com", ENGINES), "thisissafepassword"
+        );
+        engineerService.register(
+                new Engineer("Orson", "Wells", "Orson@engineers.com", FLUID_MECHANICS), "bestEng1neer"
+        );
+        engineerService.register(
+                new Engineer("Karen", "Gillian", "Karen@engineers.com", EMISSIONS), "helloIamCaren"
+        );
+        engineerService.register(
+                new Engineer("Robert", "Ford", "Robert@engineers.com", THERMODYNAMICS), "escort"
+        );
 
         final Driver fernardoAlonso = driverService.register(
                 new Driver(
@@ -297,13 +307,18 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         ));
 
         testDriveService.add(newHashSet(
-                new TestDrive(carSetup1, testDriver1, "Steering maybe too stiff.", dateService.getPastDate(40)),
+                new TestDrive(carSetup1, testDriver1, "Steering maybe too stiff.",
+                        dateService.getPastDate(40)),
                 new TestDrive(carSetup1, testDriver2, "Great power.", dateService.getPastDate(40)),
-                new TestDrive(carSetup2, testDriver1, "Pretty good steering.", dateService.getPastDate(30)),
-                new TestDrive(carSetup2, testDriver2, "Did not finish, transmission broke.", dateService.getPastDate(30)),
-                new TestDrive(carSetup3, testDriver1, "Fast, but missing some advantages of no. 2.", dateService.getPastDate(20)),
+                new TestDrive(carSetup2, testDriver1, "Pretty good steering.",
+                        dateService.getPastDate(30)),
+                new TestDrive(carSetup2, testDriver2, "Did not finish, transmission broke.",
+                        dateService.getPastDate(30)),
+                new TestDrive(carSetup3, testDriver1, "Fast, but missing some advantages of no. 2.",
+                        dateService.getPastDate(20)),
                 new TestDrive(carSetup3, testDriver2, "Pretty fast.", dateService.getPastDate(20)),
-                new TestDrive(carSetup3, testDriver2, "Slides a lot on wet.", dateService.getPastDate(5))
+                new TestDrive(carSetup3, testDriver2, "Slides a lot on wet.",
+                        dateService.getPastDate(5))
         ));
     }
 

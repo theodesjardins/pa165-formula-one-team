@@ -82,7 +82,8 @@ public class RaceParticipationEndpointTest extends AbstractTestNGSpringContextTe
     @Test
     public void getRaceParticipation() throws Exception {
         //Given
-        doReturn(Collections.unmodifiableList(this.createUpdateRaceParticipationDTO())).when(raceParticipationFacade).getAll();
+        doReturn(Collections.unmodifiableList(this.createUpdateRaceParticipationDTO())).when(raceParticipationFacade).
+                getAll();
 
         //Then
         mockMvc.perform(get("/race-participation/")).andExpect(status().isOk())

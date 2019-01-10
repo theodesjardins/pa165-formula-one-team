@@ -58,7 +58,8 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
     }
 
     protected RaceParticipation createRaceParticipation() {
-        RaceParticipation raceParticipation = new RaceParticipation(createCarSetup(), createDriver(), createRace(), 4);
+        RaceParticipation raceParticipation = new RaceParticipation(createCarSetup(), createDriver(), createRace(),
+                4);
         raceParticipation.setId(1);
         return raceParticipation;
     }
@@ -73,7 +74,8 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
     }
 
     protected CharacteristicsValue createCharacteristicsValue() {
-        CharacteristicsValue characteristicsValue = new CharacteristicsValue(CharacteristicsType.AGGRESSIVITY, 10.0);
+        CharacteristicsValue characteristicsValue = new CharacteristicsValue(CharacteristicsType.AGGRESSIVITY,
+                10.0);
         characteristicsValue.setId(5);
         return characteristicsValue;
     }

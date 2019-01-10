@@ -57,7 +57,8 @@
                         <f:message key="feature.car.transmission" />:</label>
                     <select class="form-control" id="transmission-select" name="transmissionId">
                         <c:forEach items="${transmissions}" var="transmission">
-                            <option value="${transmission.id}" ${car.transmission.id == transmission.id ? 'selected' : ''}>
+                            <option value="${transmission.id}" ${car.transmission.id == transmission.id ?
+                             'selected' : ''}>
                                 <c:out value="${transmission.name}" />
                             </option>
                         </c:forEach>

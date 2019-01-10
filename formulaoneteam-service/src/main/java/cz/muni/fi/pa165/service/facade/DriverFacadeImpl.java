@@ -49,7 +49,8 @@ public class DriverFacadeImpl
         Driver driverEntity = beanMappingService.mapTo(driver, getEntityClass());
         driverEntity.setId(driver.getId());
         for (CharacteristicsValueDTO characteristic : driver.getCharacteristics()) {
-            final CharacteristicsValue valueEntity = beanMappingService.mapTo(characteristic, CharacteristicsValue.class);
+            final CharacteristicsValue valueEntity = beanMappingService.mapTo(characteristic,
+                    CharacteristicsValue.class);
             valueEntity.setId(characteristic.getId());
             characteristicsValueService.update(valueEntity);
         }
@@ -72,7 +73,8 @@ public class DriverFacadeImpl
     public DriverDTO updateDriversCharacteristicsValue(
             DriverDTO driverDTO, CharacteristicsValueDTO characteristicsValueDTO
     ) {
-        CharacteristicsValue characteristicsValue = beanMappingService.mapTo(characteristicsValueDTO, CharacteristicsValue.class);
+        CharacteristicsValue characteristicsValue = beanMappingService.mapTo(characteristicsValueDTO,
+                CharacteristicsValue.class);
         characteristicsValueService.update(characteristicsValue);
         return beanMappingService.mapTo(service.findById(driverDTO.getId()), getDtoClass());
     }

@@ -47,7 +47,8 @@
                         <td><c:out value="${raceParticipation.race.title}"/></td>
                         <td>
                             <c:choose>
-                                <c:when test="${raceParticipation.resultPosition eq RaceParticipation.NO_RESULT_POSITION}">
+                                <c:when test="${raceParticipation.resultPosition eq RaceParticipation.
+                                NO_RESULT_POSITION}">
                                     <fmt:message key="feature.race.unfinished"/>
                                 </c:when>
                                 <c:otherwise><c:out value="${raceParticipation.resultPosition}"/></c:otherwise>

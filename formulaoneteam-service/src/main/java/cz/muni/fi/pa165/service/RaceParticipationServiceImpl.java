@@ -35,7 +35,8 @@ public class RaceParticipationServiceImpl
     private DateService dateService;
 
     @Override
-    public List<RaceParticipation> participateInWorldChampionship(Date date, String location, List<Pair<CarSetup, Driver>> setups) {
+    public List<RaceParticipation> participateInWorldChampionship(Date date, String location, List<Pair<CarSetup,
+            Driver>> setups) {
         if (!date.after(dateService.getCurrentDate())) {
             throw new FormulaOneTeamException("World championship has to be created in future");
         }
@@ -44,7 +45,8 @@ public class RaceParticipationServiceImpl
             throw new FormulaOneTeamException("Only two setups can participate in world championship");
         }
 
-        if (setups.stream().anyMatch(carSetupDriverPair -> carSetupDriverPair.getSecond().getDriverStatus() == DriverStatus.TEST)) {
+        if (setups.stream().anyMatch(carSetupDriverPair -> carSetupDriverPair.getSecond().getDriverStatus() ==
+                DriverStatus.TEST)) {
             throw new FormulaOneTeamException("Test drivers can't participate in world championship.");
         }
 
@@ -54,7 +56,8 @@ public class RaceParticipationServiceImpl
 
         List<RaceParticipation> participations = new ArrayList<>();
         for (Pair<CarSetup, Driver> setupDriverPair : setups) {
-            RaceParticipation participation = new RaceParticipation(setupDriverPair.getFirst(), setupDriverPair.getSecond(), race, RaceParticipation.NO_RESULT_POSITION);
+            RaceParticipation participation = new RaceParticipation(setupDriverPair.getFirst(),
+                    setupDriverPair.getSecond(), race, RaceParticipation.NO_RESULT_POSITION);
             add(participation);
             participations.add(participation);
         }

@@ -79,7 +79,8 @@ public class CarSetupFacadeImpl
     }
 
     private boolean hasRace(CarSetup carSetup) {
-        return raceParticipationService.getAll().stream().anyMatch(raceParticipation -> Objects.equals(raceParticipation.getCarSetup(), carSetup));
+        return raceParticipationService.getAll().stream().anyMatch(raceParticipation ->
+                Objects.equals(raceParticipation.getCarSetup(), carSetup));
     }
 
     private boolean hasTestDrive(CarSetup carSetup) {

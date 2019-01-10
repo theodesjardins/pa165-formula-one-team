@@ -54,14 +54,16 @@
                                 <c:out value="${status.errorMessage}"/>
                             </span>
                             <form:input cssClass="form-control"
-                                        cssStyle="${saveRaceParticipation.resultPosition eq RaceParticipation.NO_RESULT_POSITION ? 'display: none;' : ''}"
+                                        cssStyle="${saveRaceParticipation.resultPosition eq RaceParticipation.
+                                        NO_RESULT_POSITION ? 'display: none;' : ''}"
                                         id="resultInput"
                                         path="resultPosition"/>
                             <br>
                             <label>
                                 <input type="checkbox"
                                        id="resultCheckbox"
-                                        <c:if test="${saveRaceParticipation.resultPosition eq RaceParticipation.NO_RESULT_POSITION}">
+                                        <c:if test="${saveRaceParticipation.resultPosition eq
+                                         RaceParticipation.NO_RESULT_POSITION}">
                                        checked
                                        </c:if>
                                 />

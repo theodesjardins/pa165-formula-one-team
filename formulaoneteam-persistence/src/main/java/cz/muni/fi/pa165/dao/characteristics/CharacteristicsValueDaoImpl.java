@@ -22,7 +22,8 @@ public class CharacteristicsValueDaoImpl extends DaoImpl<CharacteristicsValue> i
 
     @Override
     public List<CharacteristicsValue> findCharacteristicValuesByType(CharacteristicsType type) {
-        return entityManager.createQuery("select characteristics from CharacteristicsValue characteristics where characteristics.type = :type", CharacteristicsValue.class)
+        return entityManager.createQuery("select characteristics from CharacteristicsValue characteristics where" +
+                " characteristics.type = :type", CharacteristicsValue.class)
                 .setParameter(TYPE_FIELD, type)
                 .getResultList();
     }

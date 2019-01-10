@@ -75,13 +75,18 @@ public class Race extends BaseEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Race)) return false;
+
         Race race = (Race) o;
-        return Objects.equals(getTitle(), race.getTitle());
+
+        if (date != null ? !date.equals(race.date) : race.date != null) return false;
+        return title != null ? title.equals(race.title) : race.title == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTitle());
+        int result = date != null ? date.hashCode() : 0;
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        return result;
     }
 
     @Override
