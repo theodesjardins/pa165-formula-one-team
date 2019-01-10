@@ -9,7 +9,7 @@ import java.util.Objects;
 /**
  * @author mrnda (Michal Mrnuštík)
  */
-    public class WorldChampionshipSetupDTO {
+public class WorldChampionshipSetupDTO {
     private Date date;
     private String location;
     private CarSetupDTO firstCarSetup;
