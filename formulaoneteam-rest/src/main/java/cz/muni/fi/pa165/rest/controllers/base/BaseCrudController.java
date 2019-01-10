@@ -6,10 +6,12 @@ import cz.muni.fi.pa165.exceptions.EntityNotFoundException;
 import cz.muni.fi.pa165.facade.base.BaseFacade;
 import cz.muni.fi.pa165.rest.controllers.ApiError;
 import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
+import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,6 +55,24 @@ public abstract class BaseCrudController<
     public ResponseEntity<Object> handleEntityNotFoundException(FormulaOneTeamException exception) {
         logger.error("Validation exception", exception);
         final ApiError error = new ApiError(exception.getMessage());
+        return unprocessableEntity(error);
+    }
+
+    @ExceptionHandler({ConstraintViolationException.class})
+    public ResponseEntity<Object> handleConstraintValidationException(ConstraintViolationException exception) {
+        logger.error("Constraint violation", exception);
+        final ApiError error = new ApiError(exception.getConstraintName());
+        return unprocessableEntity(error);
+    }
+
+    @ExceptionHandler({JpaSystemException.class})
+    public ResponseEntity<Object> handleJpaSystemException(JpaSystemException exception) {
+        Throwable throwable = exception.getCause();
+        while (throwable.getCause() != null) {
+            throwable = throwable.getCause();
+        }
+        logger.error("Unhandled exception", throwable);
+        final ApiError error = new ApiError(throwable.getMessage());
         return unprocessableEntity(error);
     }
 
