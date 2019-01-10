@@ -68,6 +68,7 @@ public class RaceFacadeImplTest extends BaseFacadeTest<Race, RaceDTO> {
     @Test
     public void deleteRaceTest() {
         //when
+        when(raceService.findById(dto.getId())).thenReturn(entity);
         raceFacade.remove(dto.getId());
 
         //then
