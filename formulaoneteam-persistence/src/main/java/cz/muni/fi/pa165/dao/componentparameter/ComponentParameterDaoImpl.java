@@ -14,10 +14,4 @@ public class ComponentParameterDaoImpl extends DaoImpl<ComponentParameter> imple
     protected Class<ComponentParameter> getClassType() {
         return ComponentParameter.class;
     }
-
-    protected void validateEntity(ComponentParameter parameter) {
-        if (parameter == null || !parameter.isConfigured()) {
-            throw new IllegalArgumentException("ComponentParameter is null or not configured");
-        }
-    }
 }

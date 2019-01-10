@@ -8,12 +8,20 @@ import org.junit.Test;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+
 /**
  * @author elderanakain (Arcadii Rubailo)
  */
 public class UserTest extends BaseTest {
 
     private User user;
+    
+    private static Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     @Before
     public void setUp() {
@@ -21,102 +29,49 @@ public class UserTest extends BaseTest {
     }
 
     @Test
-    public void whenNameAndSurnameAreNotSet_returnHasFullNameFalseAndNotConfigured() {
-        assertFalse(user.hasFullName());
-        assertFalse(user.isConfigured());
-    }
-
-    @Test
-    public void whenNameIsSet_returnHasNameTrue() {
-        //when
-        user.setName("name");
-
-        //then
-        assertTrue(user.hasName());
-    }
-
-    @Test
-    public void whenSurnameIsSet_returnHasSurnameTrue() {
-        //when
-        user.setSurname("surname");
-
-        //then
-        assertTrue(user.hasSurname());
-    }
-
-    @Test
-    public void whenNameAndSurnameAreSet_returnHasFullNameTrue() {
-        //when
-        user.setName("name");
-        user.setSurname("surname");
-
-        //then
-        assertTrue(user.hasFullName());
-    }
-
-    @Test
-    public void whenEmailIsSet_returnHasEmailTrue() {
-        //when
-        user.setEmail("email");
-
-        //then
-        assertTrue(user.hasEmail());
-    }
-
-    @Test
-    public void whenPasswordIsSet_returnHasPasswordTrue() {
-        //when
-        user.setPassword("password");
-
-        //then
-        assertTrue(user.hasPassword());
-    }
-
-    @Test
-    public void whenSomeFieldsAreNotSet_returnIsNotConfigured() {
-        assertFalse(user.hasName());
-        assertFalse(user.hasSurname());
-        assertFalse(user.hasEmail());
-        assertFalse(user.hasPassword());
-
-        assertFalse(user.isConfigured());
+    public void whenSomeFieldsAreNotSet_validationFails() {
 
         //given
         user.setId(1);
 
         //then
-        assertFalse(user.isConfigured());
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        assertFalse(violations.isEmpty());
 
         //given
         user.setName("name");
 
         //then
-        assertFalse(user.isConfigured());
+        violations = validator.validate(user);
+        assertFalse(violations.isEmpty());
 
         //given
         user.setSurname("surname");
 
         //then
-        assertFalse(user.isConfigured());
+        violations = validator.validate(user);
+        assertFalse(violations.isEmpty());
 
         //given
         user.setEmail("email");
 
         //then
-        assertFalse(user.isConfigured());
+        violations = validator.validate(user);
+        assertFalse(violations.isEmpty());
     }
 
     @Test
-    public void whenAllFieldsAreSet_returnIsConfigured() {
+    public void whenAllFieldsAreSet_validationPasses() {
         //when
         user.setId(1);
         user.setName("name");
         user.setSurname("surname");
-        user.setEmail("email");
+        user.setEmail("email@email.sk");
         user.setPassword("password");
 
         //then
-        assertTrue(user.isConfigured());
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        assertTrue(violations.isEmpty());
     }
 
     @Test

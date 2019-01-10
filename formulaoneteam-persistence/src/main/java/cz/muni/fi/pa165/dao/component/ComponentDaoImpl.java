@@ -14,10 +14,4 @@ public class ComponentDaoImpl extends DaoImpl<Component> implements ComponentDao
     protected Class<Component> getClassType() {
         return Component.class;
     }
-
-    protected void validateEntity(Component component) {
-        if (component == null) {
-            throw new IllegalArgumentException("Component is null.");
-        }
-    }
 }

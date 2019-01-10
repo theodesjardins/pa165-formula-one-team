@@ -15,7 +15,6 @@ public abstract class BaseEntityServiceImpl<E extends BaseEntity, DAO extends Da
 
     @Override
     public E add(E entity) throws FormulaOneTeamException {
-        validateEntity(entity);
         dao.add(entity);
 
         if (entity == null) throw new FormulaOneTeamException("Entity is null");

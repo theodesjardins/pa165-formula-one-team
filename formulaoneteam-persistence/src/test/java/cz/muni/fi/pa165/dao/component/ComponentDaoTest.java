@@ -149,6 +149,7 @@ public class ComponentDaoTest extends BaseTest {
 
     private ComponentParameter createComponentParameter(String name, String value) {
         ComponentParameter componentParameter = new ComponentParameter(name, value);
+        componentParameter.setComponent(createDefaultComponent());
         componentParameterDao.add(componentParameter);
         return componentParameter;
     }

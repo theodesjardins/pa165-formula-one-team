@@ -70,13 +70,6 @@ public class RaceParticipationServiceImpl
     }
 
     @Override
-    public void validateEntity(@Nullable RaceParticipation entity) throws FormulaOneTeamException {
-        if (entity == null || !entity.isConfigured()) {
-            throw new FormulaOneTeamException("RaceParticipation entity is null or not configured");
-        }
-    }
-
-    @Override
     protected Class<RaceParticipation> getEntityClass() {
         return RaceParticipation.class;
     }

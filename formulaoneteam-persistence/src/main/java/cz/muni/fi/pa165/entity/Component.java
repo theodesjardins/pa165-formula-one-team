@@ -4,6 +4,8 @@ import cz.muni.fi.pa165.entity.base.BaseEntity;
 import cz.muni.fi.pa165.enums.ComponentType;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -19,6 +21,7 @@ public class Component extends BaseEntity {
     @Column
     private ComponentType type;
 
+    @NotBlank
     @Column
     private String name;
 
@@ -28,7 +31,7 @@ public class Component extends BaseEntity {
     @OneToMany(mappedBy = "engine")
     private Set<CarSetup> carSetups = new HashSet<>();
 
-    public Component(String name, ComponentType type) {
+    public Component(@NotBlank String name, ComponentType type) {
         this.type = type;
         this.name = name;
     }
@@ -46,6 +49,7 @@ public class Component extends BaseEntity {
 
     public ComponentType getType() { return type; }
 
+    @NotBlank
     public String getName() { return name; }
 
     public Set<ComponentParameter> getParameters() { return Collections.unmodifiableSet(parameters); }
@@ -60,11 +64,7 @@ public class Component extends BaseEntity {
 
     public void setType(ComponentType type) { this.type = type;}
 
-    public void setName(String name) { this.name = name;}
-
-    public boolean isConfigured() {
-        return !getName().isEmpty();
-    }
+    public void setName(@NotBlank String name) { this.name = name;}
 
     @Override
     public boolean equals(Object o) {

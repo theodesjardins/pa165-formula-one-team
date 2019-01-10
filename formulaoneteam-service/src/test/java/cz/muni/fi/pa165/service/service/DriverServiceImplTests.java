@@ -65,18 +65,6 @@ public class DriverServiceImplTests extends BaseTest {
         //Then
     }
 
-    @Test(expected = FormulaOneTeamException.class)
-    public void registerDriver_withMissingEmail_throwsException() {
-        //Given
-        String password = "password";
-
-        //When
-        testingDriver.setEmail("");
-        driverService.register(testingDriver, password);
-
-        //Then
-    }
-
     @Test
     public void registeredDriver_withValidPassword_isAuthenticated() {
         //Given
@@ -240,18 +228,6 @@ public class DriverServiceImplTests extends BaseTest {
         //Then
         verify(driverDao, times(1)).update(testingDriver);
         assertEquals(testingDriver, updatedDriver);
-    }
-
-    @Test(expected = FormulaOneTeamException.class)
-    public void updateDriver_withInvalidDriver_driverUpdated() {
-        //Given
-        when(driverDao.findById(testingDriver.getId())).thenReturn(testingDriver);
-
-        //When
-        testingDriver.setEmail("");
-        Driver updatedDriver = driverService.update(testingDriver);
-
-        //Then
     }
 
     private Driver createTestingDriver() {

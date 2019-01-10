@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 import java.util.Objects;
 
 /**
@@ -16,20 +18,22 @@ public class RaceParticipation extends BaseEntity {
 
     public static final int NO_RESULT_POSITION = -1;
 
+    @NotNull
     @ManyToOne
     private CarSetup carSetup;
 
+    @NotNull
     @ManyToOne
     private Driver driver;
 
+    @NotNull
     @ManyToOne
     private Race race;
 
-    @NotNull
     @Column(nullable = false)
     private int resultPosition;
 
-    public RaceParticipation(CarSetup carSetup, Driver driver, Race race, int resultPosition) {
+    public RaceParticipation(@NotNull CarSetup carSetup, @NotNull Driver driver, @NotNull Race race, int resultPosition) {
         this.carSetup = carSetup;
         this.driver = driver;
         this.race = race;
@@ -39,27 +43,30 @@ public class RaceParticipation extends BaseEntity {
     protected RaceParticipation() {
     }
 
+    @NotNull
     public CarSetup getCarSetup() {
         return carSetup;
     }
 
-    public void setCarSetup(CarSetup car) {
+    public void setCarSetup(@NotNull CarSetup car) {
         this.carSetup = car;
     }
 
+    @NotNull
     public Driver getDriver() {
         return driver;
     }
 
-    public void setDriver(Driver driver) {
+    public void setDriver(@NotNull Driver driver) {
         this.driver = driver;
     }
 
+    @NotNull
     public Race getRace() {
         return race;
     }
 
-    public void setRace(Race race) {
+    public void setRace(@NotNull Race race) {
         this.race = race;
     }
 
@@ -69,10 +76,6 @@ public class RaceParticipation extends BaseEntity {
 
     public void setResultPosition(int resultPosition) {
         this.resultPosition = resultPosition;
-    }
-
-    public boolean isConfigured() {
-        return getCarSetup().isConfigured() && getDriver().isConfigured() && getRace().isConfigured();
     }
 
     @Override

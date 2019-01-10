@@ -70,6 +70,7 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
                 "driverNationality",
                 createDate(2, 11, 1995),
                 DriverStatus.MAIN);
+        driver.setPassword("pwd");
         driverDao.add(driver);
 
         return driver;

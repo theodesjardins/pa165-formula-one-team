@@ -20,12 +20,6 @@ public class CharacteristicsValueDaoImpl extends DaoImpl<CharacteristicsValue> i
         return CharacteristicsValue.class;
     }
 
-    protected void validateEntity(CharacteristicsValue value) {
-        if (value == null) {
-            throw new IllegalArgumentException("CaracteristicsValue is null.");
-        }
-    }
-
     @Override
     public List<CharacteristicsValue> findCharacteristicValuesByType(CharacteristicsType type) {
         return entityManager.createQuery("select characteristics from CharacteristicsValue characteristics where characteristics.type = :type", CharacteristicsValue.class)

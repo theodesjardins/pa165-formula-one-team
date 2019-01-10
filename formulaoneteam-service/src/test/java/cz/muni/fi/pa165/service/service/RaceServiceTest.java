@@ -63,13 +63,7 @@ public class RaceServiceTest extends BaseServiceTest<Race> {
         //then
         verify(raceDaoMock, times(1)).update(entity);
     }
-
-    @Test(expected = FormulaOneTeamException.class)
-    public void updateRace_exceptionIsThrown() {
-        //when
-        raceService.update(null);
-    }
-
+    
     @Test
     public void removeRace_WithValidValues() {
         //when

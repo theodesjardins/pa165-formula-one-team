@@ -1,7 +1,10 @@
 package cz.muni.fi.pa165.dao.componentparameter;
 
 import cz.muni.fi.pa165.dao.base.BaseTest;
+import cz.muni.fi.pa165.entity.Component;
 import cz.muni.fi.pa165.entity.ComponentParameter;
+import cz.muni.fi.pa165.enums.ComponentType;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -52,7 +55,7 @@ public class ComponentParameterDaoImplTest extends BaseTest {
     @Test
     public void createMultipleNewComponentParameters_foundAll() {
         //given
-        ComponentParameter otherComponentParameter = new ComponentParameter("otherName", "50.0");
+        ComponentParameter otherComponentParameter = createTestComponentParameter();
 
         //when
         componentParameterDao.add(testComponentParameter);
@@ -104,6 +107,8 @@ public class ComponentParameterDaoImplTest extends BaseTest {
     }
 
     private ComponentParameter createTestComponentParameter() {
-        return new ComponentParameter(TEST_NAME, "100.0");
+        ComponentParameter cp = new ComponentParameter(TEST_NAME, "100.0");
+        cp.setComponent(new Component("name", ComponentType.BRAKES));
+        return cp;
     }
 }

@@ -82,12 +82,6 @@ public class RaceParticipationServiceTest extends BaseServiceTest<RaceParticipat
         verify(dao, times(1)).update(entity);
     }
 
-    @Test(expected = FormulaOneTeamException.class)
-    public void updateRaceParticipation_exceptionIsThrown() {
-        //when
-        raceParticipationService.update(null);
-    }
-
     @Test
     public void removeRaceParticipation_WithValidValues() {
         //When

@@ -14,10 +14,4 @@ public class RaceDaoImpl extends DaoImpl<Race> implements RaceDao {
     protected Class<Race> getClassType() {
         return Race.class;
     }
-
-    protected void validateEntity(Race race) {
-        if (race == null || !race.isConfigured()) {
-            throw new IllegalArgumentException("Race is null or not configured.");
-        }
-    }
 }

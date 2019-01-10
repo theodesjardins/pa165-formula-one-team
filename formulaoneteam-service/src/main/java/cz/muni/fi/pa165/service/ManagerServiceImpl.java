@@ -13,13 +13,6 @@ import org.springframework.stereotype.Service;
 public class ManagerServiceImpl extends BaseUserServiceImpl<Manager, ManagerDao> implements ManagerService {
 
     @Override
-    public void validateEntity(Manager manager) {
-        if (manager == null || !manager.isConfigured()) {
-            throw new FormulaOneTeamException("Manager is null or not configured");
-        }
-    }
-
-    @Override
     protected Class<Manager> getEntityClass() {
         return Manager.class;
     }

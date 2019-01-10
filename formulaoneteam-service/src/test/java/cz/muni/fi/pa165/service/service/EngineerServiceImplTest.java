@@ -73,19 +73,6 @@ public class EngineerServiceImplTest extends BaseServiceTest<Engineer> {
         verify(dao, times(1)).update(entity);
     }
 
-    @Test(expected = FormulaOneTeamException.class)
-    public void updateEngineer_withInvalidEngineer_exceptionIsThrown() {
-        //given
-        entity.setEmail("");
-
-        //when
-        when(dao.findById(entity.getId())).thenReturn(entity);
-        engineerService.update(entity);
-
-        //then
-        fail("Exception is not thrown");
-    }
-
     @Test
     public void removeEngineer_withValidValues() {
         engineerService.remove(entity.getId());

@@ -22,5 +22,4 @@ public interface BaseService<E extends BaseEntity> {
     @NonNull
     List<E> getAll();
 
-    void validateEntity(@Nullable E entity);
 }

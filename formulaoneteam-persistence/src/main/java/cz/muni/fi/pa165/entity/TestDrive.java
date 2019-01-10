@@ -71,10 +71,6 @@ public class TestDrive extends BaseEntity {
         this.notes = notes;
     }
 
-    public boolean isConfigured() {
-        return !getNotes().isEmpty() && getCarSetup().isConfigured() && getDriver().isConfigured();
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.entity;
 import cz.muni.fi.pa165.entity.base.BaseEntity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.*;
 
 /**
@@ -11,21 +12,27 @@ import java.util.*;
 @Entity
 public class CarSetup extends BaseEntity {
 
+    @NotNull
     @ManyToOne
     private Component engine;
 
+    @NotNull
     @ManyToOne
     private Component suspension;
 
+    @NotNull
     @ManyToOne
     private Component brakes;
 
+    @NotNull
     @ManyToOne
     private Component transmission;
 
+    @NotNull
     @ManyToOne
     private Component tires;
 
+    @NotNull
     @ManyToOne
     private Component cover;
 
@@ -35,14 +42,8 @@ public class CarSetup extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "carSetup", fetch = FetchType.EAGER)
     private Set<TestDrive> testDrives = new HashSet<>();
 
-    public CarSetup(
-            Component engine,
-            Component suspension,
-            Component brakes,
-            Component transmission,
-            Component tires,
-            Component cover
-    ) {
+    public CarSetup(@NotNull Component engine, @NotNull Component suspension, @NotNull Component brakes,
+            @NotNull Component transmission, @NotNull Component tires, @NotNull Component cover) {
         this.engine = engine;
         this.suspension = suspension;
         this.brakes = brakes;
@@ -70,51 +71,57 @@ public class CarSetup extends BaseEntity {
         this.testDrives = testDrives;
     }
 
+    @NotNull
     public Component getEngine() {
         return engine;
     }
 
+    @NotNull
     public Component getSuspension() {
         return suspension;
     }
 
+    @NotNull
     public Component getBrakes() {
         return brakes;
     }
 
+    @NotNull
     public Component getTransmission() {
         return transmission;
     }
 
+    @NotNull
     public Component getTires() {
         return tires;
     }
 
+    @NotNull
     public Component getCover() {
         return cover;
     }
 
-    public void setEngine(Component engine) {
+    public void setEngine(@NotNull Component engine) {
         this.engine = engine;
     }
 
-    public void setSuspension(Component suspension) {
+    public void setSuspension(@NotNull Component suspension) {
         this.suspension = suspension;
     }
 
-    public void setBrakes(Component brakes) {
+    public void setBrakes(@NotNull Component brakes) {
         this.brakes = brakes;
     }
 
-    public void setTransmission(Component transmission) {
+    public void setTransmission(@NotNull Component transmission) {
         this.transmission = transmission;
     }
 
-    public void setTires(Component tires) {
+    public void setTires(@NotNull Component tires) {
         this.tires = tires;
     }
 
-    public void setCover(Component cover) {
+    public void setCover(@NotNull Component cover) {
         this.cover = cover;
     }
 
@@ -122,26 +129,18 @@ public class CarSetup extends BaseEntity {
         return Arrays.asList(getEngine(), getBrakes(), getCover(), getSuspension(), getTransmission(), getTires());
     }
 
-    public boolean isConfigured() {
-        return getEngine().isConfigured()
-                && getSuspension().isConfigured()
-                && getBrakes().isConfigured()
-                && getTransmission().isConfigured()
-                && getTires().isConfigured()
-                && getCover().isConfigured();
-    }
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof CarSetup)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof CarSetup))
+            return false;
         CarSetup carSetup = (CarSetup) o;
-        return Objects.equals(getEngine(), carSetup.getEngine()) &&
-                Objects.equals(getSuspension(), carSetup.getSuspension()) &&
-                Objects.equals(getBrakes(), carSetup.getBrakes()) &&
-                Objects.equals(getTransmission(), carSetup.getTransmission()) &&
-                Objects.equals(getTires(), carSetup.getTires()) &&
-                Objects.equals(getCover(), carSetup.getCover());
+        return Objects.equals(getEngine(), carSetup.getEngine())
+                && Objects.equals(getSuspension(), carSetup.getSuspension())
+                && Objects.equals(getBrakes(), carSetup.getBrakes())
+                && Objects.equals(getTransmission(), carSetup.getTransmission())
+                && Objects.equals(getTires(), carSetup.getTires()) && Objects.equals(getCover(), carSetup.getCover());
     }
 
     @Override
@@ -150,13 +149,8 @@ public class CarSetup extends BaseEntity {
     }
 
     public String toString() {
-        return "CarSetup{" +
-                "engine='" + getEngine() + '\'' +
-                ", suspension='" + getSuspension() + '\'' +
-                ", brakes='" + getBrakes() + '\'' +
-                ", transmission='" + getTransmission() + '\'' +
-                ", tires='" + getTires() + '\'' +
-                ", cover='" + getCover() + '\'' +
-                "} " + super.toString();
+        return "CarSetup{" + "engine='" + getEngine() + '\'' + ", suspension='" + getSuspension() + '\'' + ", brakes='"
+                + getBrakes() + '\'' + ", transmission='" + getTransmission() + '\'' + ", tires='" + getTires() + '\''
+                + ", cover='" + getCover() + '\'' + "} " + super.toString();
     }
 }

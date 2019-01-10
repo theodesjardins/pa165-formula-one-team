@@ -57,11 +57,6 @@ public class ComponentParameterServiceImplTest extends BaseServiceTest<Component
         verify(dao, times(1)).update(entity);
     }
 
-    @Test(expected = FormulaOneTeamException.class)
-    public void updateComponentParameter_exceptionIsThrown() {
-        service.update(null);
-    }
-
     @Test
     public void removeComponentParameters_WithValidValues() {
         service.remove(entity.getId());

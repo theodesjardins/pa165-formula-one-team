@@ -16,10 +16,4 @@ public class EngineerDaoImpl extends UserDaoImpl<Engineer> implements EngineerDa
     protected Class<Engineer> getClassType() {
         return Engineer.class;
     }
-
-    protected void validateEntity(Engineer engineer) {
-        if (engineer == null || !engineer.isConfigured()) {
-            throw new IllegalArgumentException("Engineer is null or not configured");
-        }
-    }
 }

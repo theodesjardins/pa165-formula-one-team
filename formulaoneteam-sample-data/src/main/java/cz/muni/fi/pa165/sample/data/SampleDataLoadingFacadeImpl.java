@@ -149,127 +149,127 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         final Component cosworthEngine = createComponent(
                 "Cosworth DFV",
                 ENGINE,
-                componentParameterService.add(newHashSet(
+                newHashSet(
                         new ComponentParameter("Power", "440 kW"),
                         new ComponentParameter("Torque", "9,000 rpm")
-                ))
+                )
         );
 
         final Component tipo500Engine = createComponent(
                 "Tipo 500",
                 ENGINE,
-                componentParameterService.add(newHashSet(
+                newHashSet(
                         new ComponentParameter("Power", "138 kW"),
                         new ComponentParameter("Torque", "4,000 rpm")
-                ))
+                )
         );
 
         final Component tipo375Engine = createComponent(
                 "Tipo 375",
                 ENGINE,
-                componentParameterService.add(newHashSet(
+                newHashSet(
                         new ComponentParameter("Power", "164 kW"),
                         new ComponentParameter("Torque", "5,500 rpm")
-                ))
+                )
         );
 
         final Component aCDelcoBrake = createComponent(
                 "ACDelco 171-1040 GM",
                 BRAKES,
-                createComponentParameter(new ComponentParameter("Material", "Friction-enhancing material"))
+                newHashSet(new ComponentParameter("Material", "Friction-enhancing material"))
         );
 
         final Component boschBrake = createComponent(
                 "Bosch BC905 QuietCast",
                 BRAKES,
-                createComponentParameter(new ComponentParameter("Material", "Ceramic"))
+                newHashSet(new ComponentParameter("Material", "Ceramic"))
         );
 
         final Component bremboBrake = createComponent(
                 "Brembo P83024N Rear",
                 BRAKES,
-                createComponentParameter(new ComponentParameter("Material", "Ceramic"))
+                newHashSet(new ComponentParameter("Material", "Ceramic"))
         );
 
         final Component eBCBrake = createComponent(
                 "EBC Brakes DP31210C",
                 BRAKES,
-                createComponentParameter(new ComponentParameter("Material", "Friction-enhancing material"))
+                newHashSet(new ComponentParameter("Material", "Friction-enhancing material"))
         );
 
         final Component hawkBrake = createComponent(
                 "Hawk HB453F.585 HPS",
                 BRAKES,
-                createComponentParameter(new ComponentParameter("Material", "Carbon Disc Brake"))
+                newHashSet(new ComponentParameter("Material", "Carbon Disc Brake"))
         );
 
         final Component satchellSuspension = createComponent(
                 "Satchell link",
                 SUSPENSION,
-                createComponentParameter(new ComponentParameter("Type", "Dependent"))
+                newHashSet(new ComponentParameter("Type", "Dependent"))
         );
 
         final Component slidingPillarSuspension = createComponent(
                 "Sliding pillar",
                 SUSPENSION,
-                createComponentParameter(new ComponentParameter("Type", "Independent"))
+                newHashSet(new ComponentParameter("Type", "Independent"))
         );
 
         final Component multiLinkSuspension = createComponent(
                 "Multi-link",
                 SUSPENSION,
-                createComponentParameter(new ComponentParameter("Type", "Independent"))
+                newHashSet(new ComponentParameter("Type", "Independent"))
         );
 
         final Component cumminsTransmission = createComponent(
                 "Cummins: 68 RFE",
                 TRANSMISSION,
-                componentParameterService.add(newHashSet(
+                newHashSet(
                         new ComponentParameter("Type", "Automatic"),
                         new ComponentParameter("Number of gears", "6")
-                ))
+                )
         );
 
         final Component cruiseTransmission = createComponent(
                 "Cruise-O-Matic",
                 TRANSMISSION,
-                componentParameterService.add(newHashSet(
+                newHashSet(
                         new ComponentParameter("Type", "Automatic"),
                         new ComponentParameter("Number of gears", "3")
-                ))
+                )
         );
 
         final Component torqueFliteTransmission = createComponent(
                 "TorqueFlite",
                 TRANSMISSION,
-                componentParameterService.add(newHashSet(
+                newHashSet(
                         new ComponentParameter("Type", "Automatic"),
                         new ComponentParameter("Number of gears", "8")
-                ))
+                )
         );
 
         final Component tires1 = createComponent(
                 "Tires 1",
                 TIRES,
-                componentParameterService.add(newHashSet(
+                newHashSet(
                         new ComponentParameter("Manufacturer", "Michellin"),
                         new ComponentParameter("Nominal section width", "205mm")
-                ))
+                )
         );
 
         final Component tires2 = createComponent(
                 "Tires 2",
                 TIRES,
-                componentParameterService.add(newHashSet(
+                newHashSet(
                         new ComponentParameter("Manufacturer", "Barum"),
                         new ComponentParameter("Nominal section width", "108mm")
-                ))
+                )
         );
 
         final Component cover = createComponent(
                 "Carbon",
                 COVER,
-                newHashSet(componentParameterService.add(new ComponentParameter("Reference area", "2800 ft*ft")))
+                newHashSet(new ComponentParameter("Reference area", "2800 ft*ft"))
         );
 
         CarSetup carSetup1 = carSetupService.add(
@@ -310,17 +310,11 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     private Component createComponent(String name, ComponentType type, Set<ComponentParameter> parameters) {
         final Component component = new Component(name, type);
         for (ComponentParameter parameter : parameters) {
+            parameter.setComponent(component);
+            componentParameterService.add(parameter);
             component.addParameter(parameter);
         }
         componentService.add(component);
         return component;
-    }
-
-    private HashSet<ComponentParameter> createComponentParameter(ComponentParameter... parameters) {
-        for (ComponentParameter parameter : parameters) {
-            componentParameterService.add(parameter);
-        }
-
-        return newHashSet(parameters);
     }
 }
