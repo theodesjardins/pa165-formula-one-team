@@ -32,13 +32,6 @@ abstract class BaseServiceImpl<T extends BaseEntity, D extends Dao<T>> implement
     }
 
     @Override
-    public T update(T entity) throws FormulaOneTeamException {
-        dao.update(entity);
-
-        return dao.findById(entity.getId());
-    }
-
-    @Override
     public List<T> getAll() throws FormulaOneTeamException {
         List<T> entityList = dao.findAll();
 

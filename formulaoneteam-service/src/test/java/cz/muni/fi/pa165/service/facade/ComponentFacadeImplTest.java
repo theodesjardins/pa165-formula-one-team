@@ -132,8 +132,8 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
         //Given
         ComponentParameter componentParameter = createComponentParameter();
         ComponentParameterDTO componentParameterDTO = createComponentParameterDTO();
-        when(beanMappingServiceMock.mapTo(componentParameterDTO, ComponentParameter.class)).
-                thenReturn(componentParameter);
+        when(beanMappingServiceMock.mapTo(componentParameterDTO, ComponentParameter.class))
+                .thenReturn(componentParameter);
         when(componentParameterService.add(componentParameter)).thenReturn(componentParameter);
         when(service.findById(entity.getId())).thenReturn(entity);
 

@@ -75,12 +75,10 @@ public class WorldChampionshipController extends BaseDetailController {
             BindingResult bindingResult
     ) {
         if (dto.getRaceDTO().getTitle().isEmpty()) {
-            bindingResult.addError(new FieldError("saveRaceParticipation", "raceDTO.title",
-                    "cannot be empty"));
+            bindingResult.addError(new FieldError("saveRaceParticipation", "raceDTO.title", "cannot be empty"));
         }
         if (dto.getRaceDTO().getLocation().isEmpty()) {
-            bindingResult.addError(new FieldError("saveRaceParticipation", "raceDTO.location",
-                    "cannot be empty"));
+            bindingResult.addError(new FieldError("saveRaceParticipation", "raceDTO.location", "cannot be empty"));
         }
 
         if (bindingResult.hasErrors()) {

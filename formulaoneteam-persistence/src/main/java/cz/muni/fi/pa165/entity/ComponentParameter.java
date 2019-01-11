@@ -64,17 +64,16 @@ public class ComponentParameter extends BaseEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (!(o instanceof ComponentParameter))
-            return false;
+        if (this == o) return true;
+        if (!(o instanceof ComponentParameter)) return false;
         ComponentParameter that = (ComponentParameter) o;
-        return Objects.equals(getName(), that.getName()) && Objects.equals(getComponent(), that.getComponent());
+        return Objects.equals(getName(), that.getName())
+                && Objects.equals(getValue(), that.getValue());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getComponent());
+        return Objects.hash(getName(), getValue());
     }
 
     @Override

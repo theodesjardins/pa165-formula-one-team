@@ -150,8 +150,7 @@ public class RaceParticipationFacadeImplTest extends BaseFacadeTest<RaceParticip
                 thenReturn(carSetupEntity);
 
         //When
-        final List<RaceParticipationDTO> raceParticipationDTOS = facade.
-                participateInWorldChampionship(worldChampionshipDTO);
+        facade.participateInWorldChampionship(worldChampionshipDTO);
 
         //Then
         verify(service, times(1))

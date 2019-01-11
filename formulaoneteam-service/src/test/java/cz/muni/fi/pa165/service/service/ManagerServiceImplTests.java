@@ -126,20 +126,6 @@ public class ManagerServiceImplTests extends BaseServiceTest<Manager> {
         verify(dao).delete(entity.getId());
     }
 
-    @Test
-    public void updateManager_withExistingManager_managerUpdated() {
-        //given
-        when(dao.findById(entity.getId())).thenReturn(entity);
-
-        //when
-        entity.setEmail("test@test.cz");
-        entity.setPassword("asdapso2321");
-
-        //then
-        assertEquals(entity, service.update(entity));
-        verify(dao).update(entity);
-    }
-
     @Override
     protected Manager createTestEntity() {
         return createManager();

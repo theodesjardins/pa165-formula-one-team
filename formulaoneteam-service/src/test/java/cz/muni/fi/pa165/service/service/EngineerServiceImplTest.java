@@ -67,13 +67,6 @@ public class EngineerServiceImplTest extends BaseServiceTest<Engineer> {
     }
 
     @Test
-    public void updateEngineer_withValidValues() {
-        engineerService.update(entity);
-
-        verify(dao, times(1)).update(entity);
-    }
-
-    @Test
     public void removeEngineer_withValidValues() {
         engineerService.remove(entity.getId());
 

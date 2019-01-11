@@ -28,8 +28,9 @@ import java.util.List;
 @Service
 @Transactional
 public class RaceParticipationFacadeImpl
-        extends BaseEntityFacadeImpl<RaceParticipationDTO, SaveRaceParticipationDTO, RaceParticipation,
-        RaceParticipationService>
+        extends BaseEntityFacadeImpl<
+        RaceParticipationDTO, SaveRaceParticipationDTO, RaceParticipation, RaceParticipationService
+        >
         implements RaceParticipationFacade {
 
     @Inject

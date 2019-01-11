@@ -307,18 +307,30 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         ));
 
         testDriveService.add(newHashSet(
-                new TestDrive(carSetup1, testDriver1, "Steering maybe too stiff.",
-                        dateService.getPastDate(40)),
-                new TestDrive(carSetup1, testDriver2, "Great power.", dateService.getPastDate(40)),
-                new TestDrive(carSetup2, testDriver1, "Pretty good steering.",
-                        dateService.getPastDate(30)),
-                new TestDrive(carSetup2, testDriver2, "Did not finish, transmission broke.",
-                        dateService.getPastDate(30)),
-                new TestDrive(carSetup3, testDriver1, "Fast, but missing some advantages of no. 2.",
-                        dateService.getPastDate(20)),
-                new TestDrive(carSetup3, testDriver2, "Pretty fast.", dateService.getPastDate(20)),
-                new TestDrive(carSetup3, testDriver2, "Slides a lot on wet.",
-                        dateService.getPastDate(5))
+                new TestDrive(
+                        carSetup1, testDriver1, "Steering maybe too stiff.", dateService.getPastDate(40)
+                ),
+                new TestDrive(
+                        carSetup1, testDriver2, "Great power.", dateService.getPastDate(40)
+                ),
+                new TestDrive(
+                        carSetup2, testDriver1, "Pretty good steering.", dateService.getPastDate(30)
+                ),
+                new TestDrive(
+                        carSetup2, testDriver2, "Did not finish, transmission broke.", dateService.getPastDate(30)
+                ),
+                new TestDrive(
+                        carSetup3,
+                        testDriver1,
+                        "Fast, but missing some advantages of no. 2.",
+                        dateService.getPastDate(20)
+                ),
+                new TestDrive(
+                        carSetup3, testDriver2, "Pretty fast.", dateService.getPastDate(20)
+                ),
+                new TestDrive(
+                        carSetup3, testDriver2, "Slides a lot on wet.", dateService.getPastDate(5)
+                )
         ));
     }
 

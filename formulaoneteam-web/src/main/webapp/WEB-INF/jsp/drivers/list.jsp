@@ -30,7 +30,9 @@
                         <td>
                             <c:forEach items="${driver.raceParticipations}" var="participation">
                                 <my:a href="/world-championship/detail/${participation.id}">
-                                    ${participation.race.title}</my:a><br/>
+                                    ${participation.race.title}
+                                </my:a>
+                                <br/>
                             </c:forEach>
                         </td>
                     </tr>

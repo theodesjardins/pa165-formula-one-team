@@ -32,7 +32,7 @@ public class RaceDaoTest extends BaseTest {
         raceDao.add(testRace);
 
         //then
-        assertEquals(testRace, raceDao.findById(testRace.getId()) );
+        assertEquals(testRace, raceDao.findById(testRace.getId()));
         assertNotNull(raceDao.findById(testRace.getId()));
     }
 
@@ -61,8 +61,7 @@ public class RaceDaoTest extends BaseTest {
     @Test
     public void findAllRace() {
         //given
-        Race otherRace = new Race(createDate(10, 10, 1950), "otherTitle",
-                "otherLocation");
+        Race otherRace = new Race(createDate(10, 10, 1950), "otherTitle", "otherLocation");
 
         //when
         raceDao.add(testRace);

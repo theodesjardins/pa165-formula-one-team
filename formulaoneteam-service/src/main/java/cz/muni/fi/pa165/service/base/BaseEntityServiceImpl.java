@@ -6,8 +6,6 @@ import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
 
 import java.util.Set;
 
-import static cz.muni.fi.pa165.entity.base.BaseEntity.NO_ID;
-
 /**
  * @author elderanakain (Arcadii Rubailo)
  */
@@ -33,7 +31,6 @@ public abstract class BaseEntityServiceImpl<E extends BaseEntity, DAO extends Da
 
     @Override
     public E update(E entity) throws FormulaOneTeamException {
-        validateEntity(entity);
         dao.update(entity);
 
         return dao.findById(entity.getId());

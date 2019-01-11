@@ -60,10 +60,8 @@ public class DriversController extends BaseDetailController {
         driver.setBirthday(DateUtils.parseDate(driver.getBirthdayString()));
 
         if (!driver.getPassword().equals(driver.getConfirmPassword())) {
-            bindingResult.addError(new FieldError("driver", "password",
-                    "does not match"));
-            bindingResult.addError(new FieldError("driver", "confirmPassword",
-                    "does not match"));
+            bindingResult.addError(new FieldError("driver", "password", "does not match"));
+            bindingResult.addError(new FieldError("driver", "confirmPassword", "does not match"));
         }
 
         final boolean isNewUser = driver.getId() == 0;

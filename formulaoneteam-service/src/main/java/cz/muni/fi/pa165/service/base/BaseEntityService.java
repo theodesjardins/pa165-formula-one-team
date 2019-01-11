@@ -14,7 +14,5 @@ public interface BaseEntityService<E extends BaseEntity> extends BaseService<E> 
 
     Set<E> add(@Nullable Set<E> entities);
 
-    void remove(long id);
-
     E update(@Nullable E entity);
 }

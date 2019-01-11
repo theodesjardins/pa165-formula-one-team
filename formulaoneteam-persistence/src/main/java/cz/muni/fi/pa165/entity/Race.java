@@ -78,8 +78,8 @@ public class Race extends BaseEntity {
 
         Race race = (Race) o;
 
-        if (date != null ? !date.equals(race.date) : race.date != null) return false;
-        return title != null ? title.equals(race.title) : race.title == null;
+        return Objects.equals(title, race.title)
+                 && Objects.equals(date, race.date);
     }
 
     @Override

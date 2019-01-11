@@ -71,13 +71,18 @@ public class Component extends BaseEntity {
         if (this == o) return true;
         if (!(o instanceof Component)) return false;
         Component component = (Component) o;
-        return getType() == component.getType() &&
-                Objects.equals(getName(), component.getName());
+        return getType() == component.getType()
+                && Objects.equals(getName(), component.getName())
+                && getParameters() != null
+                && getParameters().equals(component.getParameters());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getType(), getName());
+        int result = type != null ? type.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (parameters != null ? parameters.hashCode() : 0);
+        return result;
     }
 
     public String toString() {

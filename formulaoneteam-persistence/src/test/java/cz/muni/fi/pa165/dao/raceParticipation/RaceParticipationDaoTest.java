@@ -54,14 +54,13 @@ public class RaceParticipationDaoTest extends BaseTest {
         raceParticipationDao.add(raceParticipation);
 
         //then
-        assertEquals(raceParticipation, raceParticipationDao.findById(raceParticipation.getId()) );
+        assertEquals(raceParticipation, raceParticipationDao.findById(raceParticipation.getId()));
         assertNotNull(raceParticipationDao.findById(raceParticipation.getId()));
     }
 
     @Test
     public void findAllRaceParticipation() {
-        RaceParticipation otherParticipation = createRaceParticipation("other@email.com",
-                "otherRaceTitle");
+        RaceParticipation otherParticipation = createRaceParticipation("other@email.com", "otherRaceTitle");
 
         //when
         raceParticipationDao.add(raceParticipation);

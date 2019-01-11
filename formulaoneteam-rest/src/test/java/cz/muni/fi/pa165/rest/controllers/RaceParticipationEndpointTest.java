@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.*;
 
+import static java.util.Collections.unmodifiableList;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -33,7 +34,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
  * @author Adel Chakouri
  */
 @WebAppConfiguration
-@ContextConfiguration(classes = { RootWebContext.class})
+@ContextConfiguration(classes = {RootWebContext.class})
 public class RaceParticipationEndpointTest extends AbstractTestNGSpringContextTests {
 
     @Mock
@@ -48,7 +49,7 @@ public class RaceParticipationEndpointTest extends AbstractTestNGSpringContextTe
     private MockMvc mockMvc;
 
     @Before
-    public void setup(){
+    public void setup() {
         mockMvc = standaloneSetup(raceParticipationEndpoint)
                 .build();
     }
@@ -82,8 +83,7 @@ public class RaceParticipationEndpointTest extends AbstractTestNGSpringContextTe
     @Test
     public void getRaceParticipation() throws Exception {
         //Given
-        doReturn(Collections.unmodifiableList(this.createUpdateRaceParticipationDTO())).when(raceParticipationFacade).
-                getAll();
+        doReturn(unmodifiableList(this.createUpdateRaceParticipationDTO())).when(raceParticipationFacade).getAll();
 
         //Then
         mockMvc.perform(get("/race-participation/")).andExpect(status().isOk())

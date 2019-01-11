@@ -74,14 +74,13 @@
                             <tr class="clickable-row" data-href="/world-championship/detail/${raceParticipation.id}">
                                 <td><c:out value="${raceParticipation.race.title}"/></td>
                                 <td>
-                                    <my:a href="/drivers/detail/${raceParticipation.driver.id}">
+                                    <my:a href="/drivers/detail/${raceParticipation.driBaseServiceImpl.ver.id}">
                                         <c:out value="${raceParticipation.driver.fullName}"/>
                                     </my:a>
                                 </td>
                                 <td>
                                     <c:choose>
-                                        <c:when test="${raceParticipation.resultPosition eq
-                                        RaceParticipation.NO_RESULT_POSITION}">
+                                        <c:when test="${ raceParticipation.resultPosition eq RaceParticipation.NO_RESULT_POSITION }">
                                             <fmt:message key="feature.race.unfinished"/>
                                         </c:when>
                                         <c:otherwise><c:out value="${raceParticipation.resultPosition}"/></c:otherwise>
