@@ -12,19 +12,12 @@
 <my:pagetemplate title="${title}">
     <jsp:attribute name="body">
         <div class="container">
-            <sec:authorize access="hasAuthority('ADMIN')">
-                <div class="row">
-                    <my:a href="/test-drives/create" class="btn btn-primary pull-right">
-                        <span class="glyphicon glyphicon-plus"></span>
-                        <f:message key="feature.test_drives.button.add"/>
-                    </my:a>
-                </div>
-            </sec:authorize>
+            <my:addButton baseEntity="test-drives" authority="${authority}"/>
             <table class="table" id="test-drives-table">
                 <thead>
                 <tr>
                     <th><f:message key="common.id"/></th>
-                    <th><f:message key="feature.test_drives.table.driver"/></th>
+                    <th><f:message key="feature.driver"/></th>
                     <th><f:message key="feature.car"/></th>
                     <th><f:message key="common.date"/></th>
                     <th><f:message key="feature.test_drives.notes"/></th>

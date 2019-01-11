@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" session="false" %>
+
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -8,10 +9,9 @@
 <%@ taglib prefix="forms" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<my:pagetemplate title="Edit driver">
-    <jsp:attribute name="head">
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.min.css">
-    </jsp:attribute>
+<fmt:message key="feature.driver" var="title"/>
+
+<my:pagetemplate title="${title}">
     <jsp:attribute name="body">
         <div class="container">
             <form:form action="/pa165/drivers/submit" modelAttribute="driver">
@@ -19,9 +19,7 @@
                 <div class="row">
                 <spring:bind path="name">
                     <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
-                        <form:label path="name">
-                            Name
-                        </form:label>
+                        <form:label path="name"><fmt:message key="common.name"/></form:label>
                         <span class="text-danger">
                             <c:out value="${status.errorMessage}"/>
                         </span>
@@ -30,7 +28,7 @@
                 </spring:bind>
                     <spring:bind path="surname">
                     <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
-                        <form:label path="surname">Surname</form:label>
+                        <form:label path="surname"><fmt:message key="common.surname"/></form:label>
                         <span class="text-danger">
                             <c:out value="${status.errorMessage}"/>
                         </span>
@@ -41,7 +39,7 @@
                 <div class="row">
                 <spring:bind path="email">
                     <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
-                        <form:label path="email">Email</form:label>
+                        <form:label path="email"><fmt:message key="common.email"/></form:label>
                         <span class="text-danger">
                             <c:out value="${status.errorMessage}"/>
                         </span>
@@ -50,7 +48,7 @@
                 </spring:bind>
                     <spring:bind path="nationality">
                     <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
-                        <form:label path="nationality">Nationality</form:label>
+                        <form:label path="nationality"><fmt:message key="common.nationality"/></form:label>
                         <span class="text-danger">
                             <c:out value="${status.errorMessage}"/>
                         </span>
@@ -60,13 +58,13 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6 col-xs-12">
-                        <form:label path="driverStatus">Driver status</form:label>
+                        <form:label path="driverStatus"><fmt:message key="feature.drivers.status"/></form:label>
                         <form:select cssClass="form-control" path="driverStatus" items="${driverStatusValues}"
                                      itemLabel="displayName"/>
                     </div>
                     <spring:bind path="birthdayString">
                         <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
-                            <form:label path="birthdayString">Birthday:</form:label>
+                            <form:label path="birthdayString"><fmt:message key="common.birthday"/>:</form:label>
                             <span class="text-danger">
                                 <c:out value="${status.errorMessage}"/>
                             </span>
@@ -78,7 +76,7 @@
                 <div class="row">
                 <spring:bind path="password">
                     <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
-                        <form:label path="password">Password</form:label>
+                        <form:label path="password"><fmt:message key="feature.auth.form.password"/></form:label>
                         <span class="text-danger">
                             <c:out value="${status.errorMessage}"/>
                         </span>
@@ -87,7 +85,7 @@
                 </spring:bind>
                     <spring:bind path="confirmPassword">
                     <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
-                        <form:label path="confirmPassword">Password</form:label>
+                        <form:label path="confirmPassword"><fmt:message key="feature.auth.form.confirm_password"/></form:label>
                         <span class="text-danger">
                             <c:out value="${status.errorMessage}"/>
                         </span>
@@ -96,7 +94,7 @@
                 </spring:bind>
                 </div>
                 <div class="row">
-                    <h4>Characteristics</h4>
+                    <h4><fmt:message key="feature.drivers.characteristics"/></h4>
                     <c:forEach items="${driver.characteristics}" var="characteristicValue" varStatus="status">
                         <div class="form-group col-md-6 col-xs-12">
                             <label for="characteristics[${status.index}].value">
@@ -116,14 +114,13 @@
                 <div class="row">
                     <button type="submit" class="btn btn-primary pull-right">
                         <span class="glyphicon glyphicon-floppy-disk"></span>
-                        Save
+                        <fmt:message key="common.save"/>
                     </button>
                 </div>
             </form:form>
         </div>
     </jsp:attribute>
     <jsp:attribute name="script">
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script>
             $(document).ready(function () {
                 $("#datepicker").datepicker({dateFormat: 'dd/mm/yy'});

@@ -29,7 +29,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/world-championship")
-public class WorldChampionshipController extends BaseController {
+public class WorldChampionshipController extends BaseDetailController {
 
     @Inject
     private RaceParticipationFacade raceParticipationFacade;

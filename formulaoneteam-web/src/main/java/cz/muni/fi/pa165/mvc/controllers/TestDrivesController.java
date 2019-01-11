@@ -22,7 +22,7 @@ import javax.validation.Valid;
  */
 @Controller
 @RequestMapping("/test-drives")
-class TestDrivesController extends BaseController {
+class TestDrivesController extends BaseDetailController {
 
     @Inject
     private TestDriveFacade testDriveFacade;

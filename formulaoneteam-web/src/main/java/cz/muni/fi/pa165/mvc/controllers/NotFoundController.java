@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 @RequestMapping("/notFound")
-public class NotFoundController {
+public class NotFoundController extends BaseController {
 
     @GetMapping
     public String open(Model model, @RequestParam String message) {

@@ -25,7 +25,7 @@ import static cz.muni.fi.pa165.mvc.config.security.SecurityRole.MANAGER;
  */
 @Controller
 @RequestMapping("/components")
-class ComponentsController extends BaseController {
+class ComponentsController extends BaseDetailController {
 
     @Inject
     private ComponentFacade componentFacade;

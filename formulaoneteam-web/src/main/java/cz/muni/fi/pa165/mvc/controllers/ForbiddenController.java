@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 @RequestMapping("/forbidden")
-public class ForbiddenController {
+public class ForbiddenController extends BaseController {
 
     @GetMapping
     public String open(Model model, @RequestParam String message) {

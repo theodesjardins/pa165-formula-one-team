@@ -10,23 +10,9 @@
 <f:message var="title" key="feature.test_drives.detail"/>
 
 <my:pagetemplate title="${title}">
-    <jsp:attribute name="head">
-        <link rel="stylesheet" type="text/css"
-              href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css"/>
-    </jsp:attribute>
     <jsp:attribute name="body">
         <div class="container">
-            <sec:authorize access="hasAuthority('ADMIN')">
-                <div class="row">
-                    <div class="pull-right">
-                        <my:a href="/test-drives/edit/${testDrive.id}" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                            Update
-                        </my:a>
-                        <my:deleteButton action="/pa165/test-drives/delete/${testDrive.id}"/>
-                    </div>
-                </div>
-            </sec:authorize>
+            <my:crudButtons id="${testDrive.id}" baseEntity="test-drives"/>
             <div class="row">
                 <div class="col-md-6 col-xs-12">
                     <h4><f:message key="feature.test_drives.detail.title"/></h4>

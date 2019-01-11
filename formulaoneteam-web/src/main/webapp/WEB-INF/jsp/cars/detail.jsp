@@ -9,20 +9,12 @@
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<my:pagetemplate title="Car #${car.id}">
+<f:message var="title" key="feature.car.detail"/>
+
+<my:pagetemplate title="${title}${car.id}">
     <jsp:attribute name="body">
         <div class="container">
-            <sec:authorize access="hasAuthority('ADMIN')">
-                <div class="row">
-                    <div class="pull-right">
-                        <my:a href="/cars/edit/${car.id}" class="btn btn-primary pull-right">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                            <f:message key="common.update"/>
-                        </my:a>
-                        <my:deleteButton action="/pa165/cars/delete/${car.id}"/>
-                    </div>
-                </div>
-            </sec:authorize>
+            <my:crudButtons id="${car.id}" baseEntity="cars"/>
             <div class="row">
                 <div class="col-md-6 col-xs-12">
                     <h4><f:message key="feature.components"/></h4>
@@ -106,7 +98,7 @@
                     <thead>
                     <tr>
                         <th><f:message key="common.id"/></th>
-                        <th><f:message key="feature.test_drives.table.driver"/></th>
+                        <th><f:message key="feature.driver"/></th>
                         <th><f:message key="common.date"/></th>
                         <th><f:message key="feature.test_drives.notes"/></th>
                     </tr>

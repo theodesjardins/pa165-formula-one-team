@@ -6,46 +6,39 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page import="cz.muni.fi.pa165.entity.RaceParticipation" %>
 
-<my:pagetemplate title="Driver detail ${driver.name}">
-    <jsp:attribute name="head">
-        <link rel="stylesheet" type="text/css"
-              href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css"/>
-    </jsp:attribute>
+<fmt:message key="feature.drivers.detail.title" var="title"/>
+
+<my:pagetemplate title="${title} ${driver.name}">
     <jsp:attribute name="body">
         <div class="container">
             <c:if test="${editingEnabled}">
-                <div class="row">
-                    <my:a href="/drivers/edit/${driver.id}" class="btn btn-primary pull-right">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                        Update
-                    </my:a>
-                </div>
+                <my:updateButton updatePage="${driver.id}" authority="true"/>
             </c:if>
             <div class="row">
                 <div class="col-md-6 col-xs-12">
-                    <h4>Driver information</h4>
+                    <h4><fmt:message key="feature.drivers.detail.info"/></h4>
                     <dl class="dl-horizontal">
-                        <dt>First name:</dt>
+                        <dt><fmt:message key="common.first_name"/>:</dt>
                         <dd><c:out value="${driver.name}"/></dd>
-                        <dt>Surname:</dt>
+                        <dt><fmt:message key="common.surname"/>:</dt>
                         <dd><c:out value="${driver.surname}"/></dd>
-                        <dt>Email:</dt>
+                        <dt><fmt:message key="common.email"/>:</dt>
                         <dd><c:out value="${driver.email}"/></dd>
-                        <dt>Nationality:</dt>
+                        <dt><fmt:message key="common.nationality"/>:</dt>
                         <dd><c:out value="${driver.nationality}"/></dd>
-                        <dt>Birthday:</dt>
+                        <dt><fmt:message key="common.birthday"/>:</dt>
                         <dd><fmt:formatDate value="${driver.birthday}" pattern="dd/MM/YYYY"/></dd>
-                        <dt>Status:</dt>
+                        <dt><fmt:message key="feature.drivers.status"/>:</dt>
                         <dd><c:out value="${driver.driverStatus}"/></dd>
                     </dl>
                 </div>
                 <div class="col-md-6 col-xs-12">
-                    <h4>Characteristic values</h4>
+                    <h4><fmt:message key="feature.drivers.characteristic_values"/></h4>
                     <table class="table" id="characteristics-value-table">
                         <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Value</th>
+                            <th><fmt:message key="common.name"/></th>
+                            <th><fmt:message key="common.value"/></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -60,13 +53,13 @@
                 </div>
                 <c:if test="${driver.raceParticipations.size() gt 0}">
                 <div class="col-md-6 col-xs-12">
-                    <h4>Race participations</h4>
+                    <h4><fmt:message key="feature.race.race_participations"/></h4>
                     <table class="table" id="race-participations-table">
                         <thead>
                         <tr>
-                            <th>Date</th>
-                            <th>Title</th>
-                            <th>Result</th>
+                            <th><fmt:message key="common.date"/></th>
+                            <th><fmt:message key="common.title"/></th>
+                            <th><fmt:message key="feature.race.result"/></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -76,7 +69,9 @@
                                     <td><c:out value="${participation.race.title}"/></td>
                                     <td>
                                         <c:choose>
-                                            <c:when test="${participation.resultPosition eq RaceParticipation.NO_RESULT_POSITION}">Unfinished</c:when>
+                                            <c:when test="${participation.resultPosition eq RaceParticipation.NO_RESULT_POSITION}">
+                                                <fmt:message key="feature.race.unfinished"/>
+                                            </c:when>
                                             <c:otherwise><c:out value="${participation.resultPosition}"/></c:otherwise>
                                         </c:choose>
                                     </td>
@@ -88,12 +83,12 @@
                 </c:if>
                 <c:if test="${driver.testDrives.size() gt 0}">
                 <div class="col-md-6 col-xs-12">
-                    <h4>Test drives</h4>
+                    <h4><fmt:message key="feature.test_drives"/></h4>
                     <table class="table" id="test-drive-table">
                         <thead>
                         <tr>
-                            <th>Date</th>
-                            <th>Notes</th>
+                            <th><fmt:message key="common.date"/></th>
+                            <th><fmt:message key="feature.test_drives.notes"/></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -111,33 +106,16 @@
         </div>
     </jsp:attribute>
     <jsp:attribute name="script">
-            <script type="text/javascript" charset="utf8"
-                    src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
             <script>
                 $(document).ready(function () {
                     $("#race-participations-table").DataTable(
-                        {
-                            paging: false,
-                            searching: false,
-                            info: false,
-                            order: []
-                        }
+                        {paging: false, searching: false, info: false, order: []}
                     );
                     $("#test-drive-table").DataTable(
-                        {
-                            paging: false,
-                            searching: false,
-                            info: false,
-                            order: []
-                        }
+                        {paging: false, searching: false, info: false, order: []}
                     );
                     $("#characteristics-value-table").DataTable(
-                        {
-                            paging: false,
-                            searching: false,
-                            info: false,
-                            order: []
-                        }
+                        {paging: false, searching: false, info: false, order: []}
                     );
                 });
             </script>

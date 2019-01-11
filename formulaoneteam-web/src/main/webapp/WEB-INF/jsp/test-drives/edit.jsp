@@ -12,9 +12,6 @@
 <f:message var="title" key="feature.edit.test_drive"/>
 
 <my:pagetemplate title="${title}">
-    <jsp:attribute name="head">
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.min.css">
-    </jsp:attribute>
     <jsp:attribute name="body">
         <div class="container">
             <form:form action="/pa165/test-drives/submit" modelAttribute="saveTestDrive">

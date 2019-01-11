@@ -12,14 +12,7 @@
 <my:pagetemplate title="${title}">
     <jsp:attribute name="body">
         <div class="container">
-            <sec:authorize access="hasAuthority('ADMIN')">
-                <div class="row">
-                    <my:a href="/cars/create" class="btn btn-primary pull-right">
-                        <span class="glyphicon glyphicon-plus"></span>
-                        <fmt:message key="feature.car.add"/>
-                    </my:a>
-                </div>
-            </sec:authorize>
+            <my:addButton baseEntity="cars"/>
             <table class="table" id="car-table">
                 <thead>
                 <tr>

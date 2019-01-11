@@ -1,28 +1,34 @@
 <!DOCTYPE html>
 <%@ tag pageEncoding="utf-8" dynamic-attributes="dynattrs" trimDirectiveWhitespaces="true" %>
+
 <%@ attribute name="title" required="false" %>
 <%@ attribute name="head" fragment="true" %>
 <%@ attribute name="script" fragment="true" %>
 <%@ attribute name="body" fragment="true" required="true" %>
+
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="th" uri="http://www.springframework.org/tags/form" %>
 
 <html lang="${pageContext.request.locale}">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title><c:out value="${title}"/></title>
+
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css"/>
+
     <style>
         .clickable-row:hover {
             background-color: lightgray;
@@ -48,7 +54,12 @@
             position: absolute;
             bottom: 0;
         }
+
+        #locale {
+            color: #000000;
+        }
     </style>
+
     <jsp:invoke fragment="head"/>
 </head>
 <body>
@@ -74,6 +85,17 @@
                 <li><my:a href="/test-drives"><f:message key="feature.test_drives"/></my:a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a>
+                        <select id="locale">
+                            <option value="en">English</option>
+                            <option value="fr">Français</option>
+                            <option value="cz">Čeština</option>
+                            <option value="ru">Русский</option>
+                        </select>
+                    </a>
+                </li>
+
                 <sec:authorize access="!isAuthenticated()">
                     <li><my:a href="/login"><f:message key="feature.auth.sign_in"/></my:a></li>
                 </sec:authorize>
@@ -120,10 +142,17 @@
 <script type="text/javascript" charset="utf8"
         src="https://cdn.datatables.net/plug-ins/1.10.19/sorting/datetime-moment.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <script>
     $(document).ready(function () {
         $(".clickable-row").click(function () {
             window.location = "/pa165" + $(this).data("href");
+        });
+
+        $("#locale").val("${lang}");
+
+        $("#locale").on('change', function () {
+            window.location.replace('${requestScope['javax.servlet.forward.request_uri']}?lang=' + this.value);
         });
     });
 </script>

@@ -79,7 +79,7 @@ public class DriversControllerTests extends BaseControllerTest<DriversController
         //Then
         mockMvc.perform(get("/drivers/create"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/forbidden?message=Only manager can create new users.&driverStatusValues=Main&driverStatusValues=Test"))
+                .andExpect(redirectedUrl("/forbidden?message=Only manager can create new users.&driverStatusValues=Main&driverStatusValues=Test&lang=en"))
                 .andReturn();
     }
 
@@ -115,7 +115,7 @@ public class DriversControllerTests extends BaseControllerTest<DriversController
         //Then
         mockMvc.perform(get("/drivers/edit/1"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/forbidden?message=You can't edit this user!&driverStatusValues=Main&driverStatusValues=Test"))
+                .andExpect(redirectedUrl("/forbidden?message=You can't edit this user!&driverStatusValues=Main&driverStatusValues=Test&lang=en"))
                 .andReturn();
     }
 

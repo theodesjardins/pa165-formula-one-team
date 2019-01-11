@@ -49,7 +49,7 @@
                     </spring:bind>
                     <spring:bind path="resultPosition">
                         <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
-                            <form:label path="resultPosition"><fmt:message key="feature.race.result"/></form:label>
+                            <form:label path="resultPosition"><fmt:message key="feature.race.result_position"/></form:label>
                             <span class="text-danger">
                                 <c:out value="${status.errorMessage}"/>
                             </span>

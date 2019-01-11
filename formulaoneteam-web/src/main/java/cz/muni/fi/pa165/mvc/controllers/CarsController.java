@@ -24,7 +24,7 @@ import static cz.muni.fi.pa165.enums.ComponentType.*;
  */
 @Controller
 @RequestMapping("/cars")
-public class CarsController extends BaseController {
+public class CarsController extends BaseDetailController {
 
     @Inject
     private CarSetupFacade carFacade;

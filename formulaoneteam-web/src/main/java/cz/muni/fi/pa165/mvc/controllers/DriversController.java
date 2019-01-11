@@ -23,7 +23,7 @@ import javax.validation.Valid;
  */
 @Controller
 @RequestMapping("/drivers")
-public class DriversController extends BaseController {
+public class DriversController extends BaseDetailController {
 
     @Inject
     private DriverFacade driverFacade;

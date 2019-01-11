@@ -31,7 +31,7 @@
                 <c:out value="${message}"/>
         </div>
         <div class="imgbox">
-            <img class="center-fit" src="${pageContext.servletContext.contextPath}/not_found_404.jpg" alt="">
+            <img class="center-fit" src="${pageContext.servletContext.contextPath}/not_found_404.jpeg" alt="">
         </div>
     </jsp:attribute>
 </my:pagetemplate>

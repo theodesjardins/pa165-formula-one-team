@@ -11,14 +11,7 @@
 <my:pagetemplate title="${title}">
     <jsp:attribute name="body">
     <div class="container">
-        <sec:authorize access="hasAuthority('ADMIN')">
-            <div class="row">
-                    <my:a href="/drivers/create" class="btn btn-primary pull-right">
-                        <span class="glyphicon glyphicon-plus"></span>
-                        Add driver
-                    </my:a>
-            </div>
-        </sec:authorize>
+        <my:addButton baseEntity="drivers" authority="${authority}"/>
         <table class="table" id="drivers-table">
             <thead>
             <tr>
