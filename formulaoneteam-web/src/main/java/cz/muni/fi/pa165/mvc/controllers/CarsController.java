@@ -50,10 +50,9 @@ public class CarsController extends BaseDetailController {
         return "cars/edit";
     }
 
-    @RequestMapping("/edit/{id}")
-    public String edit(Model model, @PathVariable long id) {
+    @Override
+    protected String onEdit(Model model, long id) {
         addComponentsData(model);
-
         model.addAttribute("car", carFacade.findById(id));
 
         return "cars/edit";

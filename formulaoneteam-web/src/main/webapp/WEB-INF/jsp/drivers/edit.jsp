@@ -85,7 +85,8 @@
                 </spring:bind>
                     <spring:bind path="confirmPassword">
                     <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
-                        <form:label path="confirmPassword"><fmt:message key="feature.auth.form.confirm_password"/></form:label>
+                        <form:label path="confirmPassword"><fmt:message
+                                key="feature.auth.form.confirm_password"/></form:label>
                         <span class="text-danger">
                             <c:out value="${status.errorMessage}"/>
                         </span>
@@ -95,6 +96,8 @@
                 </div>
                 <div class="row">
                     <h4><fmt:message key="feature.drivers.characteristics"/></h4>
+                </div>
+                <div class="row">
                     <c:forEach items="${driver.characteristics}" var="characteristicValue" varStatus="status">
                         <div class="form-group col-md-6 col-xs-12">
                             <label for="characteristics[${status.index}].value">

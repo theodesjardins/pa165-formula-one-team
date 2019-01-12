@@ -37,21 +37,17 @@ class TestDrivesController extends BaseDetailController {
         return "test-drives/list";
     }
 
-    @RequestMapping("/edit/{id}")
-    public String edit(Model model, @PathVariable long id) {
-        if (userCanEdit()) {
-            TestDriveDTO testDriveDTO = testDriveFacade.findById(id);
-            SaveTestDriveDTO saveTestDriveDTO = new SaveTestDriveDTO(testDriveDTO);
+    @Override
+    protected String onEdit(Model model, long id) {
+        TestDriveDTO testDriveDTO = testDriveFacade.findById(id);
+        SaveTestDriveDTO saveTestDriveDTO = new SaveTestDriveDTO(testDriveDTO);
 
-            model.addAttribute("saveTestDrive", saveTestDriveDTO);
-            model.addAttribute("testDrive", testDriveDTO);
-            model.addAttribute("cars", carSetupFacade.getAll());
-            model.addAttribute("drivers", driverFacade.getAll());
+        model.addAttribute("saveTestDrive", saveTestDriveDTO);
+        model.addAttribute("testDrive", testDriveDTO);
+        model.addAttribute("cars", carSetupFacade.getAll());
+        model.addAttribute("drivers", driverFacade.getAll());
 
-            return "test-drives/edit";
-        } else {
-            return Navigator.openForbiddenPage("Only manager can edit test drives.");
-        }
+        return "test-drives/edit";
     }
 
     @PostMapping(value = "/submit")

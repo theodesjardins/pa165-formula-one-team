@@ -80,7 +80,7 @@
                     </table>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" style=" padding-top: 20px;">
                 <div class="col">
                     <h4><f:message key="feature.driver"/></h4>
                     <c:set var="driver" value="${testDrive.driver}"/>
@@ -103,5 +103,15 @@
                 </div>
             </div>
         </div>
+    </jsp:attribute>
+    <jsp:attribute name="script">
+        <script>
+            $(document).ready(function () {
+                $.fn.dataTable.moment('DD/MM/YYYY');
+
+                $("#car-table").DataTable({paging: false, searching: false, info: false, order: []});
+                $("#drivers-table").DataTable({paging: false, searching: false, info: false, order: []});
+            });
+        </script>
     </jsp:attribute>
 </my:basepage>

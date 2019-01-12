@@ -113,18 +113,18 @@
         </div>
     </jsp:attribute>
     <jsp:attribute name="script">
-            <script>
-                $(document).ready(function () {
-                    $("#race-participations-table").DataTable(
-                        {paging: false, searching: false, info: false, order: []}
-                    );
-                    $("#test-drive-table").DataTable(
-                        {paging: false, searching: false, info: false, order: []}
-                    );
-                    $("#characteristics-value-table").DataTable(
-                        {paging: false, searching: false, info: false, order: []}
-                    );
-                });
-            </script>
+        <script>
+            $(document).ready(function () {
+                $("#race-participations-table").DataTable(
+                    {paging: false, searching: false, info: false, order: []}
+                );
+                $("#test-drive-table").DataTable(
+                    {paging: false, searching: false, info: false, order: []}
+                );
+                $("#characteristics-value-table").DataTable(
+                    {paging: false, searching: false, info: false, order: []}
+                );
+            });
+        </script>
     </jsp:attribute>
 </my:basepage>

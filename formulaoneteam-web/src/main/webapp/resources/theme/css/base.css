@@ -49,3 +49,9 @@ body {
 .btn {
     margin: 10px;
 }
+
+.alert.alert-danger {
+    text-align: center;
+    display: table;
+    margin: 10px auto;
+}

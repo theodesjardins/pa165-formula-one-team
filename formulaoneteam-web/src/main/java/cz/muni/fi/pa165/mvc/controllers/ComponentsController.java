@@ -51,15 +51,12 @@ class ComponentsController extends BaseDetailController {
         }
     }
 
-    @GetMapping("/edit/{id}")
-    public String edit(Model model, @PathVariable long id) {
-        if (userCanEdit()) {
-            ComponentDTO component = componentFacade.findById(id);
-            model.addAttribute("component", component);
-            return "components/edit";
-        } else {
-            return Navigator.openForbiddenPage("Only managers or engineers can edit components.");
-        }
+    @Override
+    protected String onEdit(Model model, long id) {
+        ComponentDTO component = componentFacade.findById(id);
+        model.addAttribute("component", component);
+
+        return "components/edit";
     }
 
     @PostMapping(value = "/submit")
@@ -104,7 +101,7 @@ class ComponentsController extends BaseDetailController {
     }
 
     @Override
-    protected boolean userCanEdit() {
-        return super.userCanEdit() || (authenticationFacade.hasRole(ENGINEER));
+    protected boolean userCanEdit(long id) {
+        return super.userCanEdit(id) || (authenticationFacade.hasRole(ENGINEER));
     }
 }
