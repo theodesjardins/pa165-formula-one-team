@@ -63,7 +63,6 @@
     <jsp:invoke fragment="head"/>
 </head>
 <body>
-
 <nav class="navbar navbar-inverse navbar-static-top">
     <div class="container">
         <div class="navbar-header">
@@ -85,16 +84,14 @@
                 <li><my:a href="/test-drives"><f:message key="feature.test_drives"/></my:a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a>
-                        <select id="locale">
-                            <option value="en">English</option>
-                            <option value="fr">Français</option>
-                            <option value="cz">Čeština</option>
-                            <option value="ru">Русский</option>
-                        </select>
-                    </a>
-                </li>
+                <li><a>
+                    <select id="locale">
+                        <option value="en">English</option>
+                        <option value="fr">Français</option>
+                        <option value="cz">Čeština</option>
+                        <option value="ru">Русский</option>
+                    </select>
+                </a></li>
 
                 <sec:authorize access="!isAuthenticated()">
                     <li><my:a href="/login"><f:message key="feature.auth.sign_in"/></my:a></li>
