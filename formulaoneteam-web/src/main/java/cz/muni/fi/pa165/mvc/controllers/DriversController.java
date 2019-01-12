@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -44,15 +43,10 @@ public class DriversController extends BaseDetailController {
         }
     }
 
-    @RequestMapping("/edit/{id}")
-    public String edit(Model model, @PathVariable long id) {
-        DriverDTO driver = driverFacade.findById(id);
-        if (userCanEditDriver(driver)) {
-            model.addAttribute("driver", driver);
-            return "drivers/edit";
-        } else {
-            return Navigator.openForbiddenPage("You can't edit this user!");
-        }
+    @Override
+    protected String onEdit(Model model, long id) {
+        model.addAttribute("driver", driverFacade.findById(id));
+        return "drivers/edit";
     }
 
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
@@ -90,13 +84,14 @@ public class DriversController extends BaseDetailController {
     protected String onGetDetail(Model model, long id) {
         final DriverDTO driver = driverFacade.findById(id);
         model.addAttribute("driver", driver);
-        model.addAttribute("editingEnabled", userCanEditDriver(driver));
+        model.addAttribute("editingEnabled", userCanEdit(id));
         return "drivers/detail";
     }
 
-    private boolean userCanEditDriver(DriverDTO driver) {
+    @Override
+    protected boolean userCanEdit(long id) {
         return authenticationFacade.isAuthenticated()
                 && (authenticationFacade.hasRole(SecurityRole.MANAGER)
-                || authenticationFacade.getCurrentUserEmail().equals(driver.getEmail()));
+                || authenticationFacade.getCurrentUserEmail().equals(driverFacade.findById(id).getEmail()));
     }
 }

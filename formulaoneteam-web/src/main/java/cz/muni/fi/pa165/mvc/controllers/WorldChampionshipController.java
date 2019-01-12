@@ -49,8 +49,8 @@ public class WorldChampionshipController extends BaseDetailController {
         return "world-championship/list";
     }
 
-    @RequestMapping("/edit/{id}")
-    public String edit(Model model, @PathVariable long id) {
+    @Override
+    protected String onEdit(Model model, long id) {
         RaceParticipationDTO raceParticipationDTO = raceParticipationFacade.findById(id);
         model.addAttribute("saveRaceParticipation", new SaveRaceParticipationDTO(raceParticipationDTO));
         return "world-championship/edit";

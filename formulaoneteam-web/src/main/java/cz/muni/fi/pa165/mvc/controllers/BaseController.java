@@ -20,7 +20,7 @@ public abstract class BaseController {
         return LocaleContextHolder.getLocale().getLanguage();
     }
 
-    protected boolean userCanEdit() {
+    protected boolean userCanEdit(long id) {
         return authenticationFacade.isAuthenticated()
                 && (authenticationFacade.hasRole(SecurityRole.MANAGER));
     }

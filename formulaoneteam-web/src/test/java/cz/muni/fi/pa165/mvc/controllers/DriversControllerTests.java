@@ -115,7 +115,7 @@ public class DriversControllerTests extends BaseControllerTest<DriversController
         //Then
         mockMvc.perform(get("/drivers/edit/1"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/forbidden?message=You can't edit this user!&driverStatusValues=Main&driverStatusValues=Test&lang=en"))
+                .andExpect(redirectedUrl("/forbidden?message=You have no permissions to edit.&driverStatusValues=Main&driverStatusValues=Test&lang=en"))
                 .andReturn();
     }
 

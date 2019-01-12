@@ -93,18 +93,19 @@
                 </div>
             </div>
             <div class="row" style=" padding-top: 20px;">
-                <h4><f:message key="feature.test_drives"/></h4>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th><f:message key="common.id"/></th>
-                        <th><f:message key="feature.driver"/></th>
-                        <th><f:message key="common.date"/></th>
-                        <th><f:message key="feature.test_drives.notes"/></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach items="${car.testDrives}" var="testDrive">
+                <div class="col-md-6 col-xs-12">
+                    <h4><f:message key="feature.test_drives"/></h4>
+                    <table class="table" id="test-drives-table">
+                        <thead>
+                        <tr>
+                            <th><f:message key="common.id"/></th>
+                            <th><f:message key="feature.driver"/></th>
+                            <th><f:message key="common.date"/></th>
+                            <th><f:message key="feature.test_drives.notes"/></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${car.testDrives}" var="testDrive">
                         <tr class="clickable-row" data-href="/test-drives/detail/${testDrive.id}">
                             <td><c:out value="#${testDrive.id}"/></td>
                             <td>
@@ -116,8 +117,9 @@
                             <td><c:out value="${testDrive.notes}"/></td>
                         </tr>
                     </c:forEach>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </jsp:attribute>
@@ -126,6 +128,7 @@
         <script>
             $(document).ready(function () {
                 $("#races-table").DataTable({paging: false, searching: false, info: false, order: []});
+                $("#test-drives-table").DataTable({paging: false, searching: false, info: false, order: []});
             });
         </script>
     </jsp:attribute>

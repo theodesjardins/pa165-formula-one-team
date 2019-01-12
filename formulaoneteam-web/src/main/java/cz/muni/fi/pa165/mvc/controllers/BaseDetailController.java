@@ -20,5 +20,16 @@ public abstract class BaseDetailController extends BaseController {
         }
     }
 
+    @GetMapping("/edit/{id}")
+    public String edit(Model model, @PathVariable long id) {
+        if (userCanEdit(id)) {
+            return onEdit(model, id);
+        } else {
+            return Navigator.openForbiddenPage("You have no permissions to edit.");
+        }
+    }
+
+    protected abstract String onEdit(Model model, @PathVariable long id);
+
     protected abstract String onGetDetail(Model model, long id);
 }
