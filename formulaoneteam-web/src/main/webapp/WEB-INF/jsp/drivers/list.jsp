@@ -8,9 +8,9 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <f:message var="title" key="feature.drivers"/>
 
-<my:pagetemplate title="${title}">
+<my:basepage title="${title}">
     <jsp:attribute name="body">
-    <div class="container">
+    <div class="container inner-container">
         <my:addButton baseEntity="drivers" authority="${authority}"/>
         <table class="table" id="drivers-table">
             <thead>
@@ -51,4 +51,4 @@
             });
         </script>
 </jsp:attribute>
-</my:pagetemplate>
+</my:basepage>

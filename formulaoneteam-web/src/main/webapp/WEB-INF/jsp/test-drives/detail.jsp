@@ -9,9 +9,9 @@
 
 <f:message var="title" key="feature.test_drives.detail"/>
 
-<my:pagetemplate title="${title}">
+<my:basepage title="${title}">
     <jsp:attribute name="body">
-        <div class="container">
+        <div class="container inner-container">
             <my:crudButtons id="${testDrive.id}" baseEntity="test-drives"/>
             <div class="row">
                 <div class="col-md-6 col-xs-12">
@@ -104,4 +104,4 @@
             </div>
         </div>
     </jsp:attribute>
-</my:pagetemplate>
+</my:basepage>

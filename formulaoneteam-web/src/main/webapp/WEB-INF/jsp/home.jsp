@@ -7,30 +7,20 @@
 
 <f:message var="title" key="feature.home"/>
 
-<my:pagetemplate title="${title}">
+<my:basepage title="${title}">
     <jsp:attribute name="head">
-        <style>
-            .imgbox {
-                display: grid;
-                height: 100%;
-            }
-
-            .center {
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
-                width: 80%;
-            }
-        </style>
+        <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/theme/css/home.css">
     </jsp:attribute>
 
     <jsp:attribute name="body">
         <div class="jumbotron">
-            <h1><f:message key="feature.home.header"/></h1>
-            <p class="lead"><f:message key="feature.home.text"/></p>
-            <div class="imgbox">
-                <img class="center" src="${pageContext.servletContext.contextPath}/formula-one-team.jpg" alt="">
+            <div class="container">
+                <h1 class="display-3"><f:message key="feature.home.header"/></h1>
+                <p class="lead"><f:message key="feature.home.text"/></p>
+                <div class="imgbox">
+                    <img class="center" src="${pageContext.servletContext.contextPath}/resources/formula-one-team.jpg"
+                         alt="">
+                </div>
             </div>
-        </div>
     </jsp:attribute>
-</my:pagetemplate>
+</my:basepage>

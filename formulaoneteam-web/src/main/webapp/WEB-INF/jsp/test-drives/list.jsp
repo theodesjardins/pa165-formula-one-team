@@ -9,9 +9,9 @@
 
 <f:message var="title" key="feature.test_drives"/>
 
-<my:pagetemplate title="${title}">
+<my:basepage title="${title}">
     <jsp:attribute name="body">
-        <div class="container">
+        <div class="container inner-container">
             <my:addButton baseEntity="test-drives" authority="${authority}"/>
             <table class="table" id="test-drives-table">
                 <thead>
@@ -53,4 +53,4 @@
             });
         </script>
     </jsp:attribute>
-</my:pagetemplate>
+</my:basepage>

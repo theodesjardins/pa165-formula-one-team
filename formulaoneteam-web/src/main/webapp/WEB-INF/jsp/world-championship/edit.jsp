@@ -12,10 +12,10 @@
 
 <fmt:message key="feature.race.edit" var="title"/>
 
-<my:pagetemplate title="${title}">
+<my:basepage title="${title}">
 
     <jsp:attribute name="body">
-        <div class="container">
+        <div class="container inner-container">
             <form:form id="race-participation-form"
                        action="/pa165/world-championship/submit"
                        modelAttribute="saveRaceParticipation">
@@ -112,6 +112,7 @@
         <script>
             $(document).ready(function () {
                 $("#datepicker").datepicker({dateFormat: 'dd/mm/yy'});
+
                 $("#resultCheckbox").click(function () {
                     let input = $("#resultInput");
                     if (this.checked) {
@@ -126,4 +127,4 @@
         </script>
     </jsp:attribute>
 
-</my:pagetemplate>
+</my:basepage>

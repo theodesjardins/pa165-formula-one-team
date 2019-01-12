@@ -13,9 +13,9 @@
     <fmt:message key="${car.id==0?'feature.car.create':'feature.car.edit'}"/>
 </c:set>
 
-<my:pagetemplate title="${title}">
+<my:basepage title="${title}">
     <jsp:attribute name="body">
-        <div class="container">
+        <div class="container inner-container">
             <form:form action="/pa165/cars/submit" modelAttribute="car">
                 <form:hidden path="id"/>
 
@@ -95,4 +95,4 @@
             </form:form>
         </div>
     </jsp:attribute>
-</my:pagetemplate>
+</my:basepage>

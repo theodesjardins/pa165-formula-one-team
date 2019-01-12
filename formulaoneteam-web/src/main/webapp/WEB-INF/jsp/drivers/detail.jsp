@@ -8,11 +8,11 @@
 
 <fmt:message key="feature.drivers.detail.title" var="title"/>
 
-<my:pagetemplate title="${title} ${driver.name}">
+<my:basepage title="${title} ${driver.name}">
     <jsp:attribute name="body">
-        <div class="container">
+        <div class="container inner-container">
             <c:if test="${editingEnabled}">
-                <my:updateButton updatePage="${driver.id}" authority="true"/>
+                <my:updateButton updatePage="/drivers/edit/${driver.id}" authority="true"/>
             </c:if>
             <div class="row">
                 <div class="col-md-6 col-xs-12">
@@ -32,6 +32,8 @@
                         <dd><c:out value="${driver.driverStatus}"/></dd>
                     </dl>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-6 col-xs-12">
                     <h4><fmt:message key="feature.drivers.characteristic_values"/></h4>
                     <table class="table" id="characteristics-value-table">
@@ -51,6 +53,9 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+
+            <div class="row" style=" padding-top: 20px;">
                 <c:if test="${driver.raceParticipations.size() gt 0}">
                 <div class="col-md-6 col-xs-12">
                     <h4><fmt:message key="feature.race.race_participations"/></h4>
@@ -81,6 +86,8 @@
                     </table>
                 </div>
                 </c:if>
+            </div>
+            <div class="row" style=" padding-top: 20px;">
                 <c:if test="${driver.testDrives.size() gt 0}">
                 <div class="col-md-6 col-xs-12">
                     <h4><fmt:message key="feature.test_drives"/></h4>
@@ -120,4 +127,4 @@
                 });
             </script>
     </jsp:attribute>
-</my:pagetemplate>
+</my:basepage>

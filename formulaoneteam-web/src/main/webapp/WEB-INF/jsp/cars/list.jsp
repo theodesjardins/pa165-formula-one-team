@@ -9,9 +9,9 @@
 
 <f:message var="title" key="feature.cars"/>
 
-<my:pagetemplate title="${title}">
+<my:basepage title="${title}">
     <jsp:attribute name="body">
-        <div class="container">
+        <div class="container inner-container">
             <my:addButton baseEntity="cars"/>
             <table class="table" id="car-table">
                 <thead>
@@ -93,4 +93,4 @@
             });
         </script>
     </jsp:attribute>
-</my:pagetemplate>
+</my:basepage>

@@ -11,9 +11,9 @@
 
 <fmt:message key="feature.driver" var="title"/>
 
-<my:pagetemplate title="${title}">
+<my:basepage title="${title}">
     <jsp:attribute name="body">
-        <div class="container">
+        <div class="container inner-container">
             <form:form action="/pa165/drivers/submit" modelAttribute="driver">
                 <form:hidden path="id"/>
                 <div class="row">
@@ -127,4 +127,4 @@
             });
         </script>
     </jsp:attribute>
-</my:pagetemplate>
+</my:basepage>

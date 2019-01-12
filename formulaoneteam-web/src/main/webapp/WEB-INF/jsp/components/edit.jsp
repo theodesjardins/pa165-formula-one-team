@@ -11,9 +11,9 @@
 
 <f:message var="title" key="feature.components.edit"/>
 
-<my:pagetemplate title="${title}">
+<my:basepage title="${title}">
     <jsp:attribute name="body">
-        <div class="container">
+        <div class="container inner-container">
             <form:form action="/pa165/components/submit" modelAttribute="component">
                 <form:hidden path="id"/>
                 <div class="row">
@@ -70,4 +70,4 @@
             });
         </script>
     </jsp:attribute>
-</my:pagetemplate>
+</my:basepage>

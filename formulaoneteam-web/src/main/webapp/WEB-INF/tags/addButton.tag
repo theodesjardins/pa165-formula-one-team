@@ -17,9 +17,8 @@
 <fmt:message key="common.update" var="text"/>
 
 <sec:authorize access="${authority}">
-    <div class="row">
+    <div class="row float-right">
         <my:a href="/${baseEntity}/create" class="btn btn-primary pull-right">
-            <span class="glyphicon glyphicon-plus"></span>
             <fmt:message key="common.add"/>
         </my:a>
     </div>

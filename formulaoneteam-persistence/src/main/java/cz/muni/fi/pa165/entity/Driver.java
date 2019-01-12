@@ -27,7 +27,6 @@ public class Driver extends User {
     @Past
     @Basic
     @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
     @NotNull
     private Date birthday;
 

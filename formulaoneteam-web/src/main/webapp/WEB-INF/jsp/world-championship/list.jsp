@@ -10,9 +10,9 @@
 
 <f:message var="title" key="feature.world_championship"/>
 
-<my:pagetemplate title="${title}">
+<my:basepage title="${title}">
     <jsp:attribute name="body">
-        <div class="container">
+        <div class="container inner-container">
             <my:addButton baseEntity="world-championship" authority="${authority}"/>
             <table class="table" id="world-championship-table">
                 <thead>
@@ -62,4 +62,4 @@
             });
         </script>
     </jsp:attribute>
-</my:pagetemplate>
+</my:basepage>

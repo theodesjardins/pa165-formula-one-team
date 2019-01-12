@@ -11,10 +11,11 @@
 <fmt:message key="common.delete.message" var="message"/>
 
 <sec:authorize access="${authority}">
-    <form:form action="${action}" onsubmit="return confirm('${message}')">
-        <button class="btn btn-danger">
-            <span class="glyphicon glyphicon-trash"></span>
-            <fmt:message key="common.delete"/>
-        </button>
-    </form:form>
+    <div class="col-sm">
+        <form:form action="${action}" onsubmit="return confirm('${message}')">
+            <button class="btn btn-danger float-right">
+                <fmt:message key="common.delete"/>
+            </button>
+        </form:form>
+    </div>
 </sec:authorize>

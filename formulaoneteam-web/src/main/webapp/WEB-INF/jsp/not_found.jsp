@@ -5,25 +5,9 @@
 
 <f:message var="title" key="common.not_found"/>
 
-<my:pagetemplate>
+<my:basepage>
     <jsp:attribute name="head">
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-            }
-
-            .imgbox {
-                display: grid;
-                height: 100%;
-            }
-
-            .center-fit {
-                max-width: 100%;
-                max-height: 80vh;
-                margin: auto;
-            }
-        </style>
+        <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/theme/css/not_found.css">
     </jsp:attribute>
 
     <jsp:attribute name="body">
@@ -31,7 +15,7 @@
                 <c:out value="${message}"/>
         </div>
         <div class="imgbox">
-            <img class="center-fit" src="${pageContext.servletContext.contextPath}/not_found_404.jpeg" alt="">
+            <img class="center-fit" src="${pageContext.servletContext.contextPath}/resources/not_found_404.jpeg" alt="">
         </div>
     </jsp:attribute>
-</my:pagetemplate>
+</my:basepage>

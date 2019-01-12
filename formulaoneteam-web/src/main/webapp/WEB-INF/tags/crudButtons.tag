@@ -16,9 +16,7 @@
 
 <fmt:message key="common.delete.message" var="message"/>
 
-<div class="row">
-    <div class="pull-right">
-        <my:updateButton updatePage="/${baseEntity}/edit/${id}" authority="${authority}"/>
-        <my:deleteButton action="/pa165/${baseEntity}/delete/${id}" authority="${authority}"/>
-    </div>
+<div class="row float-right">
+    <my:updateButton updatePage="/${baseEntity}/edit/${id}" authority="${authority}"/>
+    <my:deleteButton action="/pa165/${baseEntity}/delete/${id}" authority="${authority}"/>
 </div>

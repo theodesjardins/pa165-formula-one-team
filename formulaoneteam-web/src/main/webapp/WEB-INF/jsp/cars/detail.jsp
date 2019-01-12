@@ -11,9 +11,9 @@
 
 <f:message var="title" key="feature.car.detail"/>
 
-<my:pagetemplate title="${title}${car.id}">
+<my:basepage title="${title}${car.id}">
     <jsp:attribute name="body">
-        <div class="container">
+        <div class="container inner-container">
             <my:crudButtons id="${car.id}" baseEntity="cars"/>
             <div class="row">
                 <div class="col-md-6 col-xs-12">
@@ -74,7 +74,7 @@
                             <tr class="clickable-row" data-href="/world-championship/detail/${raceParticipation.id}">
                                 <td><c:out value="${raceParticipation.race.title}"/></td>
                                 <td>
-                                    <my:a href="/drivers/detail/${raceParticipation.driBaseServiceImpl.ver.id}">
+                                    <my:a href="/drivers/detail/${raceParticipation.driver.id}">
                                         <c:out value="${raceParticipation.driver.fullName}"/>
                                     </my:a>
                                 </td>
@@ -92,7 +92,7 @@
                     </table>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" style=" padding-top: 20px;">
                 <h4><f:message key="feature.test_drives"/></h4>
                 <table class="table">
                     <thead>
@@ -130,4 +130,4 @@
         </script>
     </jsp:attribute>
 
-</my:pagetemplate>
+</my:basepage>

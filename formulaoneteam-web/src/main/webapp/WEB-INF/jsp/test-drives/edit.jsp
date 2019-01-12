@@ -11,9 +11,9 @@
 
 <f:message var="title" key="feature.edit.test_drive"/>
 
-<my:pagetemplate title="${title}">
+<my:basepage title="${title}">
     <jsp:attribute name="body">
-        <div class="container">
+        <div class="container inner-container">
             <form:form action="/pa165/test-drives/submit" modelAttribute="saveTestDrive">
                 <form:hidden path="id"/>
                 <div class="row">
@@ -75,4 +75,4 @@
             });
         </script>
     </jsp:attribute>
-</my:pagetemplate>
+</my:basepage>

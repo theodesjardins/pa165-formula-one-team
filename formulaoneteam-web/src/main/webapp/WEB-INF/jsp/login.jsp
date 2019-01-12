@@ -5,10 +5,10 @@
 
 <f:message var="title" key="feature.auth.sign_in"/>
 
-<my:pagetemplate title="${title}">
-<jsp:attribute name="body">
+<my:basepage title="${title}">
+    <jsp:attribute name="body">
 
-    <div class="jumbotron" style="min-height:50%">
+    <div class="jumbotron" id="login-form">
         <div class="container">
             <div class="col-md-5 offset-md-3">
                 <form method="POST" role="form">
@@ -37,4 +37,4 @@
     </div>
 
 </jsp:attribute>
-</my:pagetemplate>
+</my:basepage>

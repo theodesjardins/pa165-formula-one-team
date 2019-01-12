@@ -9,9 +9,9 @@
 <sec:authorize access="hasAuthority('ADMIN') || hasAuthority('ENGINEER')" var="authority"/>
 <fmt:message key="feature.components.detail.title" var="title"/>
 
-<my:pagetemplate title="${title} ${component.name}">
+<my:basepage title="${title} ${component.name}">
     <jsp:attribute name="body">
-        <div class="container">
+        <div class="container inner-container">
             <my:crudButtons id="${component.id}" baseEntity="components" authority="${authority}"/>
             <div class="row">
                 <div class="col-md-6 col-xs-12">
@@ -52,4 +52,4 @@
                 });
             </script>
     </jsp:attribute>
-</my:pagetemplate>
+</my:basepage>

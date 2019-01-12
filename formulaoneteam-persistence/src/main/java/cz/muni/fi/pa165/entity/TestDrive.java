@@ -15,7 +15,6 @@ public class TestDrive extends BaseEntity {
 
     @Column(nullable = false)
     @Basic
-    @Temporal(TemporalType.TIMESTAMP)
     @NotNull
     private Date date;
 

@@ -9,9 +9,9 @@
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<my:pagetemplate title="${raceParticipation.race.title}">
+<my:basepage title="${raceParticipation.race.title}">
     <jsp:attribute name="body">
-        <div class="container">
+        <div class="container inner-container">
             <my:crudButtons id="${raceParticipation.id}" baseEntity="world-championship"/>
             <div class="row">
                 <div class="col-md-6 col-xs-12">
@@ -112,4 +112,4 @@
             </div>
         </div>
     </jsp:attribute>
-</my:pagetemplate>
+</my:basepage>

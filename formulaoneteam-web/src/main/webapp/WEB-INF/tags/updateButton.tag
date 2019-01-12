@@ -8,13 +8,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ attribute name="updatePage" required="true" %>
-<%@ attribute name="authority" required="true"%>
+<%@ attribute name="authority" required="true" %>
 
 <fmt:message key="common.update" var="text"/>
 
 <sec:authorize access="${authority}">
-    <my:a href="${updatePage}" class="btn btn-primary pull-right">
-        <span class="glyphicon glyphicon-pencil"></span>
-        <f:message key="common.update"/>
-    </my:a>
+    <div class="col-sm">
+        <my:a href="${updatePage}" class="btn btn-primary float-right">
+            <f:message key="common.update"/>
+        </my:a>
+    </div>
 </sec:authorize>
