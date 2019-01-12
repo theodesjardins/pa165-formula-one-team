@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.entity.base.BaseEntity;
 import cz.muni.fi.pa165.exceptions.EntityNotFoundException;
 import cz.muni.fi.pa165.facade.base.BaseFacade;
 import cz.muni.fi.pa165.service.*;
+import cz.muni.fi.pa165.service.base.BaseService;
 
 import javax.inject.Inject;
 import java.util.List;

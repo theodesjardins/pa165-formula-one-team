@@ -9,24 +9,10 @@
 
 <f:message var="title" key="feature.test_drives.detail"/>
 
-<my:pagetemplate title="${title}">
-    <jsp:attribute name="head">
-        <link rel="stylesheet" type="text/css"
-              href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css"/>
-    </jsp:attribute>
+<my:basepage title="${title}">
     <jsp:attribute name="body">
-        <div class="container">
-            <sec:authorize access="hasAuthority('ADMIN')">
-                <div class="row">
-                    <div class="pull-right">
-                        <my:a href="/test-drives/edit/${testDrive.id}" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                            Update
-                        </my:a>
-                        <my:deleteButton action="/pa165/test-drives/delete/${testDrive.id}"/>
-                    </div>
-                </div>
-            </sec:authorize>
+        <div class="container inner-container">
+            <my:crudButtons id="${testDrive.id}" baseEntity="test-drives"/>
             <div class="row">
                 <div class="col-md-6 col-xs-12">
                     <h4><f:message key="feature.test_drives.detail.title"/></h4>
@@ -94,7 +80,7 @@
                     </table>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" style=" padding-top: 20px;">
                 <div class="col">
                     <h4><f:message key="feature.driver"/></h4>
                     <c:set var="driver" value="${testDrive.driver}"/>
@@ -118,4 +104,14 @@
             </div>
         </div>
     </jsp:attribute>
-</my:pagetemplate>
+    <jsp:attribute name="script">
+        <script>
+            $(document).ready(function () {
+                $.fn.dataTable.moment('DD/MM/YYYY');
+
+                $("#car-table").DataTable({paging: false, searching: false, info: false, order: []});
+                $("#drivers-table").DataTable({paging: false, searching: false, info: false, order: []});
+            });
+        </script>
+    </jsp:attribute>
+</my:basepage>

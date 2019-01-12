@@ -5,38 +5,17 @@
 
 <f:message var="title" key="common.forbidden"/>
 
-<my:pagetemplate>
+<my:basepage>
     <jsp:attribute name="head">
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-            }
-
-            .imgbox {
-                display: grid;
-                height: 100%;
-            }
-
-            .center-fit {
-                max-width: 100%;
-                max-height: 80vh;
-                margin: auto;
-            }
-
-            .centered {
-                position: absolute;
-                top: 45%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-            }
-        </style>
+        <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/theme/css/forbidden.css">
     </jsp:attribute>
 
     <jsp:attribute name="body">
-        <div class="imgbox">
-            <img class="center-fit" src="${pageContext.servletContext.contextPath}/forbidden-city.jpg" alt="">
+        <div class="container inner-container">
+            <div class="imgbox">
+                <img class="center-fit" src="${pageContext.servletContext.contextPath}/resources/forbidden-city.jpg" alt="">
+            </div>
+            <div class="centered"><c:out value="${message}"/></div>
         </div>
-        <div class="centered"><c:out value="${message}"/></div>
     </jsp:attribute>
-</my:pagetemplate>
+</my:basepage>

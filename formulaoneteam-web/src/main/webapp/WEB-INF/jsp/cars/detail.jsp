@@ -9,20 +9,12 @@
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<my:pagetemplate title="Car #${car.id}">
+<f:message var="title" key="feature.car.detail"/>
+
+<my:basepage title="${title}${car.id}">
     <jsp:attribute name="body">
-        <div class="container">
-            <sec:authorize access="hasAuthority('ADMIN')">
-                <div class="row">
-                    <div class="pull-right">
-                        <my:a href="/cars/edit/${car.id}" class="btn btn-primary pull-right">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                            <f:message key="common.update"/>
-                        </my:a>
-                        <my:deleteButton action="/pa165/cars/delete/${car.id}"/>
-                    </div>
-                </div>
-            </sec:authorize>
+        <div class="container inner-container">
+            <my:crudButtons id="${car.id}" baseEntity="cars"/>
             <div class="row">
                 <div class="col-md-6 col-xs-12">
                     <h4><f:message key="feature.components"/></h4>
@@ -88,7 +80,7 @@
                                 </td>
                                 <td>
                                     <c:choose>
-                                        <c:when test="${raceParticipation.resultPosition eq RaceParticipation.NO_RESULT_POSITION}">
+                                        <c:when test="${ raceParticipation.resultPosition eq RaceParticipation.NO_RESULT_POSITION }">
                                             <fmt:message key="feature.race.unfinished"/>
                                         </c:when>
                                         <c:otherwise><c:out value="${raceParticipation.resultPosition}"/></c:otherwise>
@@ -100,19 +92,20 @@
                     </table>
                 </div>
             </div>
-            <div class="row">
-                <h4><f:message key="feature.test_drives"/></h4>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th><f:message key="common.id"/></th>
-                        <th><f:message key="feature.test_drives.table.driver"/></th>
-                        <th><f:message key="common.date"/></th>
-                        <th><f:message key="feature.test_drives.notes"/></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach items="${car.testDrives}" var="testDrive">
+            <div class="row" style=" padding-top: 20px;">
+                <div class="col-md-6 col-xs-12">
+                    <h4><f:message key="feature.test_drives"/></h4>
+                    <table class="table" id="test-drives-table">
+                        <thead>
+                        <tr>
+                            <th><f:message key="common.id"/></th>
+                            <th><f:message key="feature.driver"/></th>
+                            <th><f:message key="common.date"/></th>
+                            <th><f:message key="feature.test_drives.notes"/></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${car.testDrives}" var="testDrive">
                         <tr class="clickable-row" data-href="/test-drives/detail/${testDrive.id}">
                             <td><c:out value="#${testDrive.id}"/></td>
                             <td>
@@ -124,8 +117,9 @@
                             <td><c:out value="${testDrive.notes}"/></td>
                         </tr>
                     </c:forEach>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </jsp:attribute>
@@ -134,8 +128,9 @@
         <script>
             $(document).ready(function () {
                 $("#races-table").DataTable({paging: false, searching: false, info: false, order: []});
+                $("#test-drives-table").DataTable({paging: false, searching: false, info: false, order: []});
             });
         </script>
     </jsp:attribute>
 
-</my:pagetemplate>
+</my:basepage>

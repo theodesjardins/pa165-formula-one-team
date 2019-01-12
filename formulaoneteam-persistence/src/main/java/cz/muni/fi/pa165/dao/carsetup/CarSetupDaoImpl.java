@@ -14,10 +14,4 @@ public class CarSetupDaoImpl extends DaoImpl<CarSetup> implements CarSetupDao {
     protected Class<CarSetup> getClassType() {
         return CarSetup.class;
     }
-
-    protected void validateEntity(CarSetup carSetup) {
-        if (carSetup == null || !carSetup.isConfigured()) {
-            throw new IllegalArgumentException("CarSetup is null or not configured.");
-        }
-    }
 }

@@ -25,7 +25,7 @@ import static cz.muni.fi.pa165.mvc.config.security.SecurityRole.MANAGER;
  */
 @Controller
 @RequestMapping("/components")
-class ComponentsController extends BaseController {
+class ComponentsController extends BaseDetailController {
 
     @Inject
     private ComponentFacade componentFacade;
@@ -51,20 +51,22 @@ class ComponentsController extends BaseController {
         }
     }
 
-    @GetMapping("/edit/{id}")
-    public String edit(Model model, @PathVariable long id) {
-        if (userCanEdit()) {
-            ComponentDTO component = componentFacade.findById(id);
-            model.addAttribute("component", component);
-            return "components/edit";
-        } else {
-            return Navigator.openForbiddenPage("Only managers or engineers can edit components.");
-        }
+    @Override
+    protected String onEdit(Model model, long id) {
+        ComponentDTO component = componentFacade.findById(id);
+        model.addAttribute("component", component);
+
+        return "components/edit";
     }
 
     @PostMapping(value = "/submit")
-    public String submitComponent(@Valid @ModelAttribute("component") ComponentDTO component, BindingResult bindingResult) {
+    public String submitComponent(
+            @Valid @ModelAttribute("component") ComponentDTO component,
+            BindingResult bindingResult,
+            Model model
+    ) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("component", component);
             return "components/edit";
         }
 
@@ -99,7 +101,7 @@ class ComponentsController extends BaseController {
     }
 
     @Override
-    protected boolean userCanEdit() {
-        return super.userCanEdit() || (authenticationFacade.hasRole(ENGINEER));
+    protected boolean userCanEdit(long id) {
+        return super.userCanEdit(id) || (authenticationFacade.hasRole(ENGINEER));
     }
 }

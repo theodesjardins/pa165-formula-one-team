@@ -9,17 +9,10 @@
 
 <f:message var="title" key="feature.cars"/>
 
-<my:pagetemplate title="${title}">
+<my:basepage title="${title}">
     <jsp:attribute name="body">
-        <div class="container">
-            <sec:authorize access="hasAuthority('ADMIN')">
-                <div class="row">
-                    <my:a href="/cars/create" class="btn btn-primary pull-right">
-                        <span class="glyphicon glyphicon-plus"></span>
-                        <fmt:message key="feature.car.add"/>
-                    </my:a>
-                </div>
-            </sec:authorize>
+        <div class="container inner-container">
+            <my:addButton baseEntity="cars"/>
             <table class="table" id="car-table">
                 <thead>
                 <tr>
@@ -100,4 +93,4 @@
             });
         </script>
     </jsp:attribute>
-</my:pagetemplate>
+</my:basepage>

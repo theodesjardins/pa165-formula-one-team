@@ -14,13 +14,6 @@ public class EngineerServiceImpl extends BaseUserServiceImpl<Engineer, EngineerD
         implements EngineerService {
 
     @Override
-    public void validateEntity(Engineer entity) throws FormulaOneTeamException {
-        if (entity == null || !entity.isConfigured()) {
-            throw new FormulaOneTeamException("Engineer entity is null or not configured");
-        }
-	}
-
-    @Override
     protected Class<Engineer> getEntityClass() {
         return Engineer.class;
     }

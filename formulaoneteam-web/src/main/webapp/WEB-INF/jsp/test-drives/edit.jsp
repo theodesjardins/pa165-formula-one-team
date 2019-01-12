@@ -11,12 +11,9 @@
 
 <f:message var="title" key="feature.edit.test_drive"/>
 
-<my:pagetemplate title="${title}">
-    <jsp:attribute name="head">
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.min.css">
-    </jsp:attribute>
+<my:basepage title="${title}">
     <jsp:attribute name="body">
-        <div class="container">
+        <div class="container inner-container">
             <form:form action="/pa165/test-drives/submit" modelAttribute="saveTestDrive">
                 <form:hidden path="id"/>
                 <div class="row">
@@ -33,8 +30,8 @@
                     <spring:bind path="notes">
                         <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
                             <form:label path="notes"><f:message key="feature.test_drives.notes"/></form:label>
-                            <span class="text-danger">
-                                <c:out value="${status.errorMessage}"/>
+                            <span class="text-danger ml-1">
+                                <form:errors path="notes"/>
                             </span>
                             <form:input cssClass="form-control" path="notes"/>
                         </div>
@@ -78,4 +75,4 @@
             });
         </script>
     </jsp:attribute>
-</my:pagetemplate>
+</my:basepage>

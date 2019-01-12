@@ -7,7 +7,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.ValidationException;
+import javax.validation.Validator;
+
 import java.util.List;
+import java.util.Set;
 
 /**
  * Implementation of general Dao operations.
@@ -20,6 +26,8 @@ public abstract class DaoImpl<T extends BaseEntity> implements Dao<T> {
 
     @PersistenceContext
     protected EntityManager entityManager;
+    
+    protected static Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     @Override
     public T findById(Long id) {
@@ -28,6 +36,8 @@ public abstract class DaoImpl<T extends BaseEntity> implements Dao<T> {
 
     @Override
     public void add(@Nullable T entity) {
+        validateEntity(entity);
+
         entityManager.persist(entity);
     }
 
@@ -38,6 +48,8 @@ public abstract class DaoImpl<T extends BaseEntity> implements Dao<T> {
 
     @Override
     public void update(T entity) {
+        validateEntity(entity);
+
         T managed = findById(entity.getId());
 
         BeanUtils.copyProperties(entity, managed);
@@ -55,4 +67,25 @@ public abstract class DaoImpl<T extends BaseEntity> implements Dao<T> {
     }
 
     protected abstract Class<T> getClassType();
+
+    private void validateEntity(T entity) {
+        if (entity == null) {
+            throw new IllegalArgumentException("Entity cannot be null.");
+        }
+
+        Set<ConstraintViolation<T>> violations = validator.validate(entity);
+        if (violations.size() != 0) {
+            StringBuilder sb = new StringBuilder();
+
+            for (ConstraintViolation<T> violation : violations) {
+                sb.append("'");
+                sb.append(violation.getPropertyPath());
+                sb.append("' ");
+                sb.append(violation.getMessage());
+                sb.append(System.lineSeparator());
+            }
+
+            throw new ValidationException(sb.toString());
+        }
+    }
 }

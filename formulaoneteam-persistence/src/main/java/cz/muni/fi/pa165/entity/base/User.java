@@ -2,7 +2,7 @@ package cz.muni.fi.pa165.entity.base;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 /**
  * @author elderanakain (Arcadii Rubailo)
@@ -12,24 +12,24 @@ public abstract class User extends BaseEntity {
 
     public final static String EMAIL_FIELD = "email";
 
-    @NotNull
+    @NotBlank 
     @Column(nullable = false)
     private String name = "";
 
-    @NotNull
+    @NotBlank 
     @Column(nullable = false)
     private String surname = "";
 
     @Email
-    @NotNull
+    @NotBlank 
     @Column(nullable = false, unique = true)
     private String email = "";
 
-    @NotNull
+    @NotBlank
     @Column(nullable = false)
     private String password = "";
 
-    public User(String name, String surname, String email) {
+    public User(@NotBlank String name, @NotBlank String surname, @NotBlank @Email String email) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -38,66 +38,42 @@ public abstract class User extends BaseEntity {
     protected User() {
     }
 
+    @NotBlank
     public String getName() {
         return name;
     }
 
-    public void setName(@NotNull String name) {
+    public void setName(@NotBlank String name) {
         this.name = name;
     }
 
-    @NotNull
+    @NotBlank
     public String getSurname() {
         return surname;
     }
 
-    public void setSurname(@NotNull String surname) {
+    public void setSurname(@NotBlank String surname) {
         this.surname = surname;
     }
 
-    @NotNull
+    @NotBlank 
+    @Email
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(@NotNull String email) {
+    public void setEmail(@NotBlank @Email String email) {
         this.email = email;
     }
 
-    @NotNull
+    @NotBlank
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(@NotNull String password) {
+    public void setPassword(@NotBlank String password) {
         this.password = password;
-    }
-
-    public boolean hasName() {
-        return !getName().isEmpty();
-    }
-
-    public boolean hasSurname() {
-        return !getSurname().isEmpty();
-    }
-
-    public boolean hasEmail() {
-        return !getEmail().isEmpty();
-    }
-
-    public boolean hasFullName() {
-        return hasName() && hasSurname();
-    }
-
-    public boolean hasPassword() {
-        return !getPassword().isEmpty();
-    }
-
-    public boolean isConfigured() {
-        return hasFullName()
-                && hasEmail()
-                && hasPassword();
-    }
+    }   
 
     @Override
     public boolean equals(Object o) {

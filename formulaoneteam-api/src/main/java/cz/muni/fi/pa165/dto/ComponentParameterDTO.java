@@ -4,22 +4,26 @@ import cz.muni.fi.pa165.dto.base.BaseDTO;
 
 import java.util.Objects;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * @author Ivan Dendis
  */
 public class ComponentParameterDTO extends BaseDTO {
 
+    @NotBlank()
     private String name;
+    @NotBlank()
     private String value;
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(@NotBlank String name) {
         this.name = name;
     }
-    
+
     public String getValue() {
         return value;
     }

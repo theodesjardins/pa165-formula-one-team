@@ -6,20 +6,13 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<my:pagetemplate title="Component detail ${component.name}">
+<sec:authorize access="hasAuthority('ADMIN') || hasAuthority('ENGINEER')" var="authority"/>
+<fmt:message key="feature.components.detail.title" var="title"/>
+
+<my:basepage title="${title} ${component.name}">
     <jsp:attribute name="body">
-        <div class="container">
-            <sec:authorize access="hasAuthority('ADMIN') || hasAuthority('ENGINEER')">
-                <div class="row">
-                    <div class="pull-right">
-                        <my:a href="/components/edit/${component.id}" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                            <fmt:message key="common.update"/>
-                        </my:a>
-                        <my:deleteButton action="/pa165/components/delete/${component.id}"/>
-                    </div>
-                </div>
-            </sec:authorize>
+        <div class="container inner-container">
+            <my:crudButtons id="${component.id}" baseEntity="components" authority="${authority}"/>
             <div class="row">
                 <div class="col-md-6 col-xs-12">
                     <h4><fmt:message key="feature.components.information"/></h4>
@@ -59,4 +52,4 @@
                 });
             </script>
     </jsp:attribute>
-</my:pagetemplate>
+</my:basepage>

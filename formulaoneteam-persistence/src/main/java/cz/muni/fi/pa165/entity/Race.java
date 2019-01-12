@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.entity;
 import cz.muni.fi.pa165.entity.base.BaseEntity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.*;
 
@@ -16,18 +17,18 @@ public class Race extends BaseEntity {
     @Column(nullable = false)
     private Date date;
 
-    @NotNull
+    @NotBlank
     @Column(nullable = false)
     private String title;
 
-    @NotNull
+    @NotBlank
     @Column(nullable = false)
     private String location;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "race")
     private Set<RaceParticipation> raceParticipations = new HashSet<>();
 
-    public Race(@NotNull Date date, @NotNull String title, @NotNull String location) {
+    public Race(@NotNull Date date, @NotBlank String title, @NotBlank String location) {
         this.date = date;
         this.title = title;
         this.location = location;
@@ -52,37 +53,40 @@ public class Race extends BaseEntity {
         this.date = date;
     }
 
+    @NotBlank
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(@NotBlank String title) {
         this.title = title;
     }
 
+    @NotBlank
     public String getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(@NotBlank String location) {
         this.location = location;
-    }
-
-    public boolean isConfigured() {
-        return !getTitle().isEmpty() && !getLocation().isEmpty();
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Race)) return false;
+
         Race race = (Race) o;
-        return Objects.equals(getTitle(), race.getTitle());
+
+        return Objects.equals(title, race.title)
+                 && Objects.equals(date, race.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTitle());
+        int result = date != null ? date.hashCode() : 0;
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        return result;
     }
 
     @Override

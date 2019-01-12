@@ -13,13 +13,6 @@ import org.springframework.stereotype.Service;
 public class CarSetupServiceImpl extends BaseEntityServiceImpl<CarSetup, CarSetupDao> implements CarSetupService {
 
     @Override
-    public void validateEntity(CarSetup entity) {
-        if (entity == null || !entity.isConfigured()) {
-            throw new FormulaOneTeamException("CarSetup is null or not configured.");
-        }
-    }
-
-    @Override
     protected Class<CarSetup> getEntityClass() {
         return CarSetup.class;
     }

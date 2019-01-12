@@ -4,6 +4,8 @@ import cz.muni.fi.pa165.entity.base.BaseEntity;
 import cz.muni.fi.pa165.enums.CharacteristicsType;
 
 import javax.persistence.*;
+import javax.validation.constraints.Positive;
+
 import java.util.Objects;
 
 /**
@@ -14,6 +16,7 @@ public class CharacteristicsValue extends BaseEntity {
 
     public final static String TYPE_FIELD = "type";
 
+    @Positive 
     @Column
     private double value;
 
@@ -21,7 +24,7 @@ public class CharacteristicsValue extends BaseEntity {
     @Enumerated
     private CharacteristicsType type;
 
-    public CharacteristicsValue(CharacteristicsType type, double value) {
+    public CharacteristicsValue(CharacteristicsType type, @Positive double value) {
         this.value = value;
         this.type = type;
     }
@@ -29,11 +32,12 @@ public class CharacteristicsValue extends BaseEntity {
     protected CharacteristicsValue() {
     }
 
+    @Positive 
     public double getValue() {
         return value;
     }
 
-    public void setValue(double value) {
+    public void setValue(@Positive double value) {
         this.value = value;
     }
 

@@ -22,7 +22,7 @@ import javax.validation.Valid;
  */
 @Controller
 @RequestMapping("/test-drives")
-class TestDrivesController extends BaseController {
+class TestDrivesController extends BaseDetailController {
 
     @Inject
     private TestDriveFacade testDriveFacade;
@@ -37,31 +37,29 @@ class TestDrivesController extends BaseController {
         return "test-drives/list";
     }
 
-    @RequestMapping("/edit/{id}")
-    public String edit(Model model, @PathVariable long id) {
-        if (userCanEdit()) {
-            TestDriveDTO testDriveDTO = testDriveFacade.findById(id);
-            SaveTestDriveDTO saveTestDriveDTO = new SaveTestDriveDTO(testDriveDTO);
+    @Override
+    protected String onEdit(Model model, long id) {
+        TestDriveDTO testDriveDTO = testDriveFacade.findById(id);
+        SaveTestDriveDTO saveTestDriveDTO = new SaveTestDriveDTO(testDriveDTO);
 
-            model.addAttribute("saveTestDrive", saveTestDriveDTO);
-            model.addAttribute("testDrive", testDriveDTO);
-            model.addAttribute("cars", carSetupFacade.getAll());
-            model.addAttribute("drivers", driverFacade.getAll());
+        model.addAttribute("saveTestDrive", saveTestDriveDTO);
+        model.addAttribute("testDrive", testDriveDTO);
+        model.addAttribute("cars", carSetupFacade.getAll());
+        model.addAttribute("drivers", driverFacade.getAll());
 
-            return "test-drives/edit";
-        } else {
-            return Navigator.openForbiddenPage("Only manager can edit test drives.");
-        }
+        return "test-drives/edit";
     }
 
     @PostMapping(value = "/submit")
     public String submit(
             @Valid @ModelAttribute("saveTestDrive") SaveTestDriveDTO saveTestDriveDTO,
-            BindingResult bindingResult
+            BindingResult bindingResult,
+            Model model
     ) {
         if (bindingResult.hasErrors()) {
-            return saveTestDriveDTO.getId() == 0 ?
-                    "redirect:test-drives/create" : "redirect:test-drives/edit/" + saveTestDriveDTO.getId();
+            model.addAttribute("cars", carSetupFacade.getAll());
+            model.addAttribute("drivers", driverFacade.getAll());
+            return "test-drives/edit";
         }
 
         if (saveTestDriveDTO.getId() == 0) {

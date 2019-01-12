@@ -12,7 +12,6 @@ import cz.muni.fi.pa165.dto.raceparticipation.SaveRaceParticipationDTO;
 import cz.muni.fi.pa165.dto.testdrive.SaveTestDriveDTO;
 import cz.muni.fi.pa165.dto.testdrive.TestDriveDTO;
 import cz.muni.fi.pa165.entity.*;
-import cz.muni.fi.pa165.enums.CharacteristicsType;
 import cz.muni.fi.pa165.enums.ComponentType;
 import cz.muni.fi.pa165.enums.DriverStatus;
 import cz.muni.fi.pa165.service.config.ServiceConfiguration;
@@ -27,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import static cz.muni.fi.pa165.enums.CharacteristicsType.AGGRESSIVITY;
 import static cz.muni.fi.pa165.enums.EngineerSpecialization.AERODYNAMICS;
 
 /**
@@ -73,7 +73,7 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
     }
 
     protected CharacteristicsValue createCharacteristicsValue() {
-        CharacteristicsValue characteristicsValue = new CharacteristicsValue(CharacteristicsType.AGGRESSIVITY, 10.0);
+        CharacteristicsValue characteristicsValue = new CharacteristicsValue(AGGRESSIVITY, 10.0);
         characteristicsValue.setId(5);
         return characteristicsValue;
     }

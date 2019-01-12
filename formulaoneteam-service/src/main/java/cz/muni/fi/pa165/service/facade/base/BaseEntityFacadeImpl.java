@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.service.facade.base;
 import cz.muni.fi.pa165.dto.base.BaseDTO;
 import cz.muni.fi.pa165.entity.base.BaseEntity;
 import cz.muni.fi.pa165.facade.base.BaseEntityFacade;
+import cz.muni.fi.pa165.service.base.BaseEntityService;
 
 import static cz.muni.fi.pa165.entity.base.BaseEntity.NO_ID;
 

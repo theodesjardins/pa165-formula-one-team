@@ -24,7 +24,7 @@ import static cz.muni.fi.pa165.enums.ComponentType.*;
  */
 @Controller
 @RequestMapping("/cars")
-public class CarsController extends BaseController {
+public class CarsController extends BaseDetailController {
 
     @Inject
     private CarSetupFacade carFacade;
@@ -50,10 +50,9 @@ public class CarsController extends BaseController {
         return "cars/edit";
     }
 
-    @RequestMapping("/edit/{id}")
-    public String edit(Model model, @PathVariable long id) {
+    @Override
+    protected String onEdit(Model model, long id) {
         addComponentsData(model);
-
         model.addAttribute("car", carFacade.findById(id));
 
         return "cars/edit";

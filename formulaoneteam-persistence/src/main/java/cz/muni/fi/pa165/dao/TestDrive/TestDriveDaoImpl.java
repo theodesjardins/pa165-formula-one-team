@@ -14,10 +14,4 @@ public class TestDriveDaoImpl extends DaoImpl<TestDrive> implements TestDriveDao
     protected Class<TestDrive> getClassType() {
         return TestDrive.class;
     }
-
-    protected void validateEntity(TestDrive testDrive) {
-        if (testDrive == null || !testDrive.isConfigured()) {
-            throw new IllegalArgumentException("TestDrive is null or not configured.");
-        }
-    }
 }

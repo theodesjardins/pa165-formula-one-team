@@ -2,10 +2,11 @@ package cz.muni.fi.pa165.entity;
 
 import cz.muni.fi.pa165.entity.base.BaseEntity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 /**
@@ -16,17 +17,18 @@ import java.util.Objects;
 @Entity
 public class ComponentParameter extends BaseEntity {
 
-    @NotNull
+    @NotBlank
     @Column(nullable = false)
     private String name = "";
 
+    @NotBlank
     @Column
     private String value = "";
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Component component;
 
-    public ComponentParameter(@NotNull String name, String value) {
+    public ComponentParameter(@NotBlank String name, @NotBlank String value) {
         this.name = name;
         this.value = value;
     }
@@ -34,24 +36,22 @@ public class ComponentParameter extends BaseEntity {
     protected ComponentParameter() {
     }
 
+    @NotBlank
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(@NotBlank String name) {
         this.name = name;
     }
 
+    @NotBlank
     public String getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(@NotBlank String value) {
         this.value = value;
-    }
-
-    public boolean isConfigured() {
-        return !getName().isEmpty();
     }
 
     public Component getComponent() {
@@ -67,21 +67,19 @@ public class ComponentParameter extends BaseEntity {
         if (this == o) return true;
         if (!(o instanceof ComponentParameter)) return false;
         ComponentParameter that = (ComponentParameter) o;
-        return Objects.equals(getName(), that.getName()) &&
-                Objects.equals(getComponent(), that.getComponent());
+        return Objects.equals(getName(), that.getName())
+                && Objects.equals(getValue(), that.getValue());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getComponent());
+        return Objects.hash(getName(), getValue());
     }
 
     @Override
     public String toString() {
-        return "ComponentParameter{"
-                + "name='" + getName() + '\''
-                + ", value='" + getValue() + '\''
-                + "} " + super.toString();
+        return "ComponentParameter{" + "name='" + getName() + '\'' + ", value='" + getValue() + '\'' + "} "
+                + super.toString();
     }
 
 }

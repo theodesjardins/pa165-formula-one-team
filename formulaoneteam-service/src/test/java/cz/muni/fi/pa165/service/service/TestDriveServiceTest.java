@@ -75,12 +75,6 @@ public class TestDriveServiceTest extends BaseServiceTest<TestDrive> {
         verify(testDriveDaoMock, times(1)).update(entity);
     }
 
-    @Test(expected = FormulaOneTeamException.class)
-    public void updateTestDrive_exceptionIsThrown() {
-        //when
-        testDriveService.update(null);
-    }
-
     @Test
     public void removeTestDrive_WithValidValues() {
         //When

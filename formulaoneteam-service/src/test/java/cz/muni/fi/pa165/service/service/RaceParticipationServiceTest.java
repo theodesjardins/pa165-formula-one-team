@@ -20,8 +20,10 @@ import org.springframework.data.util.Pair;
 
 import java.util.*;
 
+import static java.util.Arrays.asList;
 import static org.mockito.Mockito.*;
 import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.fail;
 
 /**
  * @author Adel Chakouri
@@ -80,12 +82,6 @@ public class RaceParticipationServiceTest extends BaseServiceTest<RaceParticipat
 
         //Then
         verify(dao, times(1)).update(entity);
-    }
-
-    @Test(expected = FormulaOneTeamException.class)
-    public void updateRaceParticipation_exceptionIsThrown() {
-        //when
-        raceParticipationService.update(null);
     }
 
     @Test
@@ -151,8 +147,13 @@ public class RaceParticipationServiceTest extends BaseServiceTest<RaceParticipat
         final Pair<CarSetup, Driver> secondDriverCarSetup = Pair.of(createCarSetup(), createDriver());
         when(dateServiceMock.getCurrentDate()).thenReturn(createDate(2, 11, 2018));
 
-        //When
-        final List<RaceParticipation> raceParticipations = raceParticipationService.participateInWorldChampionship(date, location, Arrays.asList(firstDriverCarSetup, secondDriverCarSetup));
+        //when
+        raceParticipationService.participateInWorldChampionship(
+                date, location, asList(firstDriverCarSetup, secondDriverCarSetup)
+        );
+
+        //then
+        fail("The exception is not thrown");
     }
 
     @Test(expected = FormulaOneTeamException.class)
@@ -167,7 +168,12 @@ public class RaceParticipationServiceTest extends BaseServiceTest<RaceParticipat
         when(dateServiceMock.getCurrentDate()).thenReturn(createDate(2, 11, 2018));
 
         //When
-        final List<RaceParticipation> raceParticipations = raceParticipationService.participateInWorldChampionship(date, location, Arrays.asList(firstDriverCarSetup, secondDriverCarSetup));
+        raceParticipationService.participateInWorldChampionship(
+                date, location, asList(firstDriverCarSetup, secondDriverCarSetup)
+        );
+
+        //then
+        fail("The exception is not thrown");
     }
 
     @Test(expected = FormulaOneTeamException.class)
@@ -181,7 +187,12 @@ public class RaceParticipationServiceTest extends BaseServiceTest<RaceParticipat
         when(dateServiceMock.getCurrentDate()).thenReturn(createDate(2, 11, 2018));
 
         //When
-        final List<RaceParticipation> raceParticipations = raceParticipationService.participateInWorldChampionship(date, location, Arrays.asList(firstDriverCarSetup, secondDriverCarSetup, thirdDriverCarSetup));
+        raceParticipationService.participateInWorldChampionship(
+                date, location, asList(firstDriverCarSetup, secondDriverCarSetup, thirdDriverCarSetup)
+        );
+
+        //then
+        fail("The exception is not thrown");
     }
 
     @Test
@@ -197,7 +208,9 @@ public class RaceParticipationServiceTest extends BaseServiceTest<RaceParticipat
         when(dateServiceMock.createCalendarForDate(date)).thenReturn(calendar);
 
         //When
-        final List<RaceParticipation> raceParticipations = raceParticipationService.participateInWorldChampionship(date, location, Arrays.asList(firstDriverCarSetup, secondDriverCarSetup));
+        raceParticipationService.participateInWorldChampionship(
+                date, location, asList(firstDriverCarSetup, secondDriverCarSetup)
+        );
 
         //Then
         final Race race = new Race(date, "2018 world championship", location);
@@ -217,14 +230,18 @@ public class RaceParticipationServiceTest extends BaseServiceTest<RaceParticipat
         when(dateServiceMock.createCalendarForDate(date)).thenReturn(calendar);
 
         //When
-        final List<RaceParticipation> raceParticipations = raceParticipationService.participateInWorldChampionship(date, location, Arrays.asList(firstDriverCarSetup, secondDriverCarSetup));
+        raceParticipationService.participateInWorldChampionship(
+                date, location, asList(firstDriverCarSetup, secondDriverCarSetup)
+        );
 
         //Then
         final Race race = new Race(date, "2018 world championship", location);
-        final RaceParticipation firstParticipation = new RaceParticipation(firstDriverCarSetup.getFirst(),
+        final RaceParticipation firstParticipation = new RaceParticipation(
+                firstDriverCarSetup.getFirst(),
                 firstDriverCarSetup.getSecond(),
                 race,
-                RaceParticipation.NO_RESULT_POSITION);
+                RaceParticipation.NO_RESULT_POSITION
+        );
         verify(dao, times(2)).add(firstParticipation);
     }
 

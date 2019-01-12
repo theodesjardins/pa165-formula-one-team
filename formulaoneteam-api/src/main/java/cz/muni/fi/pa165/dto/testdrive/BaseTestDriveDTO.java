@@ -6,11 +6,14 @@ import cz.muni.fi.pa165.utils.DateUtils;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * @author elderanakain (Arcadii Rubailo)
  */
 public abstract class BaseTestDriveDTO extends BaseDTO {
 
+    @NotBlank
     private String notes;
     private Date date = new Date();
 

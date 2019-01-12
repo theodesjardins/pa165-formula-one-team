@@ -59,19 +59,6 @@ public class ManagerServiceImplTests extends BaseServiceTest<Manager> {
         fail("Exception is not thrown");
     }
 
-    @Test(expected = FormulaOneTeamException.class)
-    public void registerManager_withMissingEmail_throwsException() {
-        //given
-        String password = "password";
-
-        //when
-        entity.setEmail("");
-        service.register(entity, password);
-
-        //then
-        fail("Exception is not thrown");
-    }
-
     @Test
     public void registeredManager_withValidPassword_isAuthenticated() {
         //given
@@ -137,33 +124,6 @@ public class ManagerServiceImplTests extends BaseServiceTest<Manager> {
 
         //then
         verify(dao).delete(entity.getId());
-    }
-
-    @Test
-    public void updateManager_withExistingManager_managerUpdated() {
-        //given
-        when(dao.findById(entity.getId())).thenReturn(entity);
-
-        //when
-        entity.setEmail("test@test.cz");
-        entity.setPassword("asdapso2321");
-
-        //then
-        assertEquals(entity, service.update(entity));
-        verify(dao).update(entity);
-    }
-
-    @Test(expected = FormulaOneTeamException.class)
-    public void updateManager_withInvalidManager_managerUpdated() {
-        //given
-        entity.setEmail("");
-
-        //when
-        when(dao.findById(entity.getId())).thenReturn(entity);
-        service.update(entity);
-
-        //then
-        fail("Exception is not thrown");
     }
 
     @Override

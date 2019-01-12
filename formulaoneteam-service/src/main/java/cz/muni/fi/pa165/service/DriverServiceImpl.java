@@ -31,7 +31,9 @@ public class DriverServiceImpl extends BaseUserServiceImpl<Driver, DriverDao> im
         } else {
             entity.setPassword(Validator.createHash(entity.getPassword()));
         }
-        return super.update(entity);
+        dao.update(entity);
+
+        return dao.findById(entity.getId());
     }
 
     @Override
@@ -50,13 +52,6 @@ public class DriverServiceImpl extends BaseUserServiceImpl<Driver, DriverDao> im
                         value -> value.getCharacteristicOfType(characteristicsType).getValue()
                 ))
                 .orElse(null);
-    }
-
-    @Override
-    public void validateEntity(Driver entity) {
-        if (entity == null || !entity.isConfigured()) {
-            throw new FormulaOneTeamException("Driver is null or not configured.");
-        }
     }
 
     @Override

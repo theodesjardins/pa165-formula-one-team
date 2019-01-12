@@ -9,55 +9,45 @@
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<my:pagetemplate title="${raceParticipation.race.title}">
+<my:basepage title="${raceParticipation.race.title}">
     <jsp:attribute name="body">
-        <div class="container">
-            <sec:authorize access="hasAuthority('ADMIN')">
-                <div class="row">
-                    <div class="pull-right">
-                        <my:a href="/world-championship/edit/${raceParticipation.id}" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                            <fmt:message key="common.update"/>
-                        </my:a>
-                        <my:deleteButton action="/pa165/world-championship/delete/${raceParticipation.id}"/>
-                    </div>
-                </div>
-            </sec:authorize>
+        <div class="container inner-container">
+            <my:crudButtons id="${raceParticipation.id}" baseEntity="world-championship"/>
             <div class="row">
                 <div class="col-md-6 col-xs-12">
-                    <h4>Driver information</h4>
+                    <h4><fmt:message key="feature.drivers.detail.info"/></h4>
                     <dl class="dl-horizontal">
-                        <dt>First name:</dt>
+                        <dt><fmt:message key="common.first_name"/>:</dt>
                         <dd><c:out value="${raceParticipation.driver.name}"/></dd>
-                        <dt>Surname:</dt>
+                        <dt><fmt:message key="common.surname"/>:</dt>
                         <dd><c:out value="${raceParticipation.driver.surname}"/></dd>
-                        <dt>Email:</dt>
+                        <dt><fmt:message key="common.email"/>:</dt>
                         <dd><c:out value="${raceParticipation.driver.email}"/></dd>
-                        <dt>Nationality:</dt>
+                        <dt><fmt:message key="common.nationality"/>:</dt>
                         <dd><c:out value="${raceParticipation.driver.nationality}"/></dd>
-                        <dt>Birthday:</dt>
+                        <dt><fmt:message key="common.birthday"/>:</dt>
                         <dd><fmt:formatDate value="${raceParticipation.driver.birthday}" pattern="dd/MM/YYYY"/></dd>
-                        <dt>Status:</dt>
+                        <dt><fmt:message key="feature.drivers.status"/>:</dt>
                         <dd><c:out value="${raceParticipation.driver.driverStatus}"/></dd>
                     </dl>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 col-xs-12">
-                    <h4>Race</h4>
+                    <h4><fmt:message key="feature.car.race"/></h4>
                     <table class="table" id="race-table">
                         <thead>
                         <tr>
-                            <th>Title</th>
-                            <th>Result</th>
-                            <th>Date</th>
+                            <th><fmt:message key="common.title"/></th>
+                            <th><fmt:message key="feature.race.result"/></th>
+                            <th><fmt:message key="feature.race.result"/></th>
                         </tr>
                         </thead>
                         <tbody>
                         <td><c:out value="${raceParticipation.race.title}"/></td>
                         <td>
                             <c:choose>
-                                <c:when test="${raceParticipation.resultPosition eq RaceParticipation.NO_RESULT_POSITION}">
+                                <c:when test="${raceParticipation.resultPosition eq RaceParticipation. NO_RESULT_POSITION}">
                                     <fmt:message key="feature.race.unfinished"/>
                                 </c:when>
                                 <c:otherwise><c:out value="${raceParticipation.resultPosition}"/></c:otherwise>
@@ -75,12 +65,12 @@
                     <thead>
                     <tr>
                         <th><f:message key="common.id"/></th>
-                        <th><f:message key="feature.car.table.engine"/></th>
-                        <th><f:message key="feature.car.table.suspension"/></th>
-                        <th><f:message key="feature.car.table.brakes"/></th>
-                        <th><f:message key="feature.car.table.transmission"/></th>
-                        <th><f:message key="feature.car.table.tires"/></th>
-                        <th><f:message key="feature.car.table.cover"/></th>
+                        <th><f:message key="feature.car.engine"/></th>
+                        <th><f:message key="feature.car.suspension"/></th>
+                        <th><f:message key="feature.car.brakes"/></th>
+                        <th><f:message key="feature.car.transmission"/></th>
+                        <th><f:message key="feature.car.tires"/></th>
+                        <th><f:message key="feature.car.cover"/></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -122,4 +112,4 @@
             </div>
         </div>
     </jsp:attribute>
-</my:pagetemplate>
+</my:basepage>

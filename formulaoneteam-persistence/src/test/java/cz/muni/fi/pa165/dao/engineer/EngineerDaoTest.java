@@ -55,6 +55,7 @@ public class EngineerDaoTest extends BaseTest {
         Engineer otherEngineer = new Engineer(
                 "otherName", "otherSurname", "other@email.com", AERODYNAMICS
         );
+        otherEngineer.setPassword("pwd2");
 
         //when
         engineerDao.add(testEngineer);
@@ -106,6 +107,8 @@ public class EngineerDaoTest extends BaseTest {
     }
 
     private Engineer createTestEngineer() {
-        return new Engineer(TEST_NAME, "testSurname", "test@email.com", ENGINES);
+        Engineer eng = new Engineer(TEST_NAME, "testSurname", "test@email.com", ENGINES);
+        eng.setPassword("pwd");
+        return eng;
     }
 }

@@ -12,10 +12,10 @@
 
 <fmt:message key="feature.race.edit" var="title"/>
 
-<my:pagetemplate title="${title}">
+<my:basepage title="${title}">
 
     <jsp:attribute name="body">
-        <div class="container">
+        <div class="container inner-container">
             <form:form id="race-participation-form"
                        action="/pa165/world-championship/submit"
                        modelAttribute="saveRaceParticipation">
@@ -49,7 +49,7 @@
                     </spring:bind>
                     <spring:bind path="resultPosition">
                         <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
-                            <form:label path="resultPosition"><fmt:message key="feature.race.result"/></form:label>
+                            <form:label path="resultPosition"><fmt:message key="feature.race.result_position"/></form:label>
                             <span class="text-danger">
                                 <c:out value="${status.errorMessage}"/>
                             </span>
@@ -61,9 +61,7 @@
                             <label>
                                 <input type="checkbox"
                                        id="resultCheckbox"
-                                        <c:if test="${saveRaceParticipation.resultPosition eq RaceParticipation.NO_RESULT_POSITION}">
-                                       checked
-                                       </c:if>
+                                       <c:if test="${saveRaceParticipation.resultPosition eq RaceParticipation.NO_RESULT_POSITION}">checked</c:if>
                                 />
                                 <fmt:message key="feature.race.unfinished"/>
                             </label>
@@ -114,6 +112,7 @@
         <script>
             $(document).ready(function () {
                 $("#datepicker").datepicker({dateFormat: 'dd/mm/yy'});
+
                 $("#resultCheckbox").click(function () {
                     let input = $("#resultInput");
                     if (this.checked) {
@@ -128,4 +127,4 @@
         </script>
     </jsp:attribute>
 
-</my:pagetemplate>
+</my:basepage>

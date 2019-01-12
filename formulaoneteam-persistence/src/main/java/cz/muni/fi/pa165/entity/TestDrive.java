@@ -15,7 +15,6 @@ public class TestDrive extends BaseEntity {
 
     @Column(nullable = false)
     @Basic
-    @Temporal(TemporalType.TIMESTAMP)
     @NotNull
     private Date date;
 
@@ -69,10 +68,6 @@ public class TestDrive extends BaseEntity {
 
     public void setNotes(String notes) {
         this.notes = notes;
-    }
-
-    public boolean isConfigured() {
-        return !getNotes().isEmpty() && getCarSetup().isConfigured() && getDriver().isConfigured();
     }
 
     @Override

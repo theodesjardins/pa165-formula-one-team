@@ -86,6 +86,8 @@ public class ManagerDaoTest extends BaseTest {
     }
 
     private Manager createManager(String email) {
-        return new Manager("name", "surname", email);
+        Manager m = new Manager("name", "surname", email);
+        m.setPassword("password");
+        return m;
     }
 }

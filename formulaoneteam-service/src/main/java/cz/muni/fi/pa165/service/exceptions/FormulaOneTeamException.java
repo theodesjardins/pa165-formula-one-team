@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.service.exceptions;
 
-public class FormulaOneTeamException  extends  RuntimeException {
+public class FormulaOneTeamException extends RuntimeException {
 
     public FormulaOneTeamException(String message) {
         super(message);

@@ -10,17 +10,10 @@
 
 <f:message var="title" key="feature.world_championship"/>
 
-<my:pagetemplate title="${title}">
+<my:basepage title="${title}">
     <jsp:attribute name="body">
-        <div class="container">
-            <sec:authorize access="hasAuthority('ADMIN')">
-                <div class="row">
-                    <my:a href="/world-championship/create" class="btn btn-primary pull-right">
-                        <span class="glyphicon glyphicon-plus"></span>
-                        <fmt:message key="feature.world_championship.add_race_participation"/>
-                    </my:a>
-                </div>
-            </sec:authorize>
+        <div class="container inner-container">
+            <my:addButton baseEntity="world-championship" authority="${authority}"/>
             <table class="table" id="world-championship-table">
                 <thead>
                 <tr>
@@ -69,4 +62,4 @@
             });
         </script>
     </jsp:attribute>
-</my:pagetemplate>
+</my:basepage>

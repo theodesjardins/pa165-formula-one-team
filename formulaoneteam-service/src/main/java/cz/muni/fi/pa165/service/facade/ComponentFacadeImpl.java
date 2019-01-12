@@ -85,7 +85,9 @@ public class ComponentFacadeImpl
                 = componentParameterService.add(beanMappingService.mapTo(parameter, ComponentParameter.class));
         Component component = service.findById(componentId);
         if (component.getParameters().contains(parameterEntity))
-            throw new FormulaOneTeamException("This component already contains parameter with name: " + parameterEntity.getName());
+            throw new FormulaOneTeamException(
+                    "This component already contains parameter with name: " + parameterEntity.getName()
+            );
         component.addParameter(parameterEntity);
         service.update(component);
     }
@@ -114,10 +116,10 @@ public class ComponentFacadeImpl
     @Override
     public List<ComponentDTO> filterByType(ComponentType type) {
         List<Component> components = service.getAll()
-            .stream()
-            .filter(c->c.getType() == type)
-            .collect(Collectors.toList());
+                .stream()
+                .filter(c -> c.getType() == type)
+                .collect(Collectors.toList());
 
         return beanMappingService.mapTo(components, ComponentDTO.class);
-	}
+    }
 }

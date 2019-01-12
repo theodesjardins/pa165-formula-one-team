@@ -29,7 +29,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/world-championship")
-public class WorldChampionshipController extends BaseController {
+public class WorldChampionshipController extends BaseDetailController {
 
     @Inject
     private RaceParticipationFacade raceParticipationFacade;
@@ -49,8 +49,8 @@ public class WorldChampionshipController extends BaseController {
         return "world-championship/list";
     }
 
-    @RequestMapping("/edit/{id}")
-    public String edit(Model model, @PathVariable long id) {
+    @Override
+    protected String onEdit(Model model, long id) {
         RaceParticipationDTO raceParticipationDTO = raceParticipationFacade.findById(id);
         model.addAttribute("saveRaceParticipation", new SaveRaceParticipationDTO(raceParticipationDTO));
         return "world-championship/edit";

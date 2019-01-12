@@ -10,7 +10,6 @@ import org.springframework.dao.InvalidDataAccessApiUsageException;
 import javax.inject.Inject;
 import java.util.List;
 
-import static junit.framework.Assert.assertNotNull;
 import static org.testng.Assert.*;
 
 /**
@@ -55,7 +54,7 @@ public class RaceParticipationDaoTest extends BaseTest {
         raceParticipationDao.add(raceParticipation);
 
         //then
-        assertEquals(raceParticipation, raceParticipationDao.findById(raceParticipation.getId()) );
+        assertEquals(raceParticipation, raceParticipationDao.findById(raceParticipation.getId()));
         assertNotNull(raceParticipationDao.findById(raceParticipation.getId()));
     }
 

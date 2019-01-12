@@ -6,6 +6,9 @@ import cz.muni.fi.pa165.dto.driver.DriverDTO;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * @author mrnda (Michal Mrnuštík)
+ */
 public class WorldChampionshipSetupDTO {
     private Date date;
     private String location;

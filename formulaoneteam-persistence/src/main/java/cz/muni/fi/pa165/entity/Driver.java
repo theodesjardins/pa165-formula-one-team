@@ -7,7 +7,11 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+
 import java.util.*;
 
 /**
@@ -16,13 +20,13 @@ import java.util.*;
 @Entity
 public class Driver extends User {
 
-    @NotNull
+    @NotBlank
     @Column(nullable = false)
     private String nationality;
 
+    @Past
     @Basic
     @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
     @NotNull
     private Date birthday;
 
@@ -41,29 +45,16 @@ public class Driver extends User {
     @Fetch(FetchMode.SELECT)
     private Collection<TestDrive> testDrives = new ArrayList<>();
 
-    public Driver(
-            String name,
-            String surname,
-            String email,
-            @NotNull String nationality,
-            @NotNull Date birthday,
-            DriverStatus driverStatus
-    ) {
+    public Driver(@NotBlank String name, @NotBlank String surname, @Email String email, @NotBlank String nationality,
+            @Past @NotNull Date birthday, DriverStatus driverStatus) {
         super(name, surname, email);
         this.nationality = nationality;
         this.birthday = birthday;
         this.driverStatus = driverStatus;
     }
 
-    public Driver(
-            String name,
-            String surname,
-            String email,
-            @NotNull String nationality,
-            @NotNull Date birthday,
-            DriverStatus driverStatus,
-            Set<CharacteristicsValue> characteristics
-    ) {
+    public Driver(@NotBlank String name, @NotBlank String surname, @NotBlank @Email String email, @NotBlank String nationality, 
+            @Past @NotNull Date birthday, @NotNull DriverStatus driverStatus, Set<CharacteristicsValue> characteristics) {
         this(name, surname, email, nationality, birthday, driverStatus);
         this.characteristics = characteristics;
     }
@@ -79,19 +70,21 @@ public class Driver extends User {
         this.raceParticipations = raceParticipations;
     }
 
+    @NotBlank
     public String getNationality() {
         return nationality;
     }
 
-    public void setNationality(String nationality) {
+    public void setNationality(@NotBlank String nationality) {
         this.nationality = nationality;
     }
 
+    @Past
     public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(@Past Date birthday) {
         this.birthday = birthday;
     }
 
@@ -108,10 +101,8 @@ public class Driver extends User {
     }
 
     public CharacteristicsValue getCharacteristicOfType(CharacteristicsType type) {
-        return characteristics.stream()
-                .filter(characteristicsValue -> characteristicsValue.getType() == type)
-                .findFirst()
-                .orElse(new CharacteristicsValue(type, 0));
+        return characteristics.stream().filter(characteristicsValue -> characteristicsValue.getType() == type)
+                .findFirst().orElse(new CharacteristicsValue(type, 0));
     }
 
     public void addCharacteristic(CharacteristicsValue characteristicsValue) {
@@ -135,22 +126,9 @@ public class Driver extends User {
     }
 
     @Override
-    public boolean isConfigured() {
-        return super.isConfigured()
-                && hasNationality();
-    }
-
-    private boolean hasNationality() {
-        return !getNationality().isEmpty();
-    }
-
-    @Override
     public String toString() {
-        return "Driver{" +
-                "nationality='" + getNationality() + '\'' +
-                ", birthdate=" + getBirthday() +
-                ", driverStatus=" + getDriverStatus() +
-                ", characteristics=" + getCharacteristics() +
-                "} " + super.toString();
+        return "Driver{" + "nationality='" + getNationality() + '\'' + ", birthdate=" + getBirthday()
+                + ", driverStatus=" + getDriverStatus() + ", characteristics=" + getCharacteristics() + "} "
+                + super.toString();
     }
 }

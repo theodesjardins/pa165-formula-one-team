@@ -21,13 +21,6 @@ import java.util.stream.Collectors;
 public class TestDriveServiceImpl extends BaseEntityServiceImpl<TestDrive, TestDriveDao> implements TestDriveService {
 
     @Override
-    public void validateEntity(TestDrive entity) throws FormulaOneTeamException {
-        if (entity == null || !entity.isConfigured()) {
-            throw new FormulaOneTeamException("TestDrive entity is null or not configured");
-        }
-    }
-
-    @Override
     public Map<CarSetup, List<String>> getNotesForDriver(Driver driver) {
         List<TestDrive> drives = dao.findAll()
                 .stream()

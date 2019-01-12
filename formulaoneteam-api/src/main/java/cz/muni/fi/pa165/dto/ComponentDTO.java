@@ -6,13 +6,18 @@ import cz.muni.fi.pa165.enums.ComponentType;
 import java.util.List;
 import java.util.Objects;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+
 /**
  * @author Théo Desjardins
  */
 public class ComponentDTO extends BaseDTO {
 
     private ComponentType type;
+    @NotBlank()
     private String name;
+    @Valid()
     private List<ComponentParameterDTO> parameters;
 
     public ComponentType getType() {

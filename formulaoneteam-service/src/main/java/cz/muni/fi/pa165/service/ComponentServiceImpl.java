@@ -18,13 +18,6 @@ import org.springframework.stereotype.Service;
 public class ComponentServiceImpl extends BaseEntityServiceImpl<Component, ComponentDao> implements ComponentService {
 
     @Override
-    public void validateEntity(Component entity) {
-        if (entity == null || !entity.isConfigured()) {
-            throw new FormulaOneTeamException("Component is null or not configured.");
-        }
-    }
-
-    @Override
     protected Class<Component> getEntityClass() {
         return Component.class;
     }

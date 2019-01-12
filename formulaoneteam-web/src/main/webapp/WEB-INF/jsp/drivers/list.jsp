@@ -8,17 +8,10 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <f:message var="title" key="feature.drivers"/>
 
-<my:pagetemplate title="${title}">
+<my:basepage title="${title}">
     <jsp:attribute name="body">
-    <div class="container">
-        <sec:authorize access="hasAuthority('ADMIN')">
-            <div class="row">
-                    <my:a href="/drivers/create" class="btn btn-primary pull-right">
-                        <span class="glyphicon glyphicon-plus"></span>
-                        Add driver
-                    </my:a>
-            </div>
-        </sec:authorize>
+    <div class="container inner-container">
+        <my:addButton baseEntity="drivers" authority="${authority}"/>
         <table class="table" id="drivers-table">
             <thead>
             <tr>
@@ -36,7 +29,10 @@
                         <td><c:out value="${driver.driverStatus}"/></td>
                         <td>
                             <c:forEach items="${driver.raceParticipations}" var="participation">
-                                <my:a href="/world-championship/detail/${participation.id}">${participation.race.title}</my:a><br/>
+                                <my:a href="/world-championship/detail/${participation.id}">
+                                    ${participation.race.title}
+                                </my:a>
+                                <br/>
                             </c:forEach>
                         </td>
                     </tr>
@@ -55,4 +51,4 @@
             });
         </script>
 </jsp:attribute>
-</my:pagetemplate>
+</my:basepage>

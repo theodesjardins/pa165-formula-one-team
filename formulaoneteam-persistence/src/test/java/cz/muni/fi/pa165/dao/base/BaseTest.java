@@ -70,6 +70,7 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
                 "driverNationality",
                 createDate(2, 11, 1995),
                 DriverStatus.MAIN);
+        driver.setPassword("pwd");
         driverDao.add(driver);
 
         return driver;
@@ -80,7 +81,8 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
     }
 
     protected TestDrive createTestDrive() {
-        return new TestDrive(createCarSetup(), createDriver(getDefaultDriverEmail()), "notes", createDate(20,12,2018));
+        return new TestDrive(createCarSetup(), createDriver(getDefaultDriverEmail()), "notes",
+                createDate(20,12,2018));
     }
 
     protected RaceParticipation createRaceParticipation(String driverEmail, String raceTitle) {

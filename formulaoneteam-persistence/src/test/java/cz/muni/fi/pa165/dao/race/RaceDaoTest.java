@@ -9,7 +9,6 @@ import org.junit.Test;
 import javax.inject.Inject;
 import java.util.List;
 
-import static junit.framework.Assert.assertNotNull;
 import static org.testng.Assert.*;
 
 /**
@@ -33,7 +32,7 @@ public class RaceDaoTest extends BaseTest {
         raceDao.add(testRace);
 
         //then
-        assertEquals(testRace, raceDao.findById(testRace.getId()) );
+        assertEquals(testRace, raceDao.findById(testRace.getId()));
         assertNotNull(raceDao.findById(testRace.getId()));
     }
 
